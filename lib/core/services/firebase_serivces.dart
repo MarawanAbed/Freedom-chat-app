@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
-import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
 import 'package:github_sign_in/github_sign_in.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:twitter_login/twitter_login.dart';
@@ -17,12 +16,12 @@ class AuthService {
   final GitHubSignIn gitHubSignIn;
 
   final TwitterLogin twitterLogin;
+
   AuthService(
       {required this.gitHubSignIn,
       required this.auth,
       required this.googleSignIn,
-      required this.twitterLogin
-      });
+      required this.twitterLogin});
 
   Future<UserCredential> signIn(
       {required String email, required String password}) async {
@@ -148,28 +147,24 @@ class AuthService {
 
       // Once signed in, return the UserCredential
       await FirebaseAuth.instance.signInWithCredential(twitterAuthCredential);
-    }  catch (e) {
+    } catch (e) {
       if (kDebugMode) {
         print('Twitter sign in error: $e');
       }
       throw Exception('Failed to sign in with Twitter');
     }
   }
+
   Future<void> handleGitHubSignIn(context) async {
     try {
       final result = await gitHubSignIn.signIn(context);
       final githubAuthCredential = GithubAuthProvider.credential(result.token!);
       await FirebaseAuth.instance.signInWithCredential(githubAuthCredential);
     } catch (e) {
-      if (e is FirebaseAuthException && e.code == 'account-exists-with-different-credential') {
-        print('The account already exists with a different credential');
-      } else {
-        // Handle other exceptions or generic sign-in failure scenarios.
-        if (kDebugMode) {
-          print('GitHub sign in error: $e');
-        }
-        throw Exception('Failed to sign in with GitHub');
+      if (kDebugMode) {
+        print('GitHub sign in error: $e');
       }
+      throw Exception('that email is already in use by another account ');
     }
   }
 

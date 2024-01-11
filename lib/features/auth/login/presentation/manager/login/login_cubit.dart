@@ -77,4 +77,12 @@ class LoginCubit extends Cubit<LoginState> {
       emit(LoginState.error(e.toString()));
     }
   }
+
+  //close cubit
+  @override
+  void emit(LoginState state) {
+    if (!isClosed) {
+      super.emit(state);
+    }
+  }
 }

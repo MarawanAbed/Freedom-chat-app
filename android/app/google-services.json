@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "376642162306",
+    "project_id": "note-app-47a82",
+    "storage_bucket": "note-app-47a82.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376642162306:android:00b75c46018e37d5df6e9b",
+        "android_client_info": {
+          "package_name": "com.marwan.freedom_chat_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "376642162306-391qa9jobd3rcotqmi21v0jeinphig7b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAX8c6qbhBN2TFbLGioxOv6o10zq4HayQE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "376642162306-391qa9jobd3rcotqmi21v0jeinphig7b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -15,20 +15,5 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-##notes to enable redirec in twitter put that link 
 
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Accepts URIs that begin with "example://gizmos” -->
-                <!-- Registered Callback URLs in TwitterApp -->
-                <data
-                    android:scheme="flutter-twitter-practice" /> <!-- host is option -->
-            </intent-filter>
-            
-            
-            
-            and put flutter-twitter-practice:// as callback url in twitter developer account 
             

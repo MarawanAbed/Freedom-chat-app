@@ -1,9 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
+import 'package:freedom_chat_app/core/di/dependancy_injection.dart';
+import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
 import 'package:github_sign_in/github_sign_in.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:twitter_login/twitter_login.dart';
@@ -30,11 +33,11 @@ class AuthService {
         email: email,
         password: password,
       );
-      // await DatabaseService().updateUser({
-      //   'lastActive': DateTime.now(),
-      //   'uId': auth.currentUser!.uid,
-      //   'isOnline': 'true',
-      // });
+      await getIt<DatabaseService>().updateUser({
+        'lastActive': DateTime.now(),
+        'uId': auth.currentUser!.uid,
+        'isOnline': 'true',
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         if (kDebugMode) {
@@ -99,7 +102,7 @@ class AuthService {
     return auth.authStateChanges();
   }
 
-  String? getCurrentUserId() {
+   String? getCurrentUserId() {
     return auth.currentUser?.uid;
   }
 
@@ -204,22 +207,25 @@ class AuthService {
   }
 }
 
-// class DatabaseService {
-//   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-//
-//   Future<void> createUser(UserEntity userEntity) async {
-//     final userCollection = _firestore.collection('users');
-//     final uid = AuthService().getCurrentUserId();
-//     if (uid != null) {
-//       final userData = await userCollection.doc(uid).get();
-//       if (!userData.exists) {
-//         final user = userEntity.toJson();
-//         await userCollection.doc(uid).set(user);
-//       }
-//     } else {
-//       throw Exception('Failed to create user');
-//     }
-//   }
+class DatabaseService {
+  final FirebaseFirestore _fireStore;
+
+  DatabaseService(this._fireStore);
+
+  Future<void> createUser(UserModel userModel) async {
+    final userCollection = _fireStore.collection('users');
+    final uid = getIt<AuthService>().getCurrentUserId();
+    if (uid != null) {
+      final userData = await userCollection.doc(uid).get();
+      if (!userData.exists) {
+        final user = userModel.toJson();
+        await userCollection.doc(uid).set(user);
+      }
+    } else {
+      throw Exception('Failed to create user');
+    }
+  }
+
 //
 //   Stream<List<UserEntity>> getAllUsers() {
 //     final userCollection =
@@ -232,19 +238,20 @@ class AuthService {
 //         );
 //   }
 //
-//   Future<void> updateUser(Map<String, dynamic> data) async {
-//     try {
-//       await _firestore
-//           .collection('users')
-//           .doc(FirebaseAuth.instance.currentUser!.uid)
-//           .update(data);
-//     } catch (e) {
-//       if (kDebugMode) {
-//         print('Error updating user: $e');
-//       }
-//       throw Exception('Failed to update user');
-//     }
-//   }
+  Future<void> updateUser(Map<String, dynamic> data) async {
+    try {
+      await _fireStore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update(data);
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error updating user: $e');
+      }
+      throw Exception('Failed to update user');
+    }
+  }
+}
 //
 //   Stream<UserEntity> getSingleUser(String uId) {
 //     final userDoc = _firestore.collection('users').doc(uId);
@@ -366,13 +373,15 @@ class AuthService {
 // }
 
 class StorageService {
-  final FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseStorage storage;
+
+  StorageService(this.storage);
 
   Future<String> uploadImage(File imageFile) async {
     try {
       final ext = imageFile.path.split('.').last;
 
-      final ref = _storage
+      final ref = storage
           .ref()
           .child('images/${DateTime.now().millisecondsSinceEpoch}.$ext');
       await ref

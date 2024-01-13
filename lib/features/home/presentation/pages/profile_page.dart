@@ -4,8 +4,9 @@ import 'package:freedom_chat_app/core/helpers/extension.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
 import 'package:freedom_chat_app/core/routes/routes.dart';
 import 'package:freedom_chat_app/core/widgets/elevated_button.dart';
-import 'package:freedom_chat_app/features/auth/presentation/widgets/profile_image.dart';
 import 'package:freedom_chat_app/features/home/presentation/widgets/build_row_info.dart';
+
+import '../../../auth/register/presentation/widgets/profile_image.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});

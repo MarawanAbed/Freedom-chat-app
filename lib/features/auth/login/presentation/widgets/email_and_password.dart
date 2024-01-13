@@ -25,6 +25,7 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
     passwordController = LoginCubit.of(context).passwordController;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context).brightness == Brightness.dark;
@@ -80,6 +81,4 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
         ? TextStyle(color: Colors.white, fontSize: 14.sp)
         : TextStyle(color: Colors.black, fontSize: 14.sp);
   }
-
-
 }

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freedom_chat_app/core/di/dependancy_injection.dart';
 import 'package:freedom_chat_app/core/routes/routes.dart';
+import 'package:freedom_chat_app/features/auth/login/presentation/pages/login_page.dart';
 import 'package:freedom_chat_app/features/auth/presentation/pages/auth_screen.dart';
 import 'package:freedom_chat_app/features/auth/presentation/pages/forget_password.dart';
-import 'package:freedom_chat_app/features/auth/login/presentation/pages/login_page.dart';
-import 'package:freedom_chat_app/features/auth/presentation/pages/sign_up.dart';
 import 'package:freedom_chat_app/features/auth/presentation/pages/verify_email.dart';
+import 'package:freedom_chat_app/features/auth/register/presentation/manager/register_cubit.dart';
+import 'package:freedom_chat_app/features/auth/register/presentation/pages/sign_up.dart';
 import 'package:freedom_chat_app/features/chat/presentation/pages/chat_page.dart';
 import 'package:freedom_chat_app/features/home/presentation/pages/edit_profile.dart';
 import 'package:freedom_chat_app/features/home/presentation/pages/home_page.dart';
@@ -31,7 +32,12 @@ class AppRouter {
           ),
         );
       case Routes.signUpScreen:
-        return MaterialPageRoute(builder: (_) => const SignUp());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (BuildContext context) => getIt<RegisterCubit>(),
+            child: const SignUp(),
+          ),
+        );
       case Routes.forgotPasswordScreen:
         return MaterialPageRoute(builder: (_) => const ForgetPassword());
       case Routes.verifyEmailScreen:

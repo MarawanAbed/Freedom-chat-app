@@ -5,9 +5,11 @@ import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
 import 'package:freedom_chat_app/core/themes/app_colors.dart';
 import 'package:freedom_chat_app/core/widgets/app_text_form.dart';
 import 'package:freedom_chat_app/core/widgets/elevated_button.dart';
-import 'package:freedom_chat_app/features/auth/presentation/widgets/profile_image.dart';
 
-import '../../../auth/presentation/widgets/please_pick_image.dart';
+import '../../../auth/register/presentation/widgets/please_pick_image.dart';
+import '../../../auth/register/presentation/widgets/profile_image.dart';
+
+
 
 class EditProfile extends StatefulWidget {
   const EditProfile({super.key});

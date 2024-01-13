@@ -9,12 +9,13 @@ class AppTextFormField extends StatelessWidget {
   final TextStyle? inputTextStyle;
   final TextStyle? hintStyle;
   final String hintText;
-
+  final Function()? onEditingComplete;
   final TextEditingController? controller;
   final bool? isObscureText;
   final Widget? suffixIcon;
   final Color? backgroundColor;
 
+  final FocusNode? focusNode;
   final String? Function(String?)? validator;
 
   const AppTextFormField({
@@ -29,14 +30,16 @@ class AppTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.backgroundColor,
     this.controller,
-    this.validator,
+    this.validator, this.onEditingComplete, this.focusNode,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      focusNode:focusNode ,
       controller: controller,
       validator: validator,
+      onEditingComplete: onEditingComplete,
       decoration: InputDecoration(
         isDense: true,
         contentPadding: contentPadding ??

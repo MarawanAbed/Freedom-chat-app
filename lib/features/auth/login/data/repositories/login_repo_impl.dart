@@ -1,14 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freedom_chat_app/features/auth/login/data/models/sign_in_model.dart';
-import 'package:freedom_chat_app/features/auth/login/domain/repositories/auth_repo.dart';
+import 'package:freedom_chat_app/features/auth/login/domain/repositories/login_repo.dart';
 
 import '../data_sources/remote_data_source.dart';
 
 
-class AuthRepoImpl implements AuthRepo {
-  final AuthRemoteDataSource _authRemoteDataSource;
+class LoginRepoImpl implements LoginInRepo {
+  final LoginRemoteDataSource _authRemoteDataSource;
 
-  AuthRepoImpl(this._authRemoteDataSource);
+  LoginRepoImpl(this._authRemoteDataSource);
 
   @override
   Future<void> googleSignIn() async{

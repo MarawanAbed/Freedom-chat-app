@@ -4,9 +4,11 @@ import 'package:freedom_chat_app/core/routes/app_router.dart';
 import 'package:freedom_chat_app/core/routes/routes.dart';
 import 'package:freedom_chat_app/core/themes/themes.dart';
 
+
 class ChatApp extends StatelessWidget {
   final AppRouter appRouter;
-  const ChatApp({super.key, required this.appRouter});
+  final bool onBoarding;
+  const ChatApp({super.key, required this.appRouter, required this.onBoarding});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class ChatApp extends StatelessWidget {
         theme: Themes.lightThemeData(context),
         darkTheme: Themes.darkThemeData(context),
         themeMode: ThemeMode.system,
-        initialRoute: Routes.onBoardingScreen,
+        initialRoute: onBoarding? Routes.authScreen: Routes.onBoardingScreen,
         onGenerateRoute: appRouter.generateRoute,
       ),
     );

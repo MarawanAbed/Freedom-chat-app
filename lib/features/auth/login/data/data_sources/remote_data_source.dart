@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freedom_chat_app/core/services/firebase_serivces.dart';
 import 'package:freedom_chat_app/features/auth/login/data/models/sign_in_model.dart';
 
-abstract class AuthRemoteDataSource {
+abstract class LoginRemoteDataSource {
   Future<UserCredential> signIn(SignInModel signInModel);
 
   Future<void> googleSignIn();
@@ -12,10 +12,10 @@ abstract class AuthRemoteDataSource {
   Future<void> twitterSignIn();
 }
 
-class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
+class LoginRemoteDataSourceImpl implements LoginRemoteDataSource {
   final AuthService _auth;
 
-  AuthRemoteDataSourceImpl(this._auth);
+  LoginRemoteDataSourceImpl(this._auth);
 
   @override
   Future<UserCredential> signIn(signInModel) async {

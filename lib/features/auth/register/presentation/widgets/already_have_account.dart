@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:freedom_chat_app/core/helpers/extension.dart';
 import 'package:freedom_chat_app/core/routes/routes.dart';
 
-import '../../../../core/themes/app_colors.dart';
+import '../../../../../core/themes/app_colors.dart';
 
 class AlreadyHaveAccount extends StatelessWidget {
   const AlreadyHaveAccount({super.key});

@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freedom_chat_app/core/helpers/extension.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
 import 'package:freedom_chat_app/core/routes/routes.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/features/auth/register/presentation/manager/register_cubit.dart';
 
 class RegisterBlocListener extends StatelessWidget {
@@ -29,7 +30,7 @@ class RegisterBlocListener extends StatelessWidget {
           success: () {
             Navigator.pop(context);
             HelperMethod.showSuccessToast(
-              'Register Success Now you Can Login',
+              AppStrings.registerSuccess,
               gravity: ToastGravity.BOTTOM,
             );
             context.pushReplacementNamed(Routes.signInScreen);

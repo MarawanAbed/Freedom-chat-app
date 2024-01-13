@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
+import 'package:freedom_chat_app/core/themes/styles.dart';
 import 'package:freedom_chat_app/core/utils/constants.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/core/widgets/elevated_button.dart';
 import 'package:freedom_chat_app/core/widgets/image_logo.dart';
 import 'package:freedom_chat_app/features/auth/login/presentation/manager/login/login_cubit.dart';
@@ -30,7 +32,7 @@ class LoginPage extends StatelessWidget {
                 const EmailAndPassword(),
                 HelperMethod.verticalSpace(verticalSpacing * 1.5),
                 CustomElevatedButton(
-                  title: 'Sign in',
+                  title: AppStrings.signIn,
                   onPressed: () {
                     cubit.loginMethod();
                   },
@@ -43,12 +45,9 @@ class LoginPage extends StatelessWidget {
                   color: Colors.grey,
                 ),
                 HelperMethod.verticalSpace(buttonSpacing),
-                const Text(
-                  'Or sign in with',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 16,
-                  ),
+                Text(
+                  AppStrings.orSignInWith,
+                  style: TextStyles.font16NormalGrey,
                 ),
                 HelperMethod.verticalSpace(buttonSpacing),
                 Row(
@@ -62,7 +61,7 @@ class LoginPage extends StatelessWidget {
                       },
                     ),
                     HelperMethod.horizontalSpace(10),
-                     LogoButton(
+                    LogoButton(
                       icon: FontAwesomeIcons.twitter,
                       color: Colors.blue,
                       onPressed: () {

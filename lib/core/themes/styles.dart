@@ -2,14 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextStyles {
-  static TextStyle font24Black700Weight = TextStyle(
-      fontSize: 24.sp, fontWeight: FontWeight.w700, color: Colors.black);
+  static TextStyle font20Bold = TextStyle(
+    fontSize: 20.sp,
+    fontWeight: FontWeight.bold,
+  );
 
-  //another way to write the same code above
-  //if he give you in design regular light bold and so on you can use this
-  static TextStyle font32BlueRegularWeight = TextStyle(
-    fontSize: 32.sp,
-    fontWeight: FontWeight.w400,
-    color: Colors.blue,//here replace the color with the color you want after add it in app colors
+  static TextStyle font18NormalGrey = TextStyle(
+    fontSize: 18.sp,
+    color: Colors.grey,
+  );
+
+  static TextStyle font18Bold = TextStyle(
+    fontSize: 18.sp,
+    fontWeight: FontWeight.bold,
+  );
+  static TextStyle font16NormalGrey = TextStyle(
+    fontSize: 16.sp,
+    color: Colors.grey,
+  );
+
+  static TextStyle font14NormalGrey = TextStyle(
+    fontSize: 14.sp,
+    color: Colors.grey,
   );
 }

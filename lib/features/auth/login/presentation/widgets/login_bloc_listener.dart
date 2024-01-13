@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/features/auth/login/presentation/manager/login/login_cubit.dart';
 
 class LoginBlocListener extends StatelessWidget {
@@ -23,11 +24,11 @@ class LoginBlocListener extends StatelessWidget {
           },
           success: () {
             Navigator.pop(context);
-            HelperMethod.showSuccessToast('Login Success',
+            HelperMethod.showSuccessToast(AppStrings.loginSuccess,
                 gravity: ToastGravity.BOTTOM);
           },
           successWithGithub: () {
-            HelperMethod.showSuccessToast('Login Success',
+            HelperMethod.showSuccessToast(AppStrings.loginSuccess,
                 gravity: ToastGravity.BOTTOM);
           },
           errorWithGithub: (message) {

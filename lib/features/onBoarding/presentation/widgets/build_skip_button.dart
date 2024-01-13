@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freedom_chat_app/core/helpers/extension.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
 import 'package:freedom_chat_app/core/routes/routes.dart';
+import 'package:freedom_chat_app/core/themes/styles.dart';
 import 'package:freedom_chat_app/core/utils/constants.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BuildSkipButton extends StatefulWidget {
@@ -28,11 +30,8 @@ class _BuildSkipButtonState extends State<BuildSkipButton> {
         child: Row(
           children: [
             Text(
-              "Skip",
-              style: TextStyle(
-                fontSize: 16.sp,
-                color: Colors.grey,
-              ),
+              AppStrings.skip,
+              style: TextStyles.font16NormalGrey,
             ),
             HelperMethod.horizontalSpace(5),
             Icon(

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freedom_chat_app/core/routes/app_router.dart';
 import 'package:freedom_chat_app/core/routes/routes.dart';
 import 'package:freedom_chat_app/core/themes/themes.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 
 
 class ChatApp extends StatelessWidget {
@@ -17,7 +18,7 @@ class ChatApp extends StatelessWidget {
       minTextAdapt: true,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Freedom Chat App',
+        title: AppStrings.titleApp,
         theme: Themes.lightThemeData(context),
         darkTheme: Themes.darkThemeData(context),
         themeMode: ThemeMode.system,

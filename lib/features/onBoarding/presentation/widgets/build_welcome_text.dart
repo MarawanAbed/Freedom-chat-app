@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
+import 'package:freedom_chat_app/core/themes/styles.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 
 class BuildWelcomeText extends StatelessWidget {
   const BuildWelcomeText({super.key});
@@ -10,21 +11,15 @@ class BuildWelcomeText extends StatelessWidget {
     return Column(
       children: [
         Text(
-          'Welcome to our freedom \nmessaging app',
+          AppStrings.onBoardingTitle,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyles.font20Bold,
         ),
         HelperMethod.verticalSpace(10),
         Text(
-          'Freedom talk any person of your \nmother language.',
+          AppStrings.onBoardingSubtitle,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 18.sp,
-            color: Colors.grey,
-          ),
+          style: TextStyles.font18NormalGrey,
         ),
       ],
     );

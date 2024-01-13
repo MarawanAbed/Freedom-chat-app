@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
 import 'package:freedom_chat_app/core/utils/constants.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/core/widgets/elevated_button.dart';
 import 'package:freedom_chat_app/core/widgets/image_logo.dart';
 import 'package:freedom_chat_app/features/auth/register/presentation/manager/register_cubit.dart';
@@ -31,7 +33,7 @@ class SignUp extends StatelessWidget {
                 const TextFieldSignUp(),
                 HelperMethod.verticalSpace(30),
                 CustomElevatedButton(
-                  title: 'Sign Up',
+                  title: AppStrings.signUp,
                   onPressed: () {
                     _signUpButton(context);
                   },
@@ -67,7 +69,8 @@ class SignUp extends StatelessWidget {
            cubit.registerMethod(userModel);
         }
       } else {
-        HelperMethod.showErrorToast('Please Pick Profile Image');
+        HelperMethod.showErrorToast(AppStrings.pleaseSelectImage,
+            gravity: ToastGravity.BOTTOM);
       }
     }
 }

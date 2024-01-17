@@ -20,11 +20,12 @@ class AuthService {
 
   final TwitterLogin twitterLogin;
 
-  AuthService(
-      {required this.gitHubSignIn,
-      required this.auth,
-      required this.googleSignIn,
-      required this.twitterLogin});
+  AuthService({
+    required this.gitHubSignIn,
+    required this.auth,
+    required this.googleSignIn,
+    required this.twitterLogin,
+  });
 
   Future<UserCredential> signIn(
       {required String email, required String password}) async {
@@ -102,7 +103,7 @@ class AuthService {
     return auth.authStateChanges();
   }
 
-   String? getCurrentUserId() {
+  String? getCurrentUserId() {
     return auth.currentUser?.uid;
   }
 
@@ -129,6 +130,18 @@ class AuthService {
         idToken: googleAuth.idToken,
       );
       await auth.signInWithCredential(credential);
+
+      final currentUser = auth.currentUser;
+      final userModel = UserModel(
+        uId: currentUser?.uid ?? '',
+        name: currentUser?.displayName ?? '',
+        email: currentUser?.email ?? '',
+        image: currentUser?.photoURL ?? 'https://via.placeholder.com/150',
+        lastActive: DateTime.now(),
+        description: 'Default description',
+        isOnline: true,
+      );
+      await getIt<DatabaseService>().createUser(userModel);
     } catch (e) {
       if (kDebugMode) {
         print('Google sign in error: $e');
@@ -138,18 +151,32 @@ class AuthService {
   }
 
   Future<void> signInWithTwitter() async {
-    // Create a TwitterLogin instance
     try {
       final authResult = await twitterLogin.login();
 
-      // Create a credential from the access token
       final twitterAuthCredential = TwitterAuthProvider.credential(
         accessToken: authResult.authToken!,
         secret: authResult.authTokenSecret!,
       );
 
-      // Once signed in, return the UserCredential
       await FirebaseAuth.instance.signInWithCredential(twitterAuthCredential);
+
+      final currentUser = auth.currentUser;
+
+      const userEmail = 'user@example.com';
+
+      final userModel = UserModel(
+        uId: currentUser?.uid ?? '',
+        name: currentUser?.displayName ?? '',
+        email: userEmail,
+        image: currentUser?.photoURL ?? '',
+        lastActive: DateTime.now(),
+        password: '',
+        description: 'Default description',
+        isOnline: true,
+      );
+
+      await getIt<DatabaseService>().createUser(userModel);
     } catch (e) {
       if (kDebugMode) {
         print('Twitter sign in error: $e');
@@ -162,12 +189,30 @@ class AuthService {
     try {
       final result = await gitHubSignIn.signIn(context);
       final githubAuthCredential = GithubAuthProvider.credential(result.token!);
+
+      // Sign in with the GitHub credential
       await FirebaseAuth.instance.signInWithCredential(githubAuthCredential);
+
+      final currentUser = auth.currentUser;
+
+      const String userName = 'user';
+      final userModel = UserModel(
+        uId: currentUser?.uid ?? '',
+        name: userName,
+        email: currentUser?.email ?? '',
+        image: currentUser?.photoURL ?? '',
+        password: '',
+        lastActive: DateTime.now(),
+        description: 'Default description',
+        isOnline: true,
+      );
+
+      await getIt<DatabaseService>().createUser(userModel);
     } catch (e) {
       if (kDebugMode) {
         print('GitHub sign in error: $e');
       }
-      throw Exception('that email is already in use by another account ');
+      throw Exception('Failed to sign in with GitHub');
     }
   }
 

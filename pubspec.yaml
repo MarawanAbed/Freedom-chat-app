@@ -53,6 +53,7 @@ dependencies:
   firebase_messaging: ^14.1.4
   equatable: ^2.0.3
   http: ^0.13.4
+  oauth1: ^2.0.0
   fluttertoast: ^8.0.8
   flutter_svg: ^2.0.9
   font_awesome_flutter: ^9.1.0

@@ -3,6 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:freedom_chat_app/core/services/firebase_serivces.dart';
 import 'package:freedom_chat_app/core/utils/app_secured.dart';
+import 'package:freedom_chat_app/features/auth/forget_password/data/repositories/forget_repo_impl.dart';
+import 'package:freedom_chat_app/features/auth/forget_password/domain/repositories/forget_repo.dart';
+import 'package:freedom_chat_app/features/auth/forget_password/domain/use_cases/forget_password.dart';
+import 'package:freedom_chat_app/features/auth/forget_password/presentation/manager/forget_password_cubit.dart';
 import 'package:freedom_chat_app/features/auth/login/data/data_sources/remote_data_source.dart';
 import 'package:freedom_chat_app/features/auth/login/data/repositories/login_repo_impl.dart';
 import 'package:freedom_chat_app/features/auth/login/domain/repositories/login_repo.dart';
@@ -21,6 +25,7 @@ import 'package:github_sign_in/github_sign_in.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:twitter_login/twitter_login.dart';
 
+import '../../features/auth/forget_password/data/data_sources/remote_data_source.dart';
 import '../../features/auth/login/domain/use_cases/twitter_sign_in.dart';
 import '../../features/auth/login/presentation/manager/login/login_cubit.dart';
 
@@ -36,13 +41,17 @@ Future<void> setupGetIt() async {
             storage: getIt(),
             databaseService: getIt(),
           ));
+  getIt.registerLazySingleton<ForgetRemoteDataSource>(
+      () => ForgetRemoteDataSourceImpl(auth: getIt()));
 
   //repositories
   getIt.registerLazySingleton<LoginInRepo>(() => LoginRepoImpl(getIt()));
   getIt.registerLazySingleton<RegisterRepo>(() => RegisterRepoImpl(getIt()));
-
+  getIt.registerLazySingleton<ForgetRepo>(() => ForgetRepoImpl(getIt()));
   //use cases
   getIt.registerLazySingleton<SignInUseCase>(() => SignInUseCase(getIt()));
+  getIt.registerLazySingleton<ForgetPasswordUseCase>(
+      () => ForgetPasswordUseCase(getIt()));
   getIt.registerLazySingleton<RegisterUseCase>(() => RegisterUseCase(getIt()));
   getIt.registerLazySingleton<UploadImageUseCase>(
       () => UploadImageUseCase(getIt()));
@@ -52,7 +61,9 @@ Future<void> setupGetIt() async {
       () => GitHubSignInUseCase(getIt()));
   getIt.registerLazySingleton<TwitterSignInUseCase>(
       () => TwitterSignInUseCase(getIt()));
-  getIt.registerLazySingleton<CreateUserUseCase>(() => CreateUserUseCase(getIt()));
+  getIt.registerLazySingleton<CreateUserUseCase>(
+      () => CreateUserUseCase(getIt()));
+
   //cubit
   getIt.registerLazySingleton<LoginCubit>(
     () => LoginCubit(
@@ -67,7 +78,11 @@ Future<void> setupGetIt() async {
         uploadImageUseCase: getIt(),
         createUserUseCase: getIt(),
       ));
-
+  getIt.registerLazySingleton<ForgetPasswordCubit>(
+    () => ForgetPasswordCubit(
+       getIt(),
+    ),
+  );
   //services
   getIt.registerLazySingleton<AuthService>(() => AuthService(
         googleSignIn: getIt(),
@@ -79,8 +94,8 @@ Future<void> setupGetIt() async {
         getIt(),
       ));
   getIt.registerLazySingleton<DatabaseService>(() => DatabaseService(
-    getIt(),
-  ));
+        getIt(),
+      ));
 
   //external
   final auth = FirebaseAuth.instance;
@@ -95,7 +110,7 @@ Future<void> setupGetIt() async {
       apiSecretKey: AppSecured.twitterApiSecretKey,
       redirectURI: 'flutter-twitter-practice://');
   final storage = FirebaseStorage.instance;
-  final fireStore=FirebaseFirestore.instance;
+  final fireStore = FirebaseFirestore.instance;
 
   getIt.registerLazySingleton(() => auth);
   getIt.registerLazySingleton(() => fireStore);

@@ -24,8 +24,11 @@ class LoginBlocListener extends StatelessWidget {
           },
           success: () {
             Navigator.pop(context);
-            HelperMethod.showSuccessToast(AppStrings.loginSuccess,
-                gravity: ToastGravity.BOTTOM);
+            HelperMethod.showSuccessToast(
+              AppStrings.loginSuccess,
+              gravity: ToastGravity.BOTTOM,
+            );
+
           },
           successWithGithub: () {
             HelperMethod.showSuccessToast(AppStrings.loginSuccess,

@@ -34,11 +34,11 @@ class AuthService {
         email: email,
         password: password,
       );
-      await getIt<DatabaseService>().updateUser({
-        'lastActive': DateTime.now(),
-        'uId': auth.currentUser!.uid,
-        'isOnline': 'true',
-      });
+      // await getIt<DatabaseService>().updateUser({
+      //   'lastActive': DateTime.now(),
+      //   'uId': auth.currentUser!.uid,
+      //   'isOnline': 'true',
+      // });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         if (kDebugMode) {
@@ -223,6 +223,16 @@ class AuthService {
   }
 
   Future<void> sendVerificationEmail() async {
+    try {
+      await auth.currentUser!.sendEmailVerification();
+    } catch (e) {
+      if (kDebugMode) {
+        print(e.toString());
+      }
+    }
+  }
+
+  Future<void>resendVerificationEmail()async{
     try {
       final user = auth.currentUser!;
       if (!user.emailVerified) {

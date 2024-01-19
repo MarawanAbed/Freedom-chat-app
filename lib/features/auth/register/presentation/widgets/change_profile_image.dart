@@ -30,7 +30,7 @@ class _ChangeProfileImageState extends State<ChangeProfileImage> {
         cubit.profileImage = newProfileImage;
       });
     } catch (e) {
-      HelperMethod.showErrorToast(e.toString());
+      HelperMethod.showErrorToast('please pick an image');
     }
   }
 

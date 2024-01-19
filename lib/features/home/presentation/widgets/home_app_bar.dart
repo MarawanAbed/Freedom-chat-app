@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
 
@@ -8,6 +9,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
+
       title: const Padding(
         padding: EdgeInsets.only(left: 10.0),
         child: Text(
@@ -28,7 +30,9 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         HelperMethod.horizontalSpace(15),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            FirebaseAuth.instance.signOut();
+          },
           icon: const Icon(
             Icons.logout,
             size: 30,

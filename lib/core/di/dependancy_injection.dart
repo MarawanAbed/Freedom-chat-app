@@ -20,6 +20,13 @@ import 'package:freedom_chat_app/features/auth/register/domain/use_cases/create_
 import 'package:freedom_chat_app/features/auth/register/domain/use_cases/register.dart';
 import 'package:freedom_chat_app/features/auth/register/domain/use_cases/upload_image.dart';
 import 'package:freedom_chat_app/features/auth/register/presentation/manager/register_cubit.dart';
+import 'package:freedom_chat_app/features/auth/verify_email/data/data_sources/remote_data_source.dart';
+import 'package:freedom_chat_app/features/auth/verify_email/data/repositories/verify_email_repo_impl.dart';
+import 'package:freedom_chat_app/features/auth/verify_email/domain/repositories/verify_email_repo.dart';
+import 'package:freedom_chat_app/features/auth/verify_email/domain/use_cases/check_verify_email.dart';
+import 'package:freedom_chat_app/features/auth/verify_email/domain/use_cases/resend_email.dart';
+import 'package:freedom_chat_app/features/auth/verify_email/domain/use_cases/verify_email.dart';
+import 'package:freedom_chat_app/features/auth/verify_email/presentation/manager/verify_email_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:github_sign_in/github_sign_in.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -28,6 +35,7 @@ import 'package:twitter_login/twitter_login.dart';
 import '../../features/auth/forget_password/data/data_sources/remote_data_source.dart';
 import '../../features/auth/login/domain/use_cases/twitter_sign_in.dart';
 import '../../features/auth/login/presentation/manager/login/login_cubit.dart';
+import '../../features/auth/verify_email/domain/use_cases/log_out.dart';
 
 final getIt = GetIt.instance;
 
@@ -35,6 +43,8 @@ Future<void> setupGetIt() async {
   //data sources
   getIt.registerLazySingleton<LoginRemoteDataSource>(
       () => LoginRemoteDataSourceImpl(getIt()));
+  getIt.registerLazySingleton<VerifyEmailRemoteDataSource>(
+      () => VerifyEmailRemoteDataSourceImpl(getIt()));
   getIt.registerLazySingleton<RegisterRemoteDataSource>(
       () => RegisterRemoteDataSourceImpl(
             auth: getIt(),
@@ -48,7 +58,12 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<LoginInRepo>(() => LoginRepoImpl(getIt()));
   getIt.registerLazySingleton<RegisterRepo>(() => RegisterRepoImpl(getIt()));
   getIt.registerLazySingleton<ForgetRepo>(() => ForgetRepoImpl(getIt()));
+  getIt.registerLazySingleton<VerifyEmailRepo>(
+      () => VerifyEmailRepoImpl(getIt()));
+
   //use cases
+  getIt.registerLazySingleton<CheckVerifyEmailUseCase>(
+      () => CheckVerifyEmailUseCase(getIt()));
   getIt.registerLazySingleton<SignInUseCase>(() => SignInUseCase(getIt()));
   getIt.registerLazySingleton<ForgetPasswordUseCase>(
       () => ForgetPasswordUseCase(getIt()));
@@ -63,7 +78,12 @@ Future<void> setupGetIt() async {
       () => TwitterSignInUseCase(getIt()));
   getIt.registerLazySingleton<CreateUserUseCase>(
       () => CreateUserUseCase(getIt()));
-
+  getIt.registerLazySingleton<VerifyEmailUseCase>(
+      () => VerifyEmailUseCase(getIt()));
+  getIt.registerLazySingleton<LogOutUseCase>(
+          () => LogOutUseCase(getIt()));
+  getIt.registerLazySingleton<ResendVerifyEmailUseCase>(
+          () => ResendVerifyEmailUseCase(getIt()));
   //cubit
   getIt.registerLazySingleton<LoginCubit>(
     () => LoginCubit(
@@ -80,7 +100,16 @@ Future<void> setupGetIt() async {
       ));
   getIt.registerLazySingleton<ForgetPasswordCubit>(
     () => ForgetPasswordCubit(
-       getIt(),
+      getIt(),
+    ),
+  );
+
+  getIt.registerLazySingleton<VerifyEmailCubit>(
+    () => VerifyEmailCubit(
+      checkVerifyEmail: getIt(),
+      verifyEmail: getIt(),
+      resendVerifyEmail: getIt(),
+      logOut: getIt(),
     ),
   );
   //services

@@ -29,7 +29,9 @@ class ChatApp extends StatelessWidget {
           } else if (snapshot.hasData) {
             final user = snapshot.data;
             if (user != null && user.emailVerified) {
-              return MyHomeScreen(appRouter: appRouter);
+              return MyHomePage(
+                appRouter: appRouter,
+              );
             } else {
               return VerifyEmailScreen(
                 appRouter: appRouter,
@@ -50,11 +52,10 @@ class ChatApp extends StatelessWidget {
   }
 }
 
-class MyHomeScreen extends StatelessWidget {
-  const MyHomeScreen({super.key, required this.appRouter});
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key, required this.appRouter});
 
   final AppRouter appRouter;
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

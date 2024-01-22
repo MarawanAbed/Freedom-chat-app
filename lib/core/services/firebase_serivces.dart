@@ -34,11 +34,11 @@ class AuthService {
         email: email,
         password: password,
       );
-      // await getIt<DatabaseService>().updateUser({
-      //   'lastActive': DateTime.now(),
-      //   'uId': auth.currentUser!.uid,
-      //   'isOnline': 'true',
-      // });
+      await getIt<DatabaseService>().updateUser({
+        'lastActive': DateTime.now(),
+        'uId': auth.currentUser!.uid,
+        'isOnline': 'true',
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         if (kDebugMode) {
@@ -61,11 +61,10 @@ class AuthService {
   Future<void> forgetPassword(String email) async {
     try {
       await auth.sendPasswordResetEmail(email: email);
-    } catch (e) {
+    } on FirebaseAuth catch (e) {
       if (kDebugMode) {
-        print('Forgot password error: $e');
+        print(e.toString());
       }
-      throw Exception('Failed to reset password');
     }
   }
 
@@ -91,9 +90,9 @@ class AuthService {
   Future<void> signOut() async {
     try {
       await auth.signOut();
-    } catch (e) {
+    } on FirebaseAuth catch (e) {
       if (kDebugMode) {
-        print('Sign out error: $e');
+        print(e.toString());
       }
       throw Exception('Failed to sign out');
     }
@@ -142,7 +141,7 @@ class AuthService {
         isOnline: true,
       );
       await getIt<DatabaseService>().createUser(userModel);
-    } catch (e) {
+    } on FirebaseAuth catch (e) {
       if (kDebugMode) {
         print('Google sign in error: $e');
       }
@@ -177,7 +176,7 @@ class AuthService {
       );
 
       await getIt<DatabaseService>().createUser(userModel);
-    } catch (e) {
+    }on FirebaseAuth catch (e) {
       if (kDebugMode) {
         print('Twitter sign in error: $e');
       }
@@ -208,7 +207,7 @@ class AuthService {
       );
 
       await getIt<DatabaseService>().createUser(userModel);
-    } catch (e) {
+    }on FirebaseAuth catch (e) {
       if (kDebugMode) {
         print('GitHub sign in error: $e');
       }
@@ -225,7 +224,7 @@ class AuthService {
   Future<void> sendVerificationEmail() async {
     try {
       await auth.currentUser!.sendEmailVerification();
-    } catch (e) {
+    } on FirebaseAuth catch (e) {
       if (kDebugMode) {
         print(e.toString());
       }
@@ -240,7 +239,7 @@ class AuthService {
       } else {
         throw Exception('Email is already verified');
       }
-    } catch (e) {
+    }on FirebaseAuth catch (e) {
       if (kDebugMode) {
         print(e.toString());
       }
@@ -253,7 +252,7 @@ class AuthService {
       final user = auth.currentUser!;
       await user.updateEmail(email);
       await user.updatePassword(password);
-    } catch (e) {
+    }on FirebaseAuth catch (e) {
       if (kDebugMode) {
         print('Update email and password error: $e');
       }

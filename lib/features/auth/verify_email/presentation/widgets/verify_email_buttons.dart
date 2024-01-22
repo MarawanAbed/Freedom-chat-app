@@ -13,29 +13,15 @@ class VerifyEmailButtons extends StatefulWidget {
 }
 
 class _VerifyEmailButtonsState extends State<VerifyEmailButtons> {
-  bool isButtonEnabled = true;
 
   @override
   Widget build(BuildContext context) {
     var cubit = VerifyEmailCubit.get(context);
     return Column(
       children: [
-        CustomElevatedButton(
+        const CustomElevatedButton(
           title: 'Resend',
-          onPressed: isButtonEnabled
-              ? () {
-                  cubit.resendVerifyEmail();
-                  setState(() {
-                    isButtonEnabled = false;
-                  });
-                  // Set a delay of 3 seconds before re-enabling the button
-                  Future.delayed(const Duration(seconds: 3), () {
-                    setState(() {
-                      isButtonEnabled = true;
-                    });
-                  });
-                }
-              : null,
+          colors: AppColors.kPrimaryColor,
         ),
         HelperMethod.verticalSpace(30.0),
         CustomElevatedButton(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:freedom_chat_app/core/helpers/extension.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
+import 'package:freedom_chat_app/core/routes/routes.dart';
 import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/features/auth/login/presentation/manager/login/login_cubit.dart';
 
@@ -19,7 +21,7 @@ class LoginBlocListener extends StatelessWidget {
           current is ErrorWithGithub,
       listener: (context, state) {
         state.whenOrNull(
-          loading: () {
+          loading: ()async {
             HelperMethod.showLoadingDialog(context);
           },
           success: () {
@@ -28,7 +30,7 @@ class LoginBlocListener extends StatelessWidget {
               AppStrings.loginSuccess,
               gravity: ToastGravity.BOTTOM,
             );
-
+            context.pushNamedAndRemoveUntil(Routes.homeScreen, predicate: (Route<dynamic> route) { return false; });
           },
           successWithGithub: () {
             HelperMethod.showSuccessToast(AppStrings.loginSuccess,

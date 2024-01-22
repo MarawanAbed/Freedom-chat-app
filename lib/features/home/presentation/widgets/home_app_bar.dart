@@ -7,38 +7,43 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      elevation: 0,
-
-      title: const Padding(
-        padding: EdgeInsets.only(left: 10.0),
-        child: Text(
-          'Chats',
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
+    return WillPopScope(
+      onWillPop: (){
+        return Future.value(false);
+      },
+      child: AppBar(
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        title: const Padding(
+          padding: EdgeInsets.only(left: 10.0),
+          child: Text(
+            'Chats',
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.search,
+              size: 30,
+            ),
+          ),
+          HelperMethod.horizontalSpace(15),
+          IconButton(
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+            },
+            icon: const Icon(
+              Icons.logout,
+              size: 30,
+            ),
+          ),
+        ],
       ),
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: const Icon(
-            Icons.search,
-            size: 30,
-          ),
-        ),
-        HelperMethod.horizontalSpace(15),
-        IconButton(
-          onPressed: () {
-            FirebaseAuth.instance.signOut();
-          },
-          icon: const Icon(
-            Icons.logout,
-            size: 30,
-          ),
-        ),
-      ],
     );
   }
 

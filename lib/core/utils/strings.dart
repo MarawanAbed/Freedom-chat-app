@@ -22,7 +22,7 @@ class AppStrings {
 
   static const String loginSuccess= 'Login Success';
 
-  static const String registerSuccess= 'Register Success Now You Can Login';
+  static const String registerSuccess= 'Register Success ';
 
   static const String alreadyHaveAccount= 'Already have an account?';
 

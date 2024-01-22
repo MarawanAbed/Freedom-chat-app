@@ -20,6 +20,7 @@ mixin _$VerifyEmailState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() verificationEmailSentState,
+    required TResult Function() verificationEmailResentState,
     required TResult Function() verificationSuccessState,
     required TResult Function(String message) verificationErrorState,
   }) =>
@@ -28,6 +29,7 @@ mixin _$VerifyEmailState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? verificationEmailSentState,
+    TResult? Function()? verificationEmailResentState,
     TResult? Function()? verificationSuccessState,
     TResult? Function(String message)? verificationErrorState,
   }) =>
@@ -36,6 +38,7 @@ mixin _$VerifyEmailState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? verificationEmailSentState,
+    TResult Function()? verificationEmailResentState,
     TResult Function()? verificationSuccessState,
     TResult Function(String message)? verificationErrorState,
     required TResult orElse(),
@@ -46,6 +49,8 @@ mixin _$VerifyEmailState {
     required TResult Function(_Initial value) initial,
     required TResult Function(VerificationEmailSentState value)
         verificationEmailSentState,
+    required TResult Function(VerificationEmailResentState value)
+        verificationEmailResentState,
     required TResult Function(VerificationSuccessState value)
         verificationSuccessState,
     required TResult Function(VerificationErrorState value)
@@ -57,6 +62,8 @@ mixin _$VerifyEmailState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(VerificationEmailSentState value)?
         verificationEmailSentState,
+    TResult? Function(VerificationEmailResentState value)?
+        verificationEmailResentState,
     TResult? Function(VerificationSuccessState value)? verificationSuccessState,
     TResult? Function(VerificationErrorState value)? verificationErrorState,
   }) =>
@@ -66,6 +73,8 @@ mixin _$VerifyEmailState {
     TResult Function(_Initial value)? initial,
     TResult Function(VerificationEmailSentState value)?
         verificationEmailSentState,
+    TResult Function(VerificationEmailResentState value)?
+        verificationEmailResentState,
     TResult Function(VerificationSuccessState value)? verificationSuccessState,
     TResult Function(VerificationErrorState value)? verificationErrorState,
     required TResult orElse(),
@@ -131,6 +140,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() verificationEmailSentState,
+    required TResult Function() verificationEmailResentState,
     required TResult Function() verificationSuccessState,
     required TResult Function(String message) verificationErrorState,
   }) {
@@ -142,6 +152,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? verificationEmailSentState,
+    TResult? Function()? verificationEmailResentState,
     TResult? Function()? verificationSuccessState,
     TResult? Function(String message)? verificationErrorState,
   }) {
@@ -153,6 +164,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? verificationEmailSentState,
+    TResult Function()? verificationEmailResentState,
     TResult Function()? verificationSuccessState,
     TResult Function(String message)? verificationErrorState,
     required TResult orElse(),
@@ -169,6 +181,8 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_Initial value) initial,
     required TResult Function(VerificationEmailSentState value)
         verificationEmailSentState,
+    required TResult Function(VerificationEmailResentState value)
+        verificationEmailResentState,
     required TResult Function(VerificationSuccessState value)
         verificationSuccessState,
     required TResult Function(VerificationErrorState value)
@@ -183,6 +197,8 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_Initial value)? initial,
     TResult? Function(VerificationEmailSentState value)?
         verificationEmailSentState,
+    TResult? Function(VerificationEmailResentState value)?
+        verificationEmailResentState,
     TResult? Function(VerificationSuccessState value)? verificationSuccessState,
     TResult? Function(VerificationErrorState value)? verificationErrorState,
   }) {
@@ -195,6 +211,8 @@ class _$InitialImpl implements _Initial {
     TResult Function(_Initial value)? initial,
     TResult Function(VerificationEmailSentState value)?
         verificationEmailSentState,
+    TResult Function(VerificationEmailResentState value)?
+        verificationEmailResentState,
     TResult Function(VerificationSuccessState value)? verificationSuccessState,
     TResult Function(VerificationErrorState value)? verificationErrorState,
     required TResult orElse(),
@@ -254,6 +272,7 @@ class _$VerificationEmailSentStateImpl implements VerificationEmailSentState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() verificationEmailSentState,
+    required TResult Function() verificationEmailResentState,
     required TResult Function() verificationSuccessState,
     required TResult Function(String message) verificationErrorState,
   }) {
@@ -265,6 +284,7 @@ class _$VerificationEmailSentStateImpl implements VerificationEmailSentState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? verificationEmailSentState,
+    TResult? Function()? verificationEmailResentState,
     TResult? Function()? verificationSuccessState,
     TResult? Function(String message)? verificationErrorState,
   }) {
@@ -276,6 +296,7 @@ class _$VerificationEmailSentStateImpl implements VerificationEmailSentState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? verificationEmailSentState,
+    TResult Function()? verificationEmailResentState,
     TResult Function()? verificationSuccessState,
     TResult Function(String message)? verificationErrorState,
     required TResult orElse(),
@@ -292,6 +313,8 @@ class _$VerificationEmailSentStateImpl implements VerificationEmailSentState {
     required TResult Function(_Initial value) initial,
     required TResult Function(VerificationEmailSentState value)
         verificationEmailSentState,
+    required TResult Function(VerificationEmailResentState value)
+        verificationEmailResentState,
     required TResult Function(VerificationSuccessState value)
         verificationSuccessState,
     required TResult Function(VerificationErrorState value)
@@ -306,6 +329,8 @@ class _$VerificationEmailSentStateImpl implements VerificationEmailSentState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(VerificationEmailSentState value)?
         verificationEmailSentState,
+    TResult? Function(VerificationEmailResentState value)?
+        verificationEmailResentState,
     TResult? Function(VerificationSuccessState value)? verificationSuccessState,
     TResult? Function(VerificationErrorState value)? verificationErrorState,
   }) {
@@ -318,6 +343,8 @@ class _$VerificationEmailSentStateImpl implements VerificationEmailSentState {
     TResult Function(_Initial value)? initial,
     TResult Function(VerificationEmailSentState value)?
         verificationEmailSentState,
+    TResult Function(VerificationEmailResentState value)?
+        verificationEmailResentState,
     TResult Function(VerificationSuccessState value)? verificationSuccessState,
     TResult Function(VerificationErrorState value)? verificationErrorState,
     required TResult orElse(),
@@ -331,6 +358,140 @@ class _$VerificationEmailSentStateImpl implements VerificationEmailSentState {
 
 abstract class VerificationEmailSentState implements VerifyEmailState {
   const factory VerificationEmailSentState() = _$VerificationEmailSentStateImpl;
+}
+
+/// @nodoc
+abstract class _$$VerificationEmailResentStateImplCopyWith<$Res> {
+  factory _$$VerificationEmailResentStateImplCopyWith(
+          _$VerificationEmailResentStateImpl value,
+          $Res Function(_$VerificationEmailResentStateImpl) then) =
+      __$$VerificationEmailResentStateImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$VerificationEmailResentStateImplCopyWithImpl<$Res>
+    extends _$VerifyEmailStateCopyWithImpl<$Res,
+        _$VerificationEmailResentStateImpl>
+    implements _$$VerificationEmailResentStateImplCopyWith<$Res> {
+  __$$VerificationEmailResentStateImplCopyWithImpl(
+      _$VerificationEmailResentStateImpl _value,
+      $Res Function(_$VerificationEmailResentStateImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$VerificationEmailResentStateImpl
+    implements VerificationEmailResentState {
+  const _$VerificationEmailResentStateImpl();
+
+  @override
+  String toString() {
+    return 'VerifyEmailState.verificationEmailResentState()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$VerificationEmailResentStateImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() verificationEmailSentState,
+    required TResult Function() verificationEmailResentState,
+    required TResult Function() verificationSuccessState,
+    required TResult Function(String message) verificationErrorState,
+  }) {
+    return verificationEmailResentState();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? verificationEmailSentState,
+    TResult? Function()? verificationEmailResentState,
+    TResult? Function()? verificationSuccessState,
+    TResult? Function(String message)? verificationErrorState,
+  }) {
+    return verificationEmailResentState?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? verificationEmailSentState,
+    TResult Function()? verificationEmailResentState,
+    TResult Function()? verificationSuccessState,
+    TResult Function(String message)? verificationErrorState,
+    required TResult orElse(),
+  }) {
+    if (verificationEmailResentState != null) {
+      return verificationEmailResentState();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(VerificationEmailSentState value)
+        verificationEmailSentState,
+    required TResult Function(VerificationEmailResentState value)
+        verificationEmailResentState,
+    required TResult Function(VerificationSuccessState value)
+        verificationSuccessState,
+    required TResult Function(VerificationErrorState value)
+        verificationErrorState,
+  }) {
+    return verificationEmailResentState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(VerificationEmailSentState value)?
+        verificationEmailSentState,
+    TResult? Function(VerificationEmailResentState value)?
+        verificationEmailResentState,
+    TResult? Function(VerificationSuccessState value)? verificationSuccessState,
+    TResult? Function(VerificationErrorState value)? verificationErrorState,
+  }) {
+    return verificationEmailResentState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(VerificationEmailSentState value)?
+        verificationEmailSentState,
+    TResult Function(VerificationEmailResentState value)?
+        verificationEmailResentState,
+    TResult Function(VerificationSuccessState value)? verificationSuccessState,
+    TResult Function(VerificationErrorState value)? verificationErrorState,
+    required TResult orElse(),
+  }) {
+    if (verificationEmailResentState != null) {
+      return verificationEmailResentState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class VerificationEmailResentState implements VerifyEmailState {
+  const factory VerificationEmailResentState() =
+      _$VerificationEmailResentStateImpl;
 }
 
 /// @nodoc
@@ -376,6 +537,7 @@ class _$VerificationSuccessStateImpl implements VerificationSuccessState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() verificationEmailSentState,
+    required TResult Function() verificationEmailResentState,
     required TResult Function() verificationSuccessState,
     required TResult Function(String message) verificationErrorState,
   }) {
@@ -387,6 +549,7 @@ class _$VerificationSuccessStateImpl implements VerificationSuccessState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? verificationEmailSentState,
+    TResult? Function()? verificationEmailResentState,
     TResult? Function()? verificationSuccessState,
     TResult? Function(String message)? verificationErrorState,
   }) {
@@ -398,6 +561,7 @@ class _$VerificationSuccessStateImpl implements VerificationSuccessState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? verificationEmailSentState,
+    TResult Function()? verificationEmailResentState,
     TResult Function()? verificationSuccessState,
     TResult Function(String message)? verificationErrorState,
     required TResult orElse(),
@@ -414,6 +578,8 @@ class _$VerificationSuccessStateImpl implements VerificationSuccessState {
     required TResult Function(_Initial value) initial,
     required TResult Function(VerificationEmailSentState value)
         verificationEmailSentState,
+    required TResult Function(VerificationEmailResentState value)
+        verificationEmailResentState,
     required TResult Function(VerificationSuccessState value)
         verificationSuccessState,
     required TResult Function(VerificationErrorState value)
@@ -428,6 +594,8 @@ class _$VerificationSuccessStateImpl implements VerificationSuccessState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(VerificationEmailSentState value)?
         verificationEmailSentState,
+    TResult? Function(VerificationEmailResentState value)?
+        verificationEmailResentState,
     TResult? Function(VerificationSuccessState value)? verificationSuccessState,
     TResult? Function(VerificationErrorState value)? verificationErrorState,
   }) {
@@ -440,6 +608,8 @@ class _$VerificationSuccessStateImpl implements VerificationSuccessState {
     TResult Function(_Initial value)? initial,
     TResult Function(VerificationEmailSentState value)?
         verificationEmailSentState,
+    TResult Function(VerificationEmailResentState value)?
+        verificationEmailResentState,
     TResult Function(VerificationSuccessState value)? verificationSuccessState,
     TResult Function(VerificationErrorState value)? verificationErrorState,
     required TResult orElse(),
@@ -524,6 +694,7 @@ class _$VerificationErrorStateImpl implements VerificationErrorState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() verificationEmailSentState,
+    required TResult Function() verificationEmailResentState,
     required TResult Function() verificationSuccessState,
     required TResult Function(String message) verificationErrorState,
   }) {
@@ -535,6 +706,7 @@ class _$VerificationErrorStateImpl implements VerificationErrorState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? verificationEmailSentState,
+    TResult? Function()? verificationEmailResentState,
     TResult? Function()? verificationSuccessState,
     TResult? Function(String message)? verificationErrorState,
   }) {
@@ -546,6 +718,7 @@ class _$VerificationErrorStateImpl implements VerificationErrorState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? verificationEmailSentState,
+    TResult Function()? verificationEmailResentState,
     TResult Function()? verificationSuccessState,
     TResult Function(String message)? verificationErrorState,
     required TResult orElse(),
@@ -562,6 +735,8 @@ class _$VerificationErrorStateImpl implements VerificationErrorState {
     required TResult Function(_Initial value) initial,
     required TResult Function(VerificationEmailSentState value)
         verificationEmailSentState,
+    required TResult Function(VerificationEmailResentState value)
+        verificationEmailResentState,
     required TResult Function(VerificationSuccessState value)
         verificationSuccessState,
     required TResult Function(VerificationErrorState value)
@@ -576,6 +751,8 @@ class _$VerificationErrorStateImpl implements VerificationErrorState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(VerificationEmailSentState value)?
         verificationEmailSentState,
+    TResult? Function(VerificationEmailResentState value)?
+        verificationEmailResentState,
     TResult? Function(VerificationSuccessState value)? verificationSuccessState,
     TResult? Function(VerificationErrorState value)? verificationErrorState,
   }) {
@@ -588,6 +765,8 @@ class _$VerificationErrorStateImpl implements VerificationErrorState {
     TResult Function(_Initial value)? initial,
     TResult Function(VerificationEmailSentState value)?
         verificationEmailSentState,
+    TResult Function(VerificationEmailResentState value)?
+        verificationEmailResentState,
     TResult Function(VerificationSuccessState value)? verificationSuccessState,
     TResult Function(VerificationErrorState value)? verificationErrorState,
     required TResult orElse(),

@@ -29,6 +29,13 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
   }
 
   @override
+  void dispose() {
+    emailController.clear();
+    passwordController.clear();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context).brightness == Brightness.dark;
     var cubit = LoginCubit.of(context);

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
+import 'package:freedom_chat_app/features/home/presentation/manager/all_users/get_all_user_cubit.dart';
 import 'package:freedom_chat_app/features/home/presentation/widgets/people_users_item.dart';
 
 class UsersScreen extends StatefulWidget {
@@ -9,24 +12,56 @@ class UsersScreen extends StatefulWidget {
 }
 
 class _UsersScreenState extends State<UsersScreen> {
-  final List<String> users = [
-    'User 1',
-    'User 2',
-    'User 3',
-  ];
 
+  @override
+  void initState() {
+    var cubit=GetAllUserCubit.get(context);
+    cubit.getAllUsers();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-        itemCount: users.length,
-        itemBuilder: (context, index) {
-          final userName = users[index];
-          return PeopleUsersItem(
-            name: userName,
+      body: BlocBuilder<GetAllUserCubit, GetAllUserState>(
+        buildWhen: (previous, current) =>
+            current is Success || current is Error || current is Loading,
+        builder: (context, state) {
+          return state.when(
+            initial: () => const Center(
+              child: CircularProgressIndicator(),
+            ),
+            loading: () => const Center(
+              child: CircularProgressIndicator(),
+            ),
+            success: (users) => BuildPeople(users: users),
+            error: (message) => Center(
+              child: Text(message),
+            ),
           );
         },
       ),
+    );
+  }
+}
+
+class BuildPeople extends StatelessWidget {
+  const BuildPeople({
+    super.key,
+    required this.users,
+  });
+
+  final List<UserModel> users;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: users.length,
+      itemBuilder: (context, index) {
+        final userName = users[index];
+        return PeopleUsersItem(
+          user: userName,
+        );
+      },
     );
   }
 }

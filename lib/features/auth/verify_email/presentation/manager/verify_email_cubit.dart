@@ -24,15 +24,11 @@ class VerifyEmailCubit extends Cubit<VerifyEmailState> {
   final CheckVerifyEmailUseCase checkVerifyEmail;
   final ResendVerifyEmailUseCase resendVerifyEmail;
   final LogOutUseCase logOut;
-  bool canSendEmail = false;
   Timer? _timer;
 
   Future<void> sendVerificationEmail() async {
     try {
       await verifyEmail.call();
-      canSendEmail=false;
-      await Future.delayed(const Duration(seconds: 3));
-      canSendEmail=true;
      emit(const VerifyEmailState.verificationEmailSentState());
     } catch (e) {
       emit(VerifyEmailState.verificationErrorState(e.toString()));

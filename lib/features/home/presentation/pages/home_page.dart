@@ -31,9 +31,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _titles[_currentIndex] == 'Home'
-          ? const HomeAppBar()
-          : AppBar(
-              title: Text(_titles[_currentIndex]),
+          ? const HomeAppBar() as PreferredSizeWidget
+          : AppBarCustom(
+              title: _titles[_currentIndex],
             ),
       body: _pages[_currentIndex],
       bottomNavigationBar: CustomBottomNavigation(
@@ -43,6 +43,38 @@ class _HomeScreenState extends State<HomeScreen> {
             _currentIndex = index;
           });
         },
+      ),
+    );
+  }
+}
+
+class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
+  const AppBarCustom({super.key, required this.title});
+
+  final String title;
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () {
+        return Future.value(false);
+      },
+      child: AppBar(
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 10.0),
+          child: Text(
+            title,
+            style: const TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
       ),
     );
   }

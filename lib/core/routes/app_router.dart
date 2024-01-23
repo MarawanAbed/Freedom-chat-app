@@ -9,6 +9,8 @@ import 'package:freedom_chat_app/features/auth/register/presentation/manager/reg
 import 'package:freedom_chat_app/features/auth/register/presentation/pages/sign_up.dart';
 import 'package:freedom_chat_app/features/auth/verify_email/presentation/manager/verify_email_cubit.dart';
 import 'package:freedom_chat_app/features/chat/presentation/pages/chat_page.dart';
+import 'package:freedom_chat_app/features/home/presentation/manager/all_users/get_all_user_cubit.dart';
+import 'package:freedom_chat_app/features/home/presentation/manager/single_user/get_user_cubit.dart';
 import 'package:freedom_chat_app/features/home/presentation/pages/edit_profile.dart';
 import 'package:freedom_chat_app/features/home/presentation/pages/home_page.dart';
 import 'package:freedom_chat_app/features/onBoarding/presentation/pages/on_boarding_screen.dart';
@@ -55,7 +57,19 @@ class AppRouter {
           ),
         );
       case Routes.homeScreen:
-        return MaterialPageRoute(builder: (_) => const HomeScreen());
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (BuildContext context)=>getIt<GetAllUserCubit>(),
+              ),
+              BlocProvider(
+                create: (BuildContext context)=>getIt<GetUserCubit>(),
+              ),
+            ],
+            child: const HomeScreen(),
+          ),
+        );
       case Routes.editProfileScreen:
         return MaterialPageRoute(builder: (_) => const EditProfile());
       case Routes.chatScreen:

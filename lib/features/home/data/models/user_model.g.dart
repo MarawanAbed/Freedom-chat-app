@@ -12,11 +12,9 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       email: json['email'] as String?,
       password: json['password'] as String?,
       image: json['image'] as String?,
-      lastActive: json['lastActive'] == null
-          ? null
-          : DateTime.parse(json['lastActive'] as String),
+      lastActive: const TimestampConverter().fromJson(json['lastActive']),
       description: json['description'] as String?,
-      isOnline: json['isOnline'] as bool?,
+      isOnline: UserModel._fromJsonBool(json['isOnline']),
     );
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
@@ -25,7 +23,7 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'email': instance.email,
       'password': instance.password,
       'image': instance.image,
-      'lastActive': instance.lastActive?.toIso8601String(),
+      'lastActive': const TimestampConverter().toJson(instance.lastActive),
       'description': instance.description,
       'isOnline': instance.isOnline,
     };

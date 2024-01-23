@@ -280,18 +280,19 @@ class DatabaseService {
     }
   }
 
-//
-//   Stream<List<UserEntity>> getAllUsers() {
-//     final userCollection =
-//         _firestore.collection('users').orderBy('lastActive', descending: true);
-//
-//     return userCollection.snapshots(includeMetadataChanges: true).map(
-//           (querySnapshot) => querySnapshot.docs
-//               .map((e) => UserEntity.fromJson(e.data()))
-//               .toList(),
-//         );
-//   }
-//
+
+  Stream<List<UserModel>> getAllUsers() {
+    final userCollection =
+    _fireStore.collection('users').orderBy('lastActive', descending: true);
+
+    return userCollection.snapshots(includeMetadataChanges: true).map(
+          (querySnapshot) =>
+          querySnapshot.docs
+              .map((e) => UserModel.fromJson(e.data()))
+              .toList(),
+    );
+  }
+
   Future<void> updateUser(Map<String, dynamic> data) async {
     try {
       await _fireStore
@@ -305,20 +306,20 @@ class DatabaseService {
       throw Exception('Failed to update user');
     }
   }
+
+
+  Stream<UserModel> getSingleUser(String uId) {
+    final userDoc = _fireStore.collection('users').doc(uId);
+
+    return userDoc.snapshots(includeMetadataChanges: true).map((userSnapshot) {
+      if (userSnapshot.exists) {
+        final userData = userSnapshot.data() as Map<String, dynamic>;
+        return UserModel.fromJson(userData);
+      }
+      throw Exception('User does not exist');
+    });
+  }
 }
-//
-//   Stream<UserEntity> getSingleUser(String uId) {
-//     final userDoc = _firestore.collection('users').doc(uId);
-//
-//     return userDoc.snapshots(includeMetadataChanges: true).map((userSnapshot) {
-//       if (userSnapshot.exists) {
-//         final userData = userSnapshot.data() as Map<String, dynamic>;
-//         return UserEntity.fromJson(userData);
-//       }
-//       throw Exception('User does not exist');
-//     });
-//   }
-//
 //   Future<void> addTextMessage({required MessageModel messageEntity}) async {
 //     final uId = AuthService().getCurrentUserId();
 //     final message = MessageModel(

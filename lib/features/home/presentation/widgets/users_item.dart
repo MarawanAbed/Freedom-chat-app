@@ -16,7 +16,9 @@ class UserItems extends StatelessWidget {
         context.pushNamed(Routes.chatScreen);
       },
       child: ListTile(
-        leading: const CustomProfileImage(),
+        leading: const CustomProfileImage(
+          imageUrl: 'https://i.pravatar.cc/150?img=3',
+        ),
         title: const Text(
           'Ahmed',
           style: TextStyle(

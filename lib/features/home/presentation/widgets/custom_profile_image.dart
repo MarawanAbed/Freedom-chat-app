@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:freedom_chat_app/core/assets/generated/assets.dart';
 
 class CustomProfileImage extends StatelessWidget {
-  const CustomProfileImage({super.key});
+  const CustomProfileImage({super.key, required this.imageUrl});
+
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +11,12 @@ class CustomProfileImage extends StatelessWidget {
       children: [
         CircleAvatar(
           radius: 25,
-          child: Image.asset(Assets.imagesUser),
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(25),
+              child: Image.network(
+                imageUrl,
+                fit: BoxFit.cover,
+              )),
         ),
         Positioned(
           bottom: 0,

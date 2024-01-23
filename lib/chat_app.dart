@@ -29,7 +29,7 @@ class ChatApp extends StatelessWidget {
           } else if (snapshot.hasData) {
             final user = snapshot.data;
             if (user != null && user.emailVerified) {
-              return MyHomePage(
+              return HomeScreen(
                 appRouter: appRouter,
               );
             } else {
@@ -52,10 +52,16 @@ class ChatApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key, required this.appRouter});
-
+class BaseScreen extends StatelessWidget {
   final AppRouter appRouter;
+  final String initialRoute;
+
+  const BaseScreen({
+    Key? key,
+    required this.appRouter,
+    required this.initialRoute,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -64,65 +70,34 @@ class MyHomePage extends StatelessWidget {
       theme: Themes.lightThemeData(context),
       darkTheme: Themes.darkThemeData(context),
       themeMode: ThemeMode.system,
-      initialRoute: Routes.homeScreen,
+      initialRoute: initialRoute,
       onGenerateRoute: appRouter.generateRoute,
     );
   }
 }
 
-class VerifyEmailScreen extends StatelessWidget {
-  const VerifyEmailScreen({super.key, required this.appRouter});
-
-  final AppRouter appRouter;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: AppStrings.titleApp,
-      theme: Themes.lightThemeData(context),
-      darkTheme: Themes.darkThemeData(context),
-      themeMode: ThemeMode.system,
-      initialRoute: Routes.verifyEmailScreen,
-      onGenerateRoute: appRouter.generateRoute,
-    );
-  }
+class HomeScreen extends BaseScreen {
+  const HomeScreen({Key? key, required AppRouter appRouter})
+      : super(key: key, appRouter: appRouter, initialRoute: Routes.homeScreen);
 }
 
-class AuthScreen extends StatelessWidget {
-  const AuthScreen({super.key, required this.appRouter});
-
-  final AppRouter appRouter;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: AppStrings.titleApp,
-      theme: Themes.lightThemeData(context),
-      darkTheme: Themes.darkThemeData(context),
-      themeMode: ThemeMode.system,
-      initialRoute: Routes.authScreen,
-      onGenerateRoute: appRouter.generateRoute,
-    );
-  }
+class VerifyEmailScreen extends BaseScreen {
+  const VerifyEmailScreen({Key? key, required AppRouter appRouter})
+      : super(
+            key: key,
+            appRouter: appRouter,
+            initialRoute: Routes.verifyEmailScreen);
 }
 
-class OnBoardingScreen extends StatelessWidget {
-  const OnBoardingScreen({super.key, required this.appRouter});
+class AuthScreen extends BaseScreen {
+  const AuthScreen({Key? key, required AppRouter appRouter})
+      : super(key: key, appRouter: appRouter, initialRoute: Routes.authScreen);
+}
 
-  final AppRouter appRouter;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: AppStrings.titleApp,
-      theme: Themes.lightThemeData(context),
-      darkTheme: Themes.darkThemeData(context),
-      themeMode: ThemeMode.system,
-      initialRoute: Routes.onBoardingScreen,
-      onGenerateRoute: appRouter.generateRoute,
-    );
-  }
+class OnBoardingScreen extends BaseScreen {
+  const OnBoardingScreen({Key? key, required AppRouter appRouter})
+      : super(
+            key: key,
+            appRouter: appRouter,
+            initialRoute: Routes.onBoardingScreen);
 }

@@ -15,12 +15,14 @@ class GetAllUserCubit extends Cubit<GetAllUserState> {
 
   final GetAllUsersUseCase getAllUsersUseCase;
 
+  List<UserModel>usersModel=[];
   void getAllUsers() async {
     emit(const GetAllUserState.loading());
     try {
       final users = getAllUsersUseCase();
       users.listen((event) {
-        emit(GetAllUserState.success(event));
+        usersModel=event;
+        emit(const GetAllUserState.success());
       });
     } catch (e) {
       emit(GetAllUserState.error(e.toString()));

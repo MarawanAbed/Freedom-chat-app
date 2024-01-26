@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:freedom_chat_app/core/helpers/extension.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
+import 'package:freedom_chat_app/core/routes/routes.dart';
 import 'package:freedom_chat_app/core/themes/styles.dart';
 import 'package:freedom_chat_app/core/utils/constants.dart';
 import 'package:freedom_chat_app/core/utils/strings.dart';
@@ -34,6 +36,7 @@ class LoginPage extends StatelessWidget {
                   title: AppStrings.signIn,
                   onPressed: () {
                     cubit.loginMethod();
+                    context.pushReplacementNamed(Routes.homeScreen);
                   },
                 ),
                 HelperMethod.verticalSpace(buttonSpacing),

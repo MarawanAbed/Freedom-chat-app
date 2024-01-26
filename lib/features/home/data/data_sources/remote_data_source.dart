@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:freedom_chat_app/core/services/firebase_serivces.dart';
 import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
 
@@ -10,13 +12,19 @@ abstract class HomeRemoteDataSource {
 
   String? getCurrentUserId();
 
+  Future<void>updateEmailAndPassword({required String email,required String password});
+
+
+  Future<String> uploadImage(File imageFile);
+
   Future<void> updateUser(Map<String, dynamic> data);
 }
 
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   final DatabaseService databaseService;
   final AuthService authService;
-  HomeRemoteDataSourceImpl({required this.databaseService,required this.authService});
+  final StorageService storeService;
+  HomeRemoteDataSourceImpl({required this.databaseService,required this.storeService,required this.authService});
 
   @override
   Stream<List<UserModel>> getAllUsers() {
@@ -41,5 +49,15 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   @override
   Future<void> logOut()async {
     return await authService.signOut();
+  }
+
+  @override
+  Future<String> uploadImage(File imageFile)async{
+    return await storeService.uploadImage(imageFile);
+  }
+
+  @override
+  Future<void> updateEmailAndPassword({required String email, required String password})async {
+    return await authService.updateEmailAndPassword(email: email, password: password);
   }
 }

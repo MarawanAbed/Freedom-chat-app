@@ -32,9 +32,13 @@ import 'package:freedom_chat_app/features/home/data/repositories/home_repo_impl.
 import 'package:freedom_chat_app/features/home/domain/repositories/home_repo.dart';
 import 'package:freedom_chat_app/features/home/domain/use_cases/get_all_users.dart';
 import 'package:freedom_chat_app/features/home/domain/use_cases/get_user.dart';
+import 'package:freedom_chat_app/features/home/domain/use_cases/log_out.dart';
+import 'package:freedom_chat_app/features/home/domain/use_cases/update_email_and_password.dart';
 import 'package:freedom_chat_app/features/home/domain/use_cases/update_user.dart';
+import 'package:freedom_chat_app/features/home/domain/use_cases/upload_Image.dart';
 import 'package:freedom_chat_app/features/home/domain/use_cases/user_uid.dart';
 import 'package:freedom_chat_app/features/home/presentation/manager/all_users/get_all_user_cubit.dart';
+import 'package:freedom_chat_app/features/home/presentation/manager/update_user/update_user_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:github_sign_in/github_sign_in.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -53,6 +57,7 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<HomeRemoteDataSource>(
       () => HomeRemoteDataSourceImpl(
             databaseService: getIt(),
+            storeService: getIt(),
             authService: getIt(),));
   getIt.registerLazySingleton<LoginRemoteDataSource>(
       () => LoginRemoteDataSourceImpl(getIt()));
@@ -81,6 +86,9 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<GetUserUseCase>(() => GetUserUseCase(getIt()));
   getIt.registerLazySingleton<UpdateUserUseCase>(
       () => UpdateUserUseCase(getIt()));
+  getIt.registerLazySingleton<UpdateEmailAndPasswordUseCase>(
+      () => UpdateEmailAndPasswordUseCase(getIt()));
+
   getIt.registerLazySingleton<CheckVerifyEmailUseCase>(
       () => CheckVerifyEmailUseCase(getIt()));
   getIt.registerLazySingleton<SignInUseCase>(() => SignInUseCase(getIt()));
@@ -89,6 +97,8 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<ForgetPasswordUseCase>(
       () => ForgetPasswordUseCase(getIt()));
   getIt.registerLazySingleton<RegisterUseCase>(() => RegisterUseCase(getIt()));
+  getIt.registerLazySingleton<RegisterUploadImageUseCase>(
+      () => RegisterUploadImageUseCase(getIt()));
   getIt.registerLazySingleton<UploadImageUseCase>(
       () => UploadImageUseCase(getIt()));
   getIt.registerLazySingleton<GoogleSignInUseCase>(
@@ -104,7 +114,8 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<LogOutUseCase>(() => LogOutUseCase(getIt()));
   getIt.registerLazySingleton<ResendVerifyEmailUseCase>(
       () => ResendVerifyEmailUseCase(getIt()));
-
+  getIt.registerLazySingleton<HomeLogOutUseCase>(
+      () => HomeLogOutUseCase(getIt()));
   //cubit
   getIt.registerLazySingleton<LoginCubit>(
     () => LoginCubit(
@@ -115,6 +126,14 @@ Future<void> setupGetIt() async {
     ),
   );
 
+  getIt.registerLazySingleton<UpdateUserCubit>(
+    () => UpdateUserCubit(
+      getIt(),
+      getIt(),
+      getIt(),
+      getIt(),
+    ),
+  );
   getIt.registerLazySingleton<GetAllUserCubit>(
     () => GetAllUserCubit(
       getIt(),

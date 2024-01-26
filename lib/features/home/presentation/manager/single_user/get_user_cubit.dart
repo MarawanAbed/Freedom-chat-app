@@ -14,12 +14,15 @@ class GetUserCubit extends Cubit<GetUserState> {
   static getUserCubit(context) => BlocProvider.of<GetUserCubit>(context);
   final GetUserUseCase getUserUseCase;
   final UserUidUseCase userUid;
+
+  UserModel? userModel;
   void getUser(String uid) {
     emit(const GetUserState.loading());
     try {
       final user = getUserUseCase(uid);
       user.listen((event) {
-        emit(GetUserState.success(event));
+        userModel = event;
+        emit(const GetUserState.success());
       });
     } catch (e) {
       emit(GetUserState.error(e.toString()));

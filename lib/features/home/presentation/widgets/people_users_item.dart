@@ -16,11 +16,11 @@ class PeopleUsersItem extends StatelessWidget {
         context.pushNamed(Routes.chatScreen);
       },
       child: ListTile(
-        contentPadding: const EdgeInsets.all(20),
+        contentPadding: const EdgeInsets.all(10),
         leading:  CustomProfileImage(
           imageUrl: user.image!,
         ),
-        title:Text (user.name!.toUpperCase()),
+        title:Text (user.name!),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Text(

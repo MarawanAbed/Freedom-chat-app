@@ -8,7 +8,7 @@ import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
 import 'package:freedom_chat_app/features/home/presentation/manager/single_user/get_user_cubit.dart';
 import 'package:freedom_chat_app/features/home/presentation/widgets/build_row_info.dart';
 
-import '../../../auth/register/presentation/widgets/profile_image.dart';
+import '../../../../core/widgets/profile_image.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -29,6 +29,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<GetUserCubit, GetUserState>(
+        buildWhen: (previous, current) =>
+            current is Success || current is Error || current is Loading,
         builder: (context, state) {
           return state.when(
             initial: () => const Center(
@@ -37,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             loading: () => const Center(
               child: CircularProgressIndicator(),
             ),
-            success: (user) =>  ProfileBody(user: user,),
+            success: () =>  ProfileBody(user:context.read<GetUserCubit>().userModel!,),
             error: (message) => Center(
               child: Text(message),
             ),
@@ -69,7 +71,7 @@ class ProfileBody extends StatelessWidget {
             HelperMethod.verticalSpace(30),
             CustomElevatedButton(
               onPressed: () {
-                context.pushNamed(Routes.editProfileScreen);
+                context.pushNamed(Routes.editProfileScreen,arguments: user);
               },
               title: 'Edit Profile',
             ),

@@ -9,9 +9,9 @@ import 'package:freedom_chat_app/features/auth/register/presentation/manager/reg
 import 'package:freedom_chat_app/features/auth/register/presentation/widgets/change_profile_image.dart';
 import 'package:freedom_chat_app/features/auth/register/presentation/widgets/text_fields_sign_up.dart';
 import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
+
 import '../widgets/already_have_account.dart';
 import '../widgets/register_bloc_listener.dart';
-
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
@@ -49,9 +49,8 @@ class SignUp extends StatelessWidget {
     );
   }
 
-  void _signUpButton(context)async
-  {
-    var cubit=RegisterCubit.of(context);
+  void _signUpButton(context) async {
+    var cubit = RegisterCubit.of(context);
     if (cubit.registerFormKey.currentState!.validate()) {
       if (cubit.profileImage != null) {
         await cubit.uploadImageMethod();
@@ -60,18 +59,18 @@ class SignUp extends StatelessWidget {
             email: cubit.emailController.text.trim(),
             password: cubit.passwordController.text.trim(),
             name: cubit.nameController.text.trim(),
-            description:cubit.descriptionController.text.trim(),
+            description: cubit.descriptionController.text.trim(),
             image: cubit.imageUrl!,
             isOnline: true,
             uId: null,
             lastActive: DateTime.now(),
           );
-           cubit.registerMethod(userModel);
+          cubit.registerMethod(userModel);
         }
       } else {
         HelperMethod.showErrorToast(AppStrings.pleaseSelectImage,
             gravity: ToastGravity.BOTTOM);
       }
     }
-}
+  }
 }

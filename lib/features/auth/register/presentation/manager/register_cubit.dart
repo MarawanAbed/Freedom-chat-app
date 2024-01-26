@@ -19,7 +19,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   final CreateUserUseCase createUserUseCase;
   final RegisterUseCase registerUseCase;
-  final UploadImageUseCase uploadImageUseCase;
+  final RegisterUploadImageUseCase uploadImageUseCase;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();

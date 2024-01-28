@@ -137,6 +137,7 @@ class AuthService {
         email: currentUser?.email ?? '',
         image: currentUser?.photoURL ?? 'https://via.placeholder.com/150',
         lastActive: DateTime.now(),
+        password: 'Un allow to display',
         description: 'Default description',
         isOnline: true,
       );
@@ -170,7 +171,7 @@ class AuthService {
         email: userEmail,
         image: currentUser?.photoURL ?? '',
         lastActive: DateTime.now(),
-        password: '',
+        password: 'Un allow to display',
         description: 'Default description',
         isOnline: true,
       );
@@ -200,7 +201,7 @@ class AuthService {
         name: userName,
         email: currentUser?.email ?? '',
         image: currentUser?.photoURL ?? '',
-        password: '',
+        password: 'Un allow to display',
         lastActive: DateTime.now(),
         description: 'Default description',
         isOnline: true,

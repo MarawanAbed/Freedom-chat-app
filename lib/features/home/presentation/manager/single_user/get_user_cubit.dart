@@ -15,14 +15,12 @@ class GetUserCubit extends Cubit<GetUserState> {
   final GetUserUseCase getUserUseCase;
   final UserUidUseCase userUid;
 
-  UserModel? userModel;
   void getUser(String uid) {
     emit(const GetUserState.loading());
     try {
       final user = getUserUseCase(uid);
       user.listen((event) {
-        userModel = event;
-        emit(const GetUserState.success());
+        emit( GetUserState.success(event));
       });
     } catch (e) {
       emit(GetUserState.error(e.toString()));

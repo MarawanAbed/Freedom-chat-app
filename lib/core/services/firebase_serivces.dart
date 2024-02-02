@@ -116,14 +116,14 @@ class AuthService {
       // Force account selection
       await googleSignIn.signOut(); // Sign out to force account selection
       final GoogleSignInAccount? selectedGoogleUser =
-      await googleSignIn.signIn();
+          await googleSignIn.signIn();
 
       if (selectedGoogleUser == null) {
         throw Exception('Google sign in aborted by user');
       }
 
       final GoogleSignInAuthentication googleAuth =
-      await selectedGoogleUser.authentication;
+          await selectedGoogleUser.authentication;
       final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
@@ -137,7 +137,7 @@ class AuthService {
         email: currentUser?.email ?? '',
         image: currentUser?.photoURL ?? 'https://via.placeholder.com/150',
         lastActive: DateTime.now(),
-        password: 'Un allow to display',
+        password: 'Empty password field',
         description: 'Default description',
         isOnline: true,
       );
@@ -163,7 +163,7 @@ class AuthService {
 
       final currentUser = auth.currentUser;
 
-      const userEmail = 'user@example.com';
+      final userEmail = currentUser?.email ?? '';
 
       final userModel = UserModel(
         uId: currentUser?.uid ?? '',
@@ -171,7 +171,7 @@ class AuthService {
         email: userEmail,
         image: currentUser?.photoURL ?? '',
         lastActive: DateTime.now(),
-        password: 'Un allow to display',
+        password: 'Empty password field',
         description: 'Default description',
         isOnline: true,
       );
@@ -201,7 +201,7 @@ class AuthService {
         name: userName,
         email: currentUser?.email ?? '',
         image: currentUser?.photoURL ?? '',
-        password: 'Un allow to display',
+        password: 'Empty password field',
         lastActive: DateTime.now(),
         description: 'Default description',
         isOnline: true,
@@ -247,11 +247,12 @@ class AuthService {
     }
   }
 
-  Future<void>updateEmailAndPassword({required String email,required String password})async{
-    try{
+  Future<void> updateEmailAndPassword(
+      {required String email, required String password}) async {
+    try {
       await auth.currentUser!.updateEmail(email);
       await auth.currentUser!.updatePassword(password);
-    }on FirebaseAuth catch(e){
+    } on FirebaseAuth catch (e) {
       if (kDebugMode) {
         print(e.toString());
       }
@@ -279,41 +280,44 @@ class DatabaseService {
   }
 
   Stream<List<UserModel>> getAllUsers() {
-    final userCollection =
-    _fireStore.collection('users').orderBy('lastActive', descending: true);
+    final userCollection = _fireStore
+        .collection('users')
+        .orderBy('lastActive', descending: true);
+
 
     return userCollection.snapshots(includeMetadataChanges: true).map(
           (querySnapshot) => querySnapshot.docs
-          .map((e) => UserModel.fromJson(e.data()))
-          .toList(),
-    );
+              .map((e) => UserModel.fromJson(e.data()))
+              .toList(),
+        );
   }
 
-Future<void> updateUser(Map<String, dynamic> data) async {
-  try {
-    await _fireStore
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .update(data);
-  } catch (e) {
-    if (kDebugMode) {
-      print('Error updating user: $e');
+  Future<void> updateUser(Map<String, dynamic> data) async {
+    try {
+      await _fireStore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update(data);
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error updating user: $e');
+      }
+      throw Exception('Failed to update user');
     }
-    throw Exception('Failed to update user');
+  }
+
+  Stream<UserModel> getSingleUser(String uId) {
+    final userDoc = _fireStore.collection('users').doc(uId);
+
+    return userDoc.snapshots(includeMetadataChanges: true).map((userSnapshot) {
+      if (userSnapshot.exists) {
+        final userData = userSnapshot.data() as Map<String, dynamic>;
+        return UserModel.fromJson(userData);
+      }
+      throw Exception('User does not exist');
+    });
   }
 }
-
-Stream<UserModel> getSingleUser(String uId) {
-  final userDoc = _fireStore.collection('users').doc(uId);
-
-  return userDoc.snapshots(includeMetadataChanges: true).map((userSnapshot) {
-    if (userSnapshot.exists) {
-      final userData = userSnapshot.data() as Map<String, dynamic>;
-      return UserModel.fromJson(userData);
-    }
-    throw Exception('User does not exist');
-  });
-}}
 //   Future<void> addTextMessage({required MessageModel messageEntity}) async {
 //     final uId = AuthService().getCurrentUserId();
 //     final message = MessageModel(
@@ -428,15 +432,11 @@ class StorageService {
 
   Future<String> uploadImage(File imageFile) async {
     try {
-      final ext = imageFile.path
-          .split('.')
-          .last;
+      final ext = imageFile.path.split('.').last;
 
       final ref = storage
           .ref()
-          .child('images/${DateTime
-          .now()
-          .millisecondsSinceEpoch}.$ext');
+          .child('images/${DateTime.now().millisecondsSinceEpoch}.$ext');
       await ref
           .putFile(imageFile, SettableMetadata(contentType: 'image/$ext'))
           .then((p0) {

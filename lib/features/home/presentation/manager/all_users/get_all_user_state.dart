@@ -6,7 +6,7 @@ class GetAllUserState with _$GetAllUserState {
 
   const factory GetAllUserState.loading() = Loading;
 
-  const factory GetAllUserState.success() = Success;
+  const factory GetAllUserState.success(List<UserModel>users) = Success;
 
   const factory GetAllUserState.error(String message) = Error;
 }

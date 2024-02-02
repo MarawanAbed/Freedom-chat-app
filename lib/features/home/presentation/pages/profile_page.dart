@@ -39,7 +39,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             loading: () => const Center(
               child: CircularProgressIndicator(),
             ),
-            success: () =>  ProfileBody(user:context.read<GetUserCubit>().userModel!,),
+            success: (users) =>  ProfileBody(user:users,),
             error: (message) => Center(
               child: Text(message),
             ),

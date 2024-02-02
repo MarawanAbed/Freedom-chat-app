@@ -27,14 +27,6 @@ class BuildRowLogo extends StatelessWidget {
         ),
         HelperMethod.horizontalSpace(10),
         LogoButton(
-          icon: FontAwesomeIcons.twitter,
-          color: Colors.blue,
-          onPressed: () {
-            cubit.twitterSignInMethod();
-          },
-        ),
-        HelperMethod.horizontalSpace(10),
-        LogoButton(
           onPressed: () {
             cubit.gitHubSignInMethod(context);
           },

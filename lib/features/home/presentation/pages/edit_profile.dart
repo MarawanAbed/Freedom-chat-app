@@ -55,8 +55,7 @@ class _EditProfileState extends State<EditProfile> {
                 CustomElevatedButton(
                   title: 'Save Changes',
                   onPressed: () async {
-                    await _saveChanges(context);
-                    context.pop();
+                    _saveChanges(context).then((_) => context.pop());
                   },
                 ),
                 HelperMethod.verticalSpace(10),

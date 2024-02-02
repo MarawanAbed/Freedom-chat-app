@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:freedom_chat_app/core/helpers/extension.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
 import 'package:freedom_chat_app/features/home/presentation/manager/update_user/update_user_cubit.dart';
 
@@ -25,7 +26,8 @@ class EditProfileBlocListener extends StatelessWidget {
           },
           success: () {
             HelperMethod.showSuccessToast('Profile Updated Successfully',
-                gravity: ToastGravity.BOTTOM);
+                gravity: ToastGravity.BOTTOM,);
+            context.pop();
           },
           error: (message) {
             HelperMethod.showErrorToast(message, gravity: ToastGravity.BOTTOM);

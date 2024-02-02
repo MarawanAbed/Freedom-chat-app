@@ -3,6 +3,7 @@ import 'package:freedom_chat_app/features/home/presentation/pages/profile_page.d
 import 'package:freedom_chat_app/features/home/presentation/pages/users_page.dart';
 import 'package:freedom_chat_app/features/home/presentation/widgets/bottom_navigation.dart';
 
+import '../widgets/app_bar_custom.dart';
 import '../widgets/home_app_bar.dart';
 import '../widgets/home_body.dart';
 
@@ -52,34 +53,3 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarCustom({super.key, required this.title});
-
-  final String title;
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
-
-  @override
-  Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () {
-        return Future.value(false);
-      },
-      child: AppBar(
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 10.0),
-          child: Text(
-            title,
-            style: const TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}

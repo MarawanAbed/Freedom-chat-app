@@ -12,20 +12,23 @@ class EdtProfileTextForm extends StatefulWidget {
   const EdtProfileTextForm({super.key, required this.user});
 
   final UserModel user;
+
   @override
   State<EdtProfileTextForm> createState() => _EdtProfileTextFormState();
 }
 
 class _EdtProfileTextFormState extends State<EdtProfileTextForm> {
+  late TextEditingController nameController;
 
-  late  TextEditingController nameController ;
-  late  TextEditingController emailController ;
-  late  TextEditingController passwordController ;
-  late  TextEditingController descriptionController ;
+  late TextEditingController emailController;
+
+  late TextEditingController passwordController;
+
+  late TextEditingController descriptionController;
 
   @override
   void initState() {
-    var cubit=UpdateUserCubit.get(context);
+    var cubit = UpdateUserCubit.get(context);
     nameController = cubit.nameController;
     emailController = cubit.emailController;
     passwordController = cubit.passwordController;
@@ -34,10 +37,11 @@ class _EdtProfileTextFormState extends State<EdtProfileTextForm> {
   }
 
   bool obscureText = true;
+
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context).brightness == Brightness.dark;
-    return  Column(
+    return Column(
       children: [
         AppTextFormField(
           controller: nameController..text = widget.user.name!,

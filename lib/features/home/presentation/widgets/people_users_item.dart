@@ -17,10 +17,10 @@ class PeopleUsersItem extends StatelessWidget {
       },
       child: ListTile(
         contentPadding: const EdgeInsets.all(10),
-        leading:  CustomProfileImage(
+        leading: CustomProfileImage(
           imageUrl: user.image!,
         ),
-        title:Text (user.name!),
+        title: Text(user.name!),
         subtitle: Padding(
           padding: const EdgeInsets.only(top: 10.0),
           child: Text(

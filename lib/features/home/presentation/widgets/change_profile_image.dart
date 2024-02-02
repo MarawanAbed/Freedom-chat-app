@@ -50,8 +50,8 @@ class _ChangeProfileImageState extends State<ChangeProfileImage> {
           image: _pickedImage != null
               ? FileImage(_pickedImage!)
               : (_initialImage != null
-              ? NetworkImage(_initialImage!) as ImageProvider<Object>?
-              : null),
+                  ? NetworkImage(_initialImage!) as ImageProvider<Object>?
+                  : null),
           radius: 50,
         ),
         HelperMethod.verticalSpace(10),

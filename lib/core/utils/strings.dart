@@ -6,27 +6,31 @@ class AppStrings {
       'Freedom talk any person of your \nmother language.';
   static const String skip = 'Skip';
 
-  static const String signIn= 'Sign In';
-  static const String signUp= 'Sign Up';
-  static const String orSignInWith= 'Or Sign In With';
+  static const String note = 'Note: update email and password available only'
+      ' when you sign in with email and password not with  google or twitter or github'
+      ' and if you update email and password you will be signed out and you have to sign in again';
 
-  static const String dontHaveAccount= 'Don\'t have an account?';
+  static const String signIn = 'Sign In';
+  static const String signUp = 'Sign Up';
+  static const String orSignInWith = 'Or Sign In With';
 
-  static const String forgetPassword= 'Forget Password?';
+  static const String dontHaveAccount = 'Don\'t have an account?';
 
-  static const String email= 'Email';
-  static const String password= 'Password';
+  static const String forgetPassword = 'Forget Password?';
 
-  static const String description= 'Description';
-  static const String name= 'Name';
+  static const String email = 'Email';
+  static const String password = 'Password';
 
-  static const String loginSuccess= 'Login Success';
+  static const String description = 'Description';
+  static const String name = 'Name';
 
-  static const String registerSuccess= 'Register Success ';
+  static const String loginSuccess = 'Login Success';
 
-  static const String alreadyHaveAccount= 'Already have an account?';
+  static const String registerSuccess = 'Register Success ';
 
-  static const String pleaseSelectImage= 'Please Select Image';
+  static const String alreadyHaveAccount = 'Already have an account?';
 
-  static const String chooseProfileImage= 'Choose Profile Image';
+  static const String pleaseSelectImage = 'Please Select Image';
+
+  static const String chooseProfileImage = 'Choose Profile Image';
 }

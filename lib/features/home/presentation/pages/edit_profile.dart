@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freedom_chat_app/core/di/dependancy_injection.dart';
 import 'package:freedom_chat_app/core/helpers/extension.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
 import 'package:freedom_chat_app/features/home/presentation/manager/update_user/update_user_cubit.dart';
 import 'package:freedom_chat_app/features/home/presentation/widgets/change_profile_image.dart';
@@ -60,9 +61,7 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 HelperMethod.verticalSpace(10),
                 Text(
-                  'Note: update email and password available only'
-                  ' when you sign in with email and password not with  google or twitter or github'
-                  ' and if you update email and password you will be signed out and you have to sign in again',
+                  AppStrings.note,
                   style: Theme.of(context).textTheme.bodySmall,
                 ),
                 const EditProfileBlocListener(),
@@ -75,6 +74,7 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Future<void> _saveChanges(BuildContext context) async {
+
     final user = UserModel(
       uId: widget.user.uId,
       name: cubit.nameController.text ?? widget.user.name,

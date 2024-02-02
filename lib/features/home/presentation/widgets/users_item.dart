@@ -7,10 +7,12 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class UserItems extends StatelessWidget {
   const UserItems({
-    super.key, required this.user,
+    super.key,
+    required this.user,
   });
 
   final UserModel user;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -21,7 +23,7 @@ class UserItems extends StatelessWidget {
         leading: CustomProfileImage(
           imageUrl: user.image!,
         ),
-        title:  Text(
+        title: Text(
           user.name!.toUpperCase(),
           style: const TextStyle(
             fontSize: 18,

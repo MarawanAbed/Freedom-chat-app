@@ -17,4 +17,7 @@ abstract class HomeRepo {
       {required String email, required String password});
 
   Future<void> updateUser(Map<String, dynamic> data);
+
+  Stream<List<UserModel>> searchUsers({required String name});
+
 }

@@ -17,7 +17,7 @@ class AppTextFormField extends StatelessWidget {
 
   final FocusNode? focusNode;
   final String? Function(String?)? validator;
-
+  final void Function(String)? onChanged;
   const AppTextFormField({
     super.key,
     this.contentPadding,
@@ -30,7 +30,7 @@ class AppTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.backgroundColor,
     this.controller,
-    this.validator, this.onEditingComplete, this.focusNode,
+    this.validator, this.onEditingComplete, this.focusNode, this.onChanged,
   });
 
   @override
@@ -40,6 +40,7 @@ class AppTextFormField extends StatelessWidget {
       controller: controller,
       validator: validator,
       onEditingComplete: onEditingComplete,
+      onChanged:onChanged ,
       decoration: InputDecoration(
         isDense: true,
         contentPadding: contentPadding ??

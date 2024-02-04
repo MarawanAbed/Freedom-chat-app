@@ -7,6 +7,8 @@ class Routes {
   static const String verifyEmailScreen = '/verifyEmailScreen';
   static const String homeScreen = '/homeScreen';
   static const String chatScreen = '/chatScreen';
+
+  static const String searchScreen = '/searchScreen';
   static const String editProfileScreen = '/editProfileScreen';
 
 }

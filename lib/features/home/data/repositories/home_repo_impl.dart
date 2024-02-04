@@ -45,4 +45,9 @@ class HomeRepoImpl implements HomeRepo {
     return await remoteDataSource.updateEmailAndPassword(email: email, password: password);
   }
 
+  @override
+  Stream<List<UserModel>> searchUsers({required String name}) {
+    return remoteDataSource.searchUsers(name: name);
+  }
+
 }

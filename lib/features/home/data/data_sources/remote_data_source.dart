@@ -18,6 +18,8 @@ abstract class HomeRemoteDataSource {
   Future<String> uploadImage(File imageFile);
 
   Future<void> updateUser(Map<String, dynamic> data);
+
+  Stream<List<UserModel>> searchUsers({required String name});
 }
 
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
@@ -59,5 +61,10 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   @override
   Future<void> updateEmailAndPassword({required String email, required String password})async {
     return await authService.updateEmailAndPassword(email: email, password: password);
+  }
+
+  @override
+  Stream<List<UserModel>> searchUsers({required String name}) {
+    return databaseService.searchUsers(name: name);
   }
 }

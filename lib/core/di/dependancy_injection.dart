@@ -33,12 +33,14 @@ import 'package:freedom_chat_app/features/home/domain/repositories/home_repo.dar
 import 'package:freedom_chat_app/features/home/domain/use_cases/get_all_users.dart';
 import 'package:freedom_chat_app/features/home/domain/use_cases/get_user.dart';
 import 'package:freedom_chat_app/features/home/domain/use_cases/log_out.dart';
+import 'package:freedom_chat_app/features/home/domain/use_cases/search_users.dart';
 import 'package:freedom_chat_app/features/home/domain/use_cases/update_email_and_password.dart';
 import 'package:freedom_chat_app/features/home/domain/use_cases/update_user.dart';
 import 'package:freedom_chat_app/features/home/domain/use_cases/upload_Image.dart';
 import 'package:freedom_chat_app/features/home/domain/use_cases/user_uid.dart';
 import 'package:freedom_chat_app/features/home/presentation/manager/all_users/get_all_user_cubit.dart';
-import 'package:freedom_chat_app/features/home/presentation/manager/update_user/update_user_cubit.dart';
+import 'package:freedom_chat_app/features/home/presentation/manager/search_users/search_users_cubit.dart';
+import 'package:freedom_chat_app/features/home/presentation/manager/update_users/update_user_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:github_sign_in/github_sign_in.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -58,7 +60,8 @@ Future<void> setupGetIt() async {
       () => HomeRemoteDataSourceImpl(
             databaseService: getIt(),
             storeService: getIt(),
-            authService: getIt(),));
+            authService: getIt(),
+          ));
   getIt.registerLazySingleton<LoginRemoteDataSource>(
       () => LoginRemoteDataSourceImpl(getIt()));
   getIt.registerLazySingleton<VerifyEmailRemoteDataSource>(
@@ -92,8 +95,7 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<CheckVerifyEmailUseCase>(
       () => CheckVerifyEmailUseCase(getIt()));
   getIt.registerLazySingleton<SignInUseCase>(() => SignInUseCase(getIt()));
-  getIt.registerLazySingleton<UserUidUseCase>(
-      () => UserUidUseCase(getIt()));
+  getIt.registerLazySingleton<UserUidUseCase>(() => UserUidUseCase(getIt()));
   getIt.registerLazySingleton<ForgetPasswordUseCase>(
       () => ForgetPasswordUseCase(getIt()));
   getIt.registerLazySingleton<RegisterUseCase>(() => RegisterUseCase(getIt()));
@@ -116,6 +118,9 @@ Future<void> setupGetIt() async {
       () => ResendVerifyEmailUseCase(getIt()));
   getIt.registerLazySingleton<HomeLogOutUseCase>(
       () => HomeLogOutUseCase(getIt()));
+  getIt.registerLazySingleton<SearchUsersUseCase>(
+      () => SearchUsersUseCase(getIt()));
+
   //cubit
   getIt.registerLazySingleton<LoginCubit>(
     () => LoginCubit(
@@ -162,6 +167,12 @@ Future<void> setupGetIt() async {
       verifyEmail: getIt(),
       resendVerifyEmail: getIt(),
       logOut: getIt(),
+    ),
+  );
+
+  getIt.registerLazySingleton<SearchUsersCubit>(
+    () => SearchUsersCubit(
+      getIt(),
     ),
   );
 

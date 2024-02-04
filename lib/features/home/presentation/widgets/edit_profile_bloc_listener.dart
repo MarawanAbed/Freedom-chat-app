@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freedom_chat_app/core/helpers/extension.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
-import 'package:freedom_chat_app/features/home/presentation/manager/update_user/update_user_cubit.dart';
+import 'package:freedom_chat_app/features/home/presentation/manager/update_users/update_user_cubit.dart';
 
 class EditProfileBlocListener extends StatelessWidget {
   const EditProfileBlocListener({super.key});

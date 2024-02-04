@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freedom_chat_app/core/themes/styles.dart';
 import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
-import 'package:freedom_chat_app/features/home/presentation/manager/update_user/update_user_cubit.dart';
+import 'package:freedom_chat_app/features/home/presentation/manager/update_users/update_user_cubit.dart';
 
 import '../../../../core/helpers/helper_methods.dart';
 import '../../../../core/themes/app_colors.dart';

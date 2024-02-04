@@ -10,9 +10,11 @@ import 'package:freedom_chat_app/features/auth/register/presentation/pages/sign_
 import 'package:freedom_chat_app/features/auth/verify_email/presentation/manager/verify_email_cubit.dart';
 import 'package:freedom_chat_app/features/chat/presentation/pages/chat_page.dart';
 import 'package:freedom_chat_app/features/home/presentation/manager/all_users/get_all_user_cubit.dart';
+import 'package:freedom_chat_app/features/home/presentation/manager/search_users/search_users_cubit.dart';
 import 'package:freedom_chat_app/features/home/presentation/manager/single_user/get_user_cubit.dart';
 import 'package:freedom_chat_app/features/home/presentation/pages/edit_profile.dart';
 import 'package:freedom_chat_app/features/home/presentation/pages/home_page.dart';
+import 'package:freedom_chat_app/features/home/presentation/pages/search_page.dart';
 import 'package:freedom_chat_app/features/onBoarding/presentation/pages/on_boarding_screen.dart';
 
 import '../../features/auth/auth_screen.dart';
@@ -74,8 +76,19 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => EditProfile(user: user!),
         );
+      case Routes.searchScreen:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (BuildContext context) => getIt<SearchUsersCubit>(),
+            child: const SearchScreen(),
+          ),
+        );
       case Routes.chatScreen:
-        return MaterialPageRoute(builder: (_) => const ChatScreen());
+        final user = settings.arguments as UserModel?;
+        return MaterialPageRoute(
+            builder: (_) => ChatScreen(
+                  user: user!,
+                ));
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

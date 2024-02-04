@@ -18,8 +18,9 @@ class _ChatTextFieldState extends State<ChatTextField> {
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Row(
         children: [
-          const Expanded(
+           Expanded(
             child: AppTextFormField(
+              controller: _controller,
               hintText: 'Type a message',
             ),
           ),

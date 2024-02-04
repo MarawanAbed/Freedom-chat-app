@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:freedom_chat_app/core/themes/app_colors.dart';
+import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
 
 class MessageBubble extends StatelessWidget {
   const MessageBubble({
-    super.key,
+    super.key, required this.user,
     // required this.messageModel,
     // required this.isMe,
   });
 
+  final UserModel user;
   // final bool isMe;
 
   @override
@@ -20,10 +22,11 @@ class MessageBubble extends StatelessWidget {
         alignment: Alignment.topRight,
         child: Row(
           children: [
-            const CircleAvatar(
+            CircleAvatar(
               radius: 20,
               backgroundImage: NetworkImage(
-                  'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg'),
+                  user.image!,
+              ),
             ),
             Container(
               decoration: const BoxDecoration(

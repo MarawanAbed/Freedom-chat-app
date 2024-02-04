@@ -4,6 +4,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
 import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/features/auth/login/presentation/manager/login/login_cubit.dart';
+import 'package:freedom_chat_app/core/routes/routes.dart';
+import 'package:freedom_chat_app/core/helpers/extension.dart';
 
 class LoginBlocListener extends StatelessWidget {
   const LoginBlocListener({super.key});
@@ -28,6 +30,8 @@ class LoginBlocListener extends StatelessWidget {
               AppStrings.loginSuccess,
               gravity: ToastGravity.BOTTOM,
             );
+            context.pushReplacementNamed(Routes.homeScreen);
+
           },
           successWithGithub: () {
             HelperMethod.showSuccessToast(AppStrings.loginSuccess,

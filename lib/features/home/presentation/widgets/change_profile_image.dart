@@ -5,7 +5,7 @@ import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
 import 'package:freedom_chat_app/core/widgets/please_pick_image.dart';
 import 'package:freedom_chat_app/core/widgets/profile_image.dart';
 
-import '../manager/update_user/update_user_cubit.dart';
+import '../manager/update_users/update_user_cubit.dart';
 
 class ChangeProfileImage extends StatefulWidget {
   const ChangeProfileImage({Key? key, required this.image}) : super(key: key);

@@ -7,36 +7,33 @@ import 'package:freedom_chat_app/features/home/presentation/widgets/custom_profi
 class PeopleUsersItem extends StatelessWidget {
   final UserModel user;
 
-  const PeopleUsersItem({super.key, required this.user});
+  const PeopleUsersItem({super.key, required this.user,this.isMe=false});
 
+  final bool isMe;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        context.pushNamed(Routes.chatScreen);
-      },
-      child: ListTile(
-        contentPadding: const EdgeInsets.all(10),
-        leading: CustomProfileImage(
-          imageUrl: user.image!,
-        ),
-        title: Text(user.name!),
-        subtitle: Padding(
-          padding: const EdgeInsets.only(top: 10.0),
-          child: Text(
-            user.description!,
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.grey,
-            ),
+    return ListTile(
+      contentPadding: const EdgeInsets.all(10),
+      leading: CustomProfileImage(
+        imageUrl: user.image!,
+      ),
+      title: isMe? const Text('Me'):Text(user.name!),
+      subtitle: Padding(
+        padding: const EdgeInsets.only(top: 10.0),
+        child: Text(
+          user.description!,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 1,
+          style: const TextStyle(
+            fontSize: 14,
+            color: Colors.grey,
           ),
         ),
-        onTap: () {
-          // Handle user item tap if needed
-        },
       ),
+      onTap: () {
+        // Handle user item tap if needed
+        context.pushNamed(Routes.chatScreen,arguments: user);
+      },
     );
   }
 }

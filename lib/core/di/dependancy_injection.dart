@@ -27,6 +27,16 @@ import 'package:freedom_chat_app/features/auth/verify_email/domain/use_cases/che
 import 'package:freedom_chat_app/features/auth/verify_email/domain/use_cases/resend_email.dart';
 import 'package:freedom_chat_app/features/auth/verify_email/domain/use_cases/verify_email.dart';
 import 'package:freedom_chat_app/features/auth/verify_email/presentation/manager/verify_email_cubit.dart';
+import 'package:freedom_chat_app/features/chat/data/data_sources/remote_data_source.dart';
+import 'package:freedom_chat_app/features/chat/data/repositories/chat_repo_impl.dart';
+import 'package:freedom_chat_app/features/chat/domain/repositories/chat_repo.dart';
+import 'package:freedom_chat_app/features/chat/domain/use_cases/add_image_message.dart';
+import 'package:freedom_chat_app/features/chat/domain/use_cases/add_text_message.dart';
+import 'package:freedom_chat_app/features/chat/domain/use_cases/get_all_messages.dart';
+import 'package:freedom_chat_app/features/chat/domain/use_cases/get_user_id.dart';
+import 'package:freedom_chat_app/features/chat/domain/use_cases/upload_image.dart';
+import 'package:freedom_chat_app/features/chat/presentation/manager/get_all_messages/get_all_messages_cubit.dart';
+import 'package:freedom_chat_app/features/chat/presentation/manager/send_message/send_messages_cubit.dart';
 import 'package:freedom_chat_app/features/home/data/data_sources/remote_data_source.dart';
 import 'package:freedom_chat_app/features/home/data/repositories/home_repo_impl.dart';
 import 'package:freedom_chat_app/features/home/domain/repositories/home_repo.dart';
@@ -74,8 +84,12 @@ Future<void> setupGetIt() async {
           ));
   getIt.registerLazySingleton<ForgetRemoteDataSource>(
       () => ForgetRemoteDataSourceImpl(auth: getIt()));
+  getIt.registerLazySingleton<ChatRemoteDataSource>(
+      () => ChatRemoteDataSourceImpl(getIt(), getIt(), getIt()));
 
   //repositories
+
+  getIt.registerLazySingleton<ChatRepo>(() => ChatRepoImpl((getIt())));
   getIt.registerLazySingleton<HomeRepo>(() => HomeRepoImpl((getIt())));
   getIt.registerLazySingleton<LoginInRepo>(() => LoginRepoImpl(getIt()));
   getIt.registerLazySingleton<RegisterRepo>(() => RegisterRepoImpl(getIt()));
@@ -98,6 +112,8 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<UserUidUseCase>(() => UserUidUseCase(getIt()));
   getIt.registerLazySingleton<ForgetPasswordUseCase>(
       () => ForgetPasswordUseCase(getIt()));
+  getIt.registerLazySingleton<HomeLogOutUseCase>(
+      () => HomeLogOutUseCase(getIt()));
   getIt.registerLazySingleton<RegisterUseCase>(() => RegisterUseCase(getIt()));
   getIt.registerLazySingleton<RegisterUploadImageUseCase>(
       () => RegisterUploadImageUseCase(getIt()));
@@ -116,11 +132,18 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<LogOutUseCase>(() => LogOutUseCase(getIt()));
   getIt.registerLazySingleton<ResendVerifyEmailUseCase>(
       () => ResendVerifyEmailUseCase(getIt()));
-  getIt.registerLazySingleton<HomeLogOutUseCase>(
-      () => HomeLogOutUseCase(getIt()));
   getIt.registerLazySingleton<SearchUsersUseCase>(
       () => SearchUsersUseCase(getIt()));
-
+  getIt.registerLazySingleton<ChatsUploadImageUseCase>(
+      () => ChatsUploadImageUseCase(getIt()));
+  getIt.registerLazySingleton<AddImageMessageUseCase>(
+      () => AddImageMessageUseCase(getIt()));
+  getIt.registerLazySingleton<AddTextMessageUseCase>(
+      () => AddTextMessageUseCase(getIt()));
+  getIt.registerLazySingleton<GetAllMessagesUseCase>(
+      () => GetAllMessagesUseCase(getIt()));
+  getIt
+      .registerLazySingleton<GetUserIdUseCase>(() => GetUserIdUseCase(getIt()));
   //cubit
   getIt.registerLazySingleton<LoginCubit>(
     () => LoginCubit(
@@ -131,6 +154,19 @@ Future<void> setupGetIt() async {
     ),
   );
 
+  getIt.registerLazySingleton<SendMessagesCubit>(
+    () => SendMessagesCubit(
+      getIt(),
+      getIt(),
+      getIt(),
+      getIt(),
+    ),
+  );
+  getIt.registerLazySingleton<GetAllMessagesCubit>(
+    () => GetAllMessagesCubit(
+      getIt(),
+    ),
+  );
   getIt.registerLazySingleton<UpdateUserCubit>(
     () => UpdateUserCubit(
       getIt(),
@@ -141,6 +177,7 @@ Future<void> setupGetIt() async {
   );
   getIt.registerLazySingleton<GetAllUserCubit>(
     () => GetAllUserCubit(
+      getIt(),
       getIt(),
     ),
   );

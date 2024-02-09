@@ -1,49 +1,92 @@
 import 'package:flutter/material.dart';
 import 'package:freedom_chat_app/core/themes/app_colors.dart';
 import 'package:freedom_chat_app/core/widgets/app_text_form.dart';
+import 'package:freedom_chat_app/features/chat/presentation/manager/send_message/send_messages_cubit.dart';
+import 'package:freedom_chat_app/features/chat/presentation/widgets/chat_text_field_bloc_listener.dart';
+import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
+
+import '../../../../core/themes/styles.dart';
 
 class ChatTextField extends StatefulWidget {
-  const ChatTextField({super.key});
+  const ChatTextField({super.key, required this.user});
+
+  final UserModel user;
 
   @override
   State<ChatTextField> createState() => _ChatTextFieldState();
 }
 
 class _ChatTextFieldState extends State<ChatTextField> {
-
   final TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context).brightness == Brightness.dark;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Row(
         children: [
-           Expanded(
+          Expanded(
             child: AppTextFormField(
               controller: _controller,
+              inputTextStyle: _inputColor(theme),
+              hintStyle: _hintStyle(theme),
+              backgroundColor: theme ? AppColors.kField2 : Colors.white,
               hintText: 'Type a message',
+              suffixIcon: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      _sendImage(context);
+                    },
+                    icon: Icon(
+                      Icons.camera_alt,
+                      size: 20,
+                      color: theme ? Colors.white : Colors.grey,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      _sendText(context);
+                    },
+                    icon: Icon(
+                      Icons.send,
+                      size: 20,
+                      color: theme ? Colors.white : Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-          const SizedBox(
-            width: 10,
-          ),
-          FloatingActionButton(
-            heroTag: "btn1",
-            onPressed: () {},
-            backgroundColor: AppColors.kPrimaryColor,
-            child: const Icon(Icons.send),
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          FloatingActionButton(
-            heroTag: "btn2",
-            backgroundColor: AppColors.kSecondaryColor,
-            onPressed: () {},
-            child: const Icon(Icons.camera_alt_outlined),
-          ),
+          const ChatTextFieldBlocListener(),
         ],
       ),
     );
+  }
+
+  TextStyle _hintStyle(bool theme) {
+    return theme
+        ? TextStyles.font14NormalGrey.copyWith(color: Colors.white)
+        : TextStyles.font14NormalGrey;
+  }
+
+  TextStyle _inputColor(bool theme) {
+    return theme
+        ? TextStyles.font14NormalGrey.copyWith(color: Colors.white)
+        : TextStyles.font14NormalGrey.copyWith(color: Colors.black);
+  }
+
+  Future<void> _sendText(BuildContext context) async {
+    var cubit = SendMessagesCubit.get(context);
+    await cubit.addMessageText(
+        content: _controller.text, receiverId: widget.user.uId!,user: widget.user);
+    _controller.clear();
+  }
+
+  Future<void> _sendImage(BuildContext context) async {
+    var cubit = SendMessagesCubit.get(context);
+    await cubit.addMessageImage(receiverId: widget.user.uId!,user: widget.user);
   }
 }

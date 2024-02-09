@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:freedom_chat_app/core/helpers/extension.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
 import 'package:freedom_chat_app/core/routes/routes.dart';
+import 'package:freedom_chat_app/features/home/presentation/manager/all_users/get_all_user_cubit.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({Key? key}) : super(key: key);
@@ -39,7 +39,8 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
           HelperMethod.horizontalSpace(15),
           IconButton(
             onPressed: () {
-              FirebaseAuth.instance.signOut();
+              var cubit = GetAllUserCubit.get(context);
+              cubit.logOutMethod();
             },
             icon: const Icon(
               Icons.logout,

@@ -8,6 +8,8 @@ import 'package:freedom_chat_app/features/auth/login/presentation/pages/login_pa
 import 'package:freedom_chat_app/features/auth/register/presentation/manager/register_cubit.dart';
 import 'package:freedom_chat_app/features/auth/register/presentation/pages/sign_up.dart';
 import 'package:freedom_chat_app/features/auth/verify_email/presentation/manager/verify_email_cubit.dart';
+import 'package:freedom_chat_app/features/chat/presentation/manager/get_all_messages/get_all_messages_cubit.dart';
+import 'package:freedom_chat_app/features/chat/presentation/manager/send_message/send_messages_cubit.dart';
 import 'package:freedom_chat_app/features/chat/presentation/pages/chat_page.dart';
 import 'package:freedom_chat_app/features/home/presentation/manager/all_users/get_all_user_cubit.dart';
 import 'package:freedom_chat_app/features/home/presentation/manager/search_users/search_users_cubit.dart';
@@ -86,8 +88,18 @@ class AppRouter {
       case Routes.chatScreen:
         final user = settings.arguments as UserModel?;
         return MaterialPageRoute(
-            builder: (_) => ChatScreen(
-                  user: user!,
+            builder: (_) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider(
+                      create: (context) => getIt<SendMessagesCubit>(),
+                    ),
+                    BlocProvider(
+                      create: (context) => getIt<GetAllMessagesCubit>(),
+                    ),
+                  ],
+                  child: ChatScreen(
+                    user: user!,
+                  ),
                 ));
       default:
         return MaterialPageRoute(

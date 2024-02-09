@@ -50,6 +50,7 @@ class AuthService {
           print('Wrong password provided for that user.');
         }
       }
+      throw Exception('Failed to sign in');
     }
     //this after you update email and password there is problem might found so i add this
     //to update user data after update email and password
@@ -66,6 +67,7 @@ class AuthService {
       if (kDebugMode) {
         print(e.toString());
       }
+      throw Exception('Failed to send password reset email');
     }
   }
 
@@ -85,11 +87,17 @@ class AuthService {
           print('The account already exists for that email.');
         }
       }
+      throw Exception('Failed to sign up');
     }
   }
 
   Future<void> signOut() async {
     try {
+      await getIt<DatabaseService>().updateUser({
+        'lastActive': DateTime.now(),
+        'uId': auth.currentUser!.uid,
+        'isOnline': 'false',
+      });
       await auth.signOut();
     } on FirebaseAuth catch (e) {
       if (kDebugMode) {
@@ -143,6 +151,11 @@ class AuthService {
         isOnline: true,
       );
       await getIt<DatabaseService>().createUser(userModel);
+      await getIt<DatabaseService>().updateUser({
+        'lastActive': DateTime.now(),
+        'uId': auth.currentUser!.uid,
+        'isOnline': 'true',
+      });
     } on FirebaseAuth catch (e) {
       if (kDebugMode) {
         print('Google sign in error: $e');
@@ -178,6 +191,11 @@ class AuthService {
       );
 
       await getIt<DatabaseService>().createUser(userModel);
+      await getIt<DatabaseService>().updateUser({
+        'lastActive': DateTime.now(),
+        'uId': auth.currentUser!.uid,
+        'isOnline': 'true',
+      });
     } on FirebaseAuth catch (e) {
       if (kDebugMode) {
         print('Twitter sign in error: $e');
@@ -209,6 +227,12 @@ class AuthService {
       );
 
       await getIt<DatabaseService>().createUser(userModel);
+      //here i want if there is data in user collection with this id i will not add it again
+      await getIt<DatabaseService>().updateUser({
+        'lastActive': DateTime.now(),
+        'uId': auth.currentUser!.uid,
+        'isOnline': 'true',
+      });
     } on FirebaseAuth catch (e) {
       if (kDebugMode) {
         print('GitHub sign in error: $e');
@@ -230,6 +254,7 @@ class AuthService {
       if (kDebugMode) {
         print(e.toString());
       }
+      throw Exception('Failed to send verification email');
     }
   }
 
@@ -257,6 +282,7 @@ class AuthService {
       if (kDebugMode) {
         print(e.toString());
       }
+      throw Exception('Failed to update email and password');
     }
   }
 }
@@ -393,9 +419,10 @@ class DatabaseService {
     }
   }
 
-  Stream<List<MessageModel>> getAllMessages({required String receiverId}) {
+  Stream<List<MessageModel>> getAllMessage({required String receiverId}) {
+    print('receiverId: $receiverId');
     final uId = getIt<AuthService>().getCurrentUserId();
-    final messageCollection = _fireStore
+    final messageCollection = FirebaseFirestore.instance
         .collection('users')
         .doc(uId)
         .collection('chats')
@@ -403,7 +430,11 @@ class DatabaseService {
         .collection('messages')
         .orderBy('sendTime', descending: false)
         .snapshots(includeMetadataChanges: true);
+
     return messageCollection.map((querySnapshot) {
+      if (querySnapshot.docs.isEmpty) {
+        return []; // Return an empty list if there are no messages
+      }
       return querySnapshot.docs
           .map((e) => MessageModel.fromJson(e.data()))
           .toList();

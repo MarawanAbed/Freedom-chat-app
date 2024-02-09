@@ -1,19 +1,18 @@
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 
-
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
-  print('Handling a background message ${message.messageId}');
+  print('Handling a background message ${message.notification!.title}');
+  await LocalNotificationsServices.showText(
+    title: message.notification!.title!,
+    body: message.notification!.body!,
+    fln: RemoteNotificationService().flutterLocalNotificationsPlugin,
+  );
 }
 
 class RemoteNotificationService {
@@ -21,22 +20,15 @@ class RemoteNotificationService {
       'AAAAnqzCkZQ:APA91bGVTGo1VqbR5hTDgf0NK9p5sLkkOqDsi9ktY2wPJQSKoBbh5NHO8bWT4_5p4TEfEs8gq7BBU_A9ByCJtTyg-AISQUZJlpPS7iXbfCPjdRFn6bkJAyEuuo3hw7dihTy2n29-VG3Z';
   final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-   void firebaseNotification() {
+  void firebaseNotification() {
     print('firebaseNotification');
-    FirebaseMessaging.onMessageOpenedApp.listen((message) async {
-      print('onMessageOpenedApp: $message');
-    });
-    FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      print('Got a message whilst in the foreground!');
-      print('Message data: ${message.data}');
-      if (message.notification != null) {
-        print('Message also contained a notification: ${message.notification}');
-        await LocalNotificationsServices.showText(
-          title: message.notification!.title!,
-          body: message.notification!.body!,
-          fln: flutterLocalNotificationsPlugin,
-        );
-      }
+    FirebaseMessaging.onMessage.listen((message) async {
+      print('onMessage: $message');
+      await LocalNotificationsServices.showText(
+        title: message.notification!.title!,
+        body: message.notification!.body!,
+        fln: flutterLocalNotificationsPlugin,
+      );
     });
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
@@ -72,7 +64,7 @@ class RemoteNotificationService {
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .set({'token': token},
-            SetOptions(merge: true)); //replace token each time we login
+      SetOptions(merge: true),); //replace token each time we login
   }
 
   Future<String> getReceiverToken(String receiverId) async {
@@ -136,21 +128,20 @@ class LocalNotificationsServices {
   static Future init(
       FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
     var andriodInitilize =
-        const AndroidInitializationSettings('@mipmap/ic_launcher');
+    const AndroidInitializationSettings('@mipmap/ic_launcher');
     var initilizationSettings =
-        InitializationSettings(android: andriodInitilize);
+    InitializationSettings(android: andriodInitilize);
     await flutterLocalNotificationsPlugin.initialize(initilizationSettings);
     // Initialize time zones
   }
 
-  static Future showText(
-      {var id = 0,
-      required String title,
-      required String body,
-      var payload,
-      required FlutterLocalNotificationsPlugin fln}) async {
+  static Future showText({var id = 0,
+    required String title,
+    required String body,
+    var payload,
+    required FlutterLocalNotificationsPlugin fln}) async {
     AndroidNotificationDetails androidNotificationDetails =
-        const AndroidNotificationDetails(
+    const AndroidNotificationDetails(
       'channelId',
       'channelName',
       importance: Importance.max,

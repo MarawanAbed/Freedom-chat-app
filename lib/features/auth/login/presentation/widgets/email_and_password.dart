@@ -69,7 +69,7 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
               icon: Icon(
                 obscureText ? Icons.visibility_off : Icons.visibility,
                 size: 20.sp,
-                color: Theme.of(context).brightness == Brightness.dark
+                color: theme
                     ? Colors.white
                     : Colors.grey,
               ),

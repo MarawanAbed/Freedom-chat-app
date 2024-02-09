@@ -17,10 +17,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
-  @override
-  void initState() {
-    super.initState();
-  }
   final List<Widget> _pages = const [
     HomeBody(),
     UsersScreen(),
@@ -52,4 +48,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-

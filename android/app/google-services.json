@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "376642162306-391qa9jobd3rcotqmi21v0jeinphig7b.apps.googleusercontent.com",
+          "client_id": "376642162306-efnlrn08k9qvqrc2mcagd3fr0410g248.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.marwan.freedom_chat_app",
+            "certificate_hash": "c142763892c3f661e0c138ff9c29ba6660bb5295"
+          }
+        },
+        {
+          "client_id": "376642162306-mp26t4h3j4nff4pbdl6ubf4cotre4dg3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -29,6 +37,13 @@
             {
               "client_id": "376642162306-391qa9jobd3rcotqmi21v0jeinphig7b.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "376642162306-ktcutrnivepn6o0ib37ahhep8si60eov.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.marwan.freedomChatApp"
+              }
             }
           ]
         }

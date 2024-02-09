@@ -8,6 +8,8 @@ import 'package:freedom_chat_app/features/auth/register/domain/use_cases/upload_
 import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../../core/services/notification_services.dart';
+
 part 'register_cubit.freezed.dart';
 
 part 'register_state.dart';
@@ -27,6 +29,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   File? profileImage;
   final registerFormKey = GlobalKey<FormState>();
 
+  final RemoteNotificationService _remoteNotificationService = RemoteNotificationService();
   void registerMethod(UserModel userModel) async {
       emit(const RegisterState.loading());
       try {
@@ -34,6 +37,8 @@ class RegisterCubit extends Cubit<RegisterState> {
           userModel,
         );
         createUser(userModel);
+        await _remoteNotificationService.requestPermission();
+        await _remoteNotificationService.getToken();
         emit(const RegisterState.success());
       } catch (e) {
         emit(RegisterState.error(e.toString()));

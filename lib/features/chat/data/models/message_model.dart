@@ -1,16 +1,16 @@
 class MessageModel {
   final String senderId;
   final String receiverId;
-  final String content;
-  final DateTime sendTime;
-  final MessageType messageType;
+  final String? content;
+  final DateTime? sendTime;
+  final MessageType? messageType;
 
   MessageModel({
     required this.senderId,
     required this.receiverId,
-    required this.content,
-    required this.sendTime,
-    required this.messageType,
+     this.content,
+     this.sendTime,
+     this.messageType,
   });
 
   factory MessageModel.fromJson(Object? json) {
@@ -38,7 +38,7 @@ class MessageModel {
       'receiverId': receiverId,
       'content': content,
       'sendTime': sendTime,
-      'messageType': messageType.toJson(),
+      'messageType': messageType?.toJson(),
     };
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freedom_chat_app/core/di/dependancy_injection.dart';
+import 'package:freedom_chat_app/core/services/notification_services.dart';
 import 'package:freedom_chat_app/features/auth/login/data/models/sign_in_model.dart';
 import 'package:freedom_chat_app/features/auth/login/domain/use_cases/github_sign_in.dart';
 import 'package:freedom_chat_app/features/auth/login/domain/use_cases/google_sign_in.dart';
@@ -32,6 +34,8 @@ class LoginCubit extends Cubit<LoginState> {
   TextEditingController passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
+  final RemoteNotificationService _remoteNotificationService =
+      RemoteNotificationService();
   void loginMethod() async {
     if (formKey.currentState!.validate()) {
       emit(const LoginState.loading());
@@ -53,6 +57,8 @@ class LoginCubit extends Cubit<LoginState> {
     emit(const LoginState.loading());
     try {
       await googleSignInUseCase.call();
+      await _remoteNotificationService.requestPermission();
+      await _remoteNotificationService.getToken();
       emit(const LoginState.success());
     } catch (e) {
       emit(LoginState.error(e.toString()));
@@ -62,6 +68,8 @@ class LoginCubit extends Cubit<LoginState> {
   void gitHubSignInMethod(context) async {
     try {
       await gitHubSignInUseCase.call(context);
+      await getIt<RemoteNotificationService>().requestPermission();
+      await getIt<RemoteNotificationService>().getToken();
       emit(const LoginState.successWithGithub());
     } catch (e) {
       emit(LoginState.errorWithGithub(e.toString()));

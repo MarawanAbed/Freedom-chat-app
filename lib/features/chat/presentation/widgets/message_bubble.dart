@@ -1,49 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:freedom_chat_app/core/themes/app_colors.dart';
+import 'package:freedom_chat_app/features/chat/data/models/message_model.dart';
 import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class MessageBubble extends StatelessWidget {
   const MessageBubble({
-    super.key, required this.user,
-    // required this.messageModel,
-    // required this.isMe,
+    super.key,
+    required this.user,
+    required this.messageModel,
+    required this.isMe,
   });
 
+  final MessageModel messageModel;
   final UserModel user;
-  // final bool isMe;
+  final bool isMe;
 
   @override
   Widget build(BuildContext context) {
     // final isImageMessage = messageModel.chatContent.startsWith('http'); // Check if the content is a URL
-
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
       child: Align(
-        alignment: Alignment.topRight,
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: 20,
-              backgroundImage: NetworkImage(
-                  user.image!,
-              ),
+        alignment: isMe ? Alignment.topLeft : Alignment.topRight,
+        child: Container(
+          decoration: BoxDecoration(
+            color: isMe ? Colors.red[300] : Colors.blue[300],
+            borderRadius: isMe
+                ? const BorderRadius.only(
+              topRight: Radius.circular(30),
+              topLeft: Radius.circular(30),
+              bottomRight: Radius.circular(30),
+            )
+                : const BorderRadius.only(
+              topRight: Radius.circular(30),
+              topLeft: Radius.circular(30),
+              bottomLeft: Radius.circular(30),
             ),
-            Container(
-              decoration: const BoxDecoration(
-                color: AppColors.kPrimaryColor,
-                borderRadius: BorderRadius.all(Radius.circular(30)),
-              ),
-              margin: const EdgeInsets.only(top: 10, right: 10, left: 10),
-              padding: const EdgeInsets.all(10),
-              child: const Text(
-                'Ahmed Karim',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+          ),
+          margin: const EdgeInsets.only(top: 10, right: 10, left: 10),
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment:
+            isMe ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+            children: [
+              if (messageModel.messageType == MessageType.image)
+                Container(
+                  height: 200,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    image: DecorationImage(
+                      image: NetworkImage(messageModel.content!),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
+              else
+                Text(
+                  messageModel.content!,
+                  style: const TextStyle(fontSize: 16, color: Colors.white),
                 ),
+              const SizedBox(
+                height: 5,
               ),
-            ),
-          ],
+              Text(
+                timeago.format(messageModel.sendTime!),
+                style: const TextStyle(fontSize: 10),
+              ),
+            ],
+          ),
         ),
       ),
     );

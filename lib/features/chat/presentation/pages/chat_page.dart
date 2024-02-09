@@ -22,8 +22,10 @@ class ChatScreen extends StatelessWidget {
               user: user,
             ),
           ),
-          Divider(),
-          ChatTextField(),
+          const Divider(
+            color: Colors.grey,
+          ),
+          ChatTextField(user: user),
         ],
       ),
     );

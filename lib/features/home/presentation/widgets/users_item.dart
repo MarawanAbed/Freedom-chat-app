@@ -17,24 +17,24 @@ class UserItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.pushNamed(Routes.chatScreen);
+        context.pushNamed(Routes.chatScreen, arguments: user);
       },
       child: ListTile(
         leading: CustomProfileImage(
-          imageUrl: user.image!,
+          user: user,
         ),
         title: Text(
-          user.name!.toUpperCase(),
+          user.name!,
           style: const TextStyle(
             fontSize: 18,
           ),
         ),
         contentPadding: const EdgeInsets.all(10),
-        subtitle: const Padding(
-          padding: EdgeInsets.only(top: 10.0),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(top: 10.0),
           child: Text(
-            'Hey there! I am using freedom chat app',
-            style: TextStyle(
+            user.description!,
+            style: const TextStyle(
               fontSize: 14,
               color: Colors.grey,
             ),

@@ -23,8 +23,8 @@ class CustomProfileImage extends StatelessWidget {
           right: 0,
           bottom: 0,
           child: Container(
-            width: 12,
-            height: 12,
+            width: 15,
+            height: 15,
             decoration: BoxDecoration(
               color: Colors.green,
               shape: BoxShape.circle,

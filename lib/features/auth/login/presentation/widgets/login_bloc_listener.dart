@@ -31,7 +31,6 @@ class LoginBlocListener extends StatelessWidget {
               gravity: ToastGravity.BOTTOM,
             );
             context.pushReplacementNamed(Routes.homeScreen);
-
           },
           successWithGithub: () {
             HelperMethod.showSuccessToast(AppStrings.loginSuccess,

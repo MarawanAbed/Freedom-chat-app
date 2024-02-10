@@ -227,7 +227,6 @@ class AuthService {
       );
 
       await getIt<DatabaseService>().createUser(userModel);
-      //here i want if there is data in user collection with this id i will not add it again
       await getIt<DatabaseService>().updateUser({
         'lastActive': DateTime.now(),
         'uId': auth.currentUser!.uid,
@@ -258,18 +257,17 @@ class AuthService {
     }
   }
 
-  Future<void> resendVerificationEmail() async {
+  Future<void> resendEmailVerification() async {
     try {
-      final user = auth.currentUser!;
-      if (!user.emailVerified) {
+      final user = auth.currentUser;
+      if (user != null && !user.emailVerified) {
         await user.sendEmailVerification();
-      } else {
-        throw Exception('Email is already verified');
       }
-    } on FirebaseAuth catch (e) {
+    } on FirebaseAuthException catch (e) {
       if (kDebugMode) {
-        print(e.toString());
+        print('Failed to send verification email: $e');
       }
+      throw Exception('Failed to send verification email');
     }
   }
 
@@ -307,14 +305,18 @@ class DatabaseService {
   }
 
   Stream<List<UserModel>> getAllUsers() {
-    final userCollection =
-        _fireStore.collection('users').orderBy('lastActive', descending: true);
-
-    return userCollection.snapshots(includeMetadataChanges: true).map(
-          (querySnapshot) => querySnapshot.docs
-              .map((e) => UserModel.fromJson(e.data()))
-              .toList(),
-        );
+    final userCollection = _fireStore
+        .collection('users')
+        .orderBy('lastActive', descending: true)
+        .snapshots(includeMetadataChanges: true);
+    return userCollection.map((querySnapshot) {
+      if (querySnapshot.docs.isEmpty) {
+        return [];
+      }
+      return querySnapshot.docs
+          .map((e) => UserModel.fromJson(e.data()))
+          .toList();
+    });
   }
 
   Future<void> updateUser(Map<String, dynamic> data) async {

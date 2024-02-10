@@ -22,4 +22,11 @@ class SearchUsersCubit extends Cubit<SearchUsersState> {
       emit(SearchUsersState.error(e.toString()));
     });
   }
+
+  @override
+  void emit(SearchUsersState state) {
+    if(!isClosed) {
+      super.emit(state);
+    }
+  }
 }

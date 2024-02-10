@@ -1,30 +1,47 @@
 import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:freedom_chat_app/core/utils/app_secured.dart';
 import 'package:http/http.dart' as http;
+
+import '../di/dependancy_injection.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print('Handling a background message ${message.notification!.title}');
-  await LocalNotificationsServices.showText(
+  await getIt<LocalNotificationsServices>().showText(
     title: message.notification!.title!,
     body: message.notification!.body!,
-    fln: RemoteNotificationService().flutterLocalNotificationsPlugin,
+    fln: getIt<RemoteNotificationService>().flutterLocalNotificationsPlugin,
   );
 }
 
 class RemoteNotificationService {
-  static const key =
-      'AAAAnqzCkZQ:APA91bGVTGo1VqbR5hTDgf0NK9p5sLkkOqDsi9ktY2wPJQSKoBbh5NHO8bWT4_5p4TEfEs8gq7BBU_A9ByCJtTyg-AISQUZJlpPS7iXbfCPjdRFn6bkJAyEuuo3hw7dihTy2n29-VG3Z';
-  final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  final FirebaseMessaging firebaseMessaging;
+
+  final FirebaseFirestore firebaseFireStore;
+  final FirebaseAuth firebaseAuth;
+
+  RemoteNotificationService(this.flutterLocalNotificationsPlugin,
+      this.firebaseMessaging, this.firebaseFireStore, this.firebaseAuth);
 
   void firebaseNotification() {
     print('firebaseNotification');
+    FirebaseMessaging.onMessageOpenedApp.listen((message) async {
+      print('onMessageOpenedApp: $message');
+      await getIt<LocalNotificationsServices>().showText(
+        title: message.notification!.title!,
+        body: message.notification!.body!,
+        fln: flutterLocalNotificationsPlugin,
+      );
+    });
     FirebaseMessaging.onMessage.listen((message) async {
       print('onMessage: $message');
-      await LocalNotificationsServices.showText(
+      await getIt<LocalNotificationsServices>().showText(
         title: message.notification!.title!,
         body: message.notification!.body!,
         fln: flutterLocalNotificationsPlugin,
@@ -34,8 +51,7 @@ class RemoteNotificationService {
   }
 
   Future<void> requestPermission() async {
-    final message = FirebaseMessaging.instance;
-    final settings = await message.requestPermission(
+    final settings = await firebaseMessaging.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
@@ -55,23 +71,23 @@ class RemoteNotificationService {
   }
 
   Future<void> getToken() async {
-    final token = await FirebaseMessaging.instance.getToken();
+    final token = await firebaseMessaging.getToken();
     _saveToken(token!);
   }
 
   Future<void> _saveToken(String token) async {
-    await FirebaseFirestore.instance
+    await firebaseFireStore
         .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .set({'token': token},
-      SetOptions(merge: true),); //replace token each time we login
+        .doc(firebaseAuth.currentUser!.uid)
+        .set(
+      {'token': token},
+      SetOptions(merge: true),
+    ); //replace token each time we login
   }
 
   Future<String> getReceiverToken(String receiverId) async {
-    final getToken = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(receiverId)
-        .get();
+    final getToken =
+        await firebaseFireStore.collection('users').doc(receiverId).get();
     return await getToken.data()!['token'];
   }
 
@@ -79,6 +95,7 @@ class RemoteNotificationService {
     required String body,
     required String senderId,
     required String receiverToken,
+    required String title,
   }) async {
     try {
       const String fcmUrl = 'https://fcm.googleapis.com/fcm/send';
@@ -91,7 +108,7 @@ class RemoteNotificationService {
         'priority': 'high',
         'notification': {
           'body': body,
-          'title': 'New Message',
+          'title': title,
         },
         'data': {
           'click_action': 'FLUTTER_NOTIFICATION_CLICK',
@@ -104,7 +121,7 @@ class RemoteNotificationService {
         Uri.parse(fcmUrl),
         headers: <String, String>{
           'Content-Type': 'application/json',
-          'Authorization': 'key=$key',
+          'Authorization': 'key=${AppSecured.serverKey}',
         },
         body: jsonEncode(payload),
       );
@@ -125,23 +142,26 @@ class RemoteNotificationService {
 }
 
 class LocalNotificationsServices {
-  static Future init(
-      FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  LocalNotificationsServices(this.flutterLocalNotificationsPlugin);
+
+  Future init() async {
     var andriodInitilize =
-    const AndroidInitializationSettings('@mipmap/ic_launcher');
+        const AndroidInitializationSettings('@mipmap/ic_launcher');
     var initilizationSettings =
-    InitializationSettings(android: andriodInitilize);
+        InitializationSettings(android: andriodInitilize);
     await flutterLocalNotificationsPlugin.initialize(initilizationSettings);
     // Initialize time zones
   }
 
-  static Future showText({var id = 0,
-    required String title,
-    required String body,
-    var payload,
-    required FlutterLocalNotificationsPlugin fln}) async {
+  Future showText(
+      {var id = 0,
+      required String title,
+      required String body,
+      var payload,
+      required FlutterLocalNotificationsPlugin fln}) async {
     AndroidNotificationDetails androidNotificationDetails =
-    const AndroidNotificationDetails(
+        const AndroidNotificationDetails(
       'channelId',
       'channelName',
       importance: Importance.max,

@@ -41,6 +41,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             onPressed: () {
               var cubit = GetAllUserCubit.get(context);
               cubit.logOutMethod();
+              context.pop();
             },
             icon: const Icon(
               Icons.logout,

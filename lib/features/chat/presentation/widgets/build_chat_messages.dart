@@ -5,14 +5,17 @@ import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
 
 class BuildChatMessage extends StatelessWidget {
   const BuildChatMessage(
-      {super.key, required this.user, required this.messages});
+      {super.key, required this.user, required this.messages, required this.scrollController});
 
   final UserModel user;
   final List<MessageModel> messages;
+  final ScrollController scrollController;
+
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      controller: scrollController,
       itemBuilder: (BuildContext context, int index) {
         //that isMe is used to check if the message is sent by the user or not
         //is not quality to the user id of the message then it is not sent by the user

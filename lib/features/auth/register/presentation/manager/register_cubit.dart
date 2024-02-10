@@ -8,14 +8,16 @@ import 'package:freedom_chat_app/features/auth/register/domain/use_cases/upload_
 import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../../core/services/notification_services.dart';
-
 part 'register_cubit.freezed.dart';
 
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  RegisterCubit({required this.registerUseCase,required this.uploadImageUseCase,required this.createUserUseCase}) : super(const RegisterState.initial());
+  RegisterCubit(
+      {required this.registerUseCase,
+      required this.uploadImageUseCase,
+      required this.createUserUseCase})
+      : super(const RegisterState.initial());
 
   static RegisterCubit of(context) => BlocProvider.of<RegisterCubit>(context);
 
@@ -29,24 +31,22 @@ class RegisterCubit extends Cubit<RegisterState> {
   File? profileImage;
   final registerFormKey = GlobalKey<FormState>();
 
-  final RemoteNotificationService _remoteNotificationService = RemoteNotificationService();
   void registerMethod(UserModel userModel) async {
-      emit(const RegisterState.loading());
-      try {
-        await registerUseCase.call(
-          userModel,
-        );
-        createUser(userModel);
-        await _remoteNotificationService.requestPermission();
-        await _remoteNotificationService.getToken();
-        emit(const RegisterState.success());
-      } catch (e) {
-        emit(RegisterState.error(e.toString()));
-      }
+    emit(const RegisterState.loading());
+    try {
+      await registerUseCase.call(
+        userModel,
+      );
+      createUser(userModel);
+      emit(const RegisterState.success());
+    } catch (e) {
+      emit(RegisterState.error(e.toString()));
+    }
   }
 
-  String?imageUrl;
- uploadImageMethod() async {
+  String? imageUrl;
+
+  uploadImageMethod() async {
     if (profileImage == null) {
       return;
     }
@@ -57,8 +57,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     }
   }
 
-  void createUser(UserModel userModel)async
-  {
+  void createUser(UserModel userModel) async {
     try {
       await createUserUseCase.call(
         userModel,

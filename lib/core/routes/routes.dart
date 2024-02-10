@@ -10,5 +10,4 @@ class Routes {
 
   static const String searchScreen = '/searchScreen';
   static const String editProfileScreen = '/editProfileScreen';
-
 }

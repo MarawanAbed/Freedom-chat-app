@@ -29,6 +29,6 @@ class VerifyEmailRemoteDataSourceImpl implements VerifyEmailRemoteDataSource {
 
   @override
   Future<void> resendVerificationEmail()async {
-    await auth.resendVerificationEmail();
+    await auth.resendEmailVerification();
   }
 }

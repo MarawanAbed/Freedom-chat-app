@@ -1,7 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:freedom_chat_app/core/services/firebase_serivces.dart';
+import 'package:freedom_chat_app/core/services/notification_services.dart';
 import 'package:freedom_chat_app/core/utils/app_secured.dart';
 import 'package:freedom_chat_app/features/auth/forget_password/data/repositories/forget_repo_impl.dart';
 import 'package:freedom_chat_app/features/auth/forget_password/domain/repositories/forget_repo.dart';
@@ -65,88 +68,111 @@ import '../../features/home/presentation/manager/single_user/get_user_cubit.dart
 final getIt = GetIt.instance;
 
 Future<void> setupGetIt() async {
+  try
+  {
+    _setupDataSources();
+    _setupRepositories();
+    _setupUseCases();
+    _setupCubits();
+    _setupServices();
+    _setupExternal();
+  }catch(e)
+  {
+    print('Failed to initialize dependencies: $e');
+  }
+}
+
+void _setupDataSources() {
   //data sources
   getIt.registerLazySingleton<HomeRemoteDataSource>(
-      () => HomeRemoteDataSourceImpl(
-            databaseService: getIt(),
-            storeService: getIt(),
-            authService: getIt(),
-          ));
+          () => HomeRemoteDataSourceImpl(
+        databaseService: getIt(),
+        storeService: getIt(),
+        authService: getIt(),
+      ));
   getIt.registerLazySingleton<LoginRemoteDataSource>(
-      () => LoginRemoteDataSourceImpl(getIt()));
+          () => LoginRemoteDataSourceImpl(getIt()));
   getIt.registerLazySingleton<VerifyEmailRemoteDataSource>(
-      () => VerifyEmailRemoteDataSourceImpl(getIt()));
+          () => VerifyEmailRemoteDataSourceImpl(getIt()));
   getIt.registerLazySingleton<RegisterRemoteDataSource>(
-      () => RegisterRemoteDataSourceImpl(
-            auth: getIt(),
-            storage: getIt(),
-            databaseService: getIt(),
-          ));
+          () => RegisterRemoteDataSourceImpl(
+        auth: getIt(),
+        storage: getIt(),
+        databaseService: getIt(),
+      ));
   getIt.registerLazySingleton<ForgetRemoteDataSource>(
-      () => ForgetRemoteDataSourceImpl(auth: getIt()));
+          () => ForgetRemoteDataSourceImpl(auth: getIt()));
   getIt.registerLazySingleton<ChatRemoteDataSource>(
-      () => ChatRemoteDataSourceImpl(getIt(), getIt(), getIt()));
+        () => ChatRemoteDataSourceImpl(getIt(), getIt(), getIt()),
+  );
+}
 
-  //repositories
-
+void _setupRepositories()
+{
   getIt.registerLazySingleton<ChatRepo>(() => ChatRepoImpl((getIt())));
   getIt.registerLazySingleton<HomeRepo>(() => HomeRepoImpl((getIt())));
   getIt.registerLazySingleton<LoginInRepo>(() => LoginRepoImpl(getIt()));
   getIt.registerLazySingleton<RegisterRepo>(() => RegisterRepoImpl(getIt()));
   getIt.registerLazySingleton<ForgetRepo>(() => ForgetRepoImpl(getIt()));
   getIt.registerLazySingleton<VerifyEmailRepo>(
-      () => VerifyEmailRepoImpl(getIt()));
+          () => VerifyEmailRepoImpl(getIt()));
+}
 
-  //use cases
+void _setupUseCases()
+{
   getIt.registerLazySingleton<GetAllUsersUseCase>(
-      () => GetAllUsersUseCase(getIt()));
+          () => GetAllUsersUseCase(getIt()));
   getIt.registerLazySingleton<GetUserUseCase>(() => GetUserUseCase(getIt()));
   getIt.registerLazySingleton<UpdateUserUseCase>(
-      () => UpdateUserUseCase(getIt()));
+          () => UpdateUserUseCase(getIt()));
   getIt.registerLazySingleton<UpdateEmailAndPasswordUseCase>(
-      () => UpdateEmailAndPasswordUseCase(getIt()));
+          () => UpdateEmailAndPasswordUseCase(getIt()));
 
   getIt.registerLazySingleton<CheckVerifyEmailUseCase>(
-      () => CheckVerifyEmailUseCase(getIt()));
+          () => CheckVerifyEmailUseCase(getIt()));
   getIt.registerLazySingleton<SignInUseCase>(() => SignInUseCase(getIt()));
   getIt.registerLazySingleton<UserUidUseCase>(() => UserUidUseCase(getIt()));
   getIt.registerLazySingleton<ForgetPasswordUseCase>(
-      () => ForgetPasswordUseCase(getIt()));
+          () => ForgetPasswordUseCase(getIt()));
   getIt.registerLazySingleton<HomeLogOutUseCase>(
-      () => HomeLogOutUseCase(getIt()));
+          () => HomeLogOutUseCase(getIt()));
   getIt.registerLazySingleton<RegisterUseCase>(() => RegisterUseCase(getIt()));
   getIt.registerLazySingleton<RegisterUploadImageUseCase>(
-      () => RegisterUploadImageUseCase(getIt()));
+          () => RegisterUploadImageUseCase(getIt()));
   getIt.registerLazySingleton<UploadImageUseCase>(
-      () => UploadImageUseCase(getIt()));
+          () => UploadImageUseCase(getIt()));
   getIt.registerLazySingleton<GoogleSignInUseCase>(
-      () => GoogleSignInUseCase(getIt()));
+          () => GoogleSignInUseCase(getIt()));
   getIt.registerLazySingleton<GitHubSignInUseCase>(
-      () => GitHubSignInUseCase(getIt()));
+          () => GitHubSignInUseCase(getIt()));
   getIt.registerLazySingleton<TwitterSignInUseCase>(
-      () => TwitterSignInUseCase(getIt()));
+          () => TwitterSignInUseCase(getIt()));
   getIt.registerLazySingleton<CreateUserUseCase>(
-      () => CreateUserUseCase(getIt()));
+          () => CreateUserUseCase(getIt()));
   getIt.registerLazySingleton<VerifyEmailUseCase>(
-      () => VerifyEmailUseCase(getIt()));
+          () => VerifyEmailUseCase(getIt()));
   getIt.registerLazySingleton<LogOutUseCase>(() => LogOutUseCase(getIt()));
   getIt.registerLazySingleton<ResendVerifyEmailUseCase>(
-      () => ResendVerifyEmailUseCase(getIt()));
+          () => ResendVerifyEmailUseCase(getIt()));
   getIt.registerLazySingleton<SearchUsersUseCase>(
-      () => SearchUsersUseCase(getIt()));
+          () => SearchUsersUseCase(getIt()));
   getIt.registerLazySingleton<ChatsUploadImageUseCase>(
-      () => ChatsUploadImageUseCase(getIt()));
+          () => ChatsUploadImageUseCase(getIt()));
   getIt.registerLazySingleton<AddImageMessageUseCase>(
-      () => AddImageMessageUseCase(getIt()));
+          () => AddImageMessageUseCase(getIt()));
   getIt.registerLazySingleton<AddTextMessageUseCase>(
-      () => AddTextMessageUseCase(getIt()));
+          () => AddTextMessageUseCase(getIt()));
   getIt.registerLazySingleton<GetAllMessagesUseCase>(
-      () => GetAllMessagesUseCase(getIt()));
+          () => GetAllMessagesUseCase(getIt()));
   getIt
       .registerLazySingleton<GetUserIdUseCase>(() => GetUserIdUseCase(getIt()));
-  //cubit
+
+}
+
+void _setupCubits()
+{
   getIt.registerLazySingleton<LoginCubit>(
-    () => LoginCubit(
+        () => LoginCubit(
       twitterSignInUseCase: getIt(),
       googleSignInUseCase: getIt(),
       signInUseCase: getIt(),
@@ -155,7 +181,7 @@ Future<void> setupGetIt() async {
   );
 
   getIt.registerLazySingleton<SendMessagesCubit>(
-    () => SendMessagesCubit(
+        () => SendMessagesCubit(
       getIt(),
       getIt(),
       getIt(),
@@ -163,12 +189,12 @@ Future<void> setupGetIt() async {
     ),
   );
   getIt.registerLazySingleton<GetAllMessagesCubit>(
-    () => GetAllMessagesCubit(
+        () => GetAllMessagesCubit(
       getIt(),
     ),
   );
   getIt.registerLazySingleton<UpdateUserCubit>(
-    () => UpdateUserCubit(
+        () => UpdateUserCubit(
       getIt(),
       getIt(),
       getIt(),
@@ -176,30 +202,30 @@ Future<void> setupGetIt() async {
     ),
   );
   getIt.registerLazySingleton<GetAllUserCubit>(
-    () => GetAllUserCubit(
+        () => GetAllUserCubit(
       getIt(),
       getIt(),
     ),
   );
   getIt.registerLazySingleton<GetUserCubit>(
-    () => GetUserCubit(
+        () => GetUserCubit(
       getIt(),
       getIt(),
     ),
   );
   getIt.registerLazySingleton<RegisterCubit>(() => RegisterCubit(
-        registerUseCase: getIt(),
-        uploadImageUseCase: getIt(),
-        createUserUseCase: getIt(),
-      ));
+    registerUseCase: getIt(),
+    uploadImageUseCase: getIt(),
+    createUserUseCase: getIt(),
+  ));
   getIt.registerLazySingleton<ForgetPasswordCubit>(
-    () => ForgetPasswordCubit(
+        () => ForgetPasswordCubit(
       getIt(),
     ),
   );
 
   getIt.registerLazySingleton<VerifyEmailCubit>(
-    () => VerifyEmailCubit(
+        () => VerifyEmailCubit(
       checkVerifyEmail: getIt(),
       verifyEmail: getIt(),
       resendVerifyEmail: getIt(),
@@ -208,26 +234,42 @@ Future<void> setupGetIt() async {
   );
 
   getIt.registerLazySingleton<SearchUsersCubit>(
-    () => SearchUsersCubit(
+        () => SearchUsersCubit(
       getIt(),
     ),
   );
 
-  //services
-  getIt.registerLazySingleton<AuthService>(() => AuthService(
-        googleSignIn: getIt(),
-        auth: getIt(),
-        gitHubSignIn: getIt(),
-        twitterLogin: getIt(),
-      ));
-  getIt.registerLazySingleton<StorageService>(() => StorageService(
-        getIt(),
-      ));
-  getIt.registerLazySingleton<DatabaseService>(() => DatabaseService(
-        getIt(),
-      ));
+}
 
-  //external
+void _setupServices()
+{
+  getIt.registerLazySingleton<AuthService>(() => AuthService(
+    googleSignIn: getIt(),
+    auth: getIt(),
+    gitHubSignIn: getIt(),
+    twitterLogin: getIt(),
+  ));
+  getIt.registerLazySingleton<StorageService>(() => StorageService(
+    getIt(),
+  ));
+  getIt.registerLazySingleton<DatabaseService>(() => DatabaseService(
+    getIt(),
+  ));
+  getIt.registerLazySingleton<RemoteNotificationService>(
+          () => RemoteNotificationService(
+        getIt(),
+        getIt(),
+        getIt(),
+        getIt(),
+      ));
+  getIt.registerLazySingleton<LocalNotificationsServices>(
+          () => LocalNotificationsServices(
+        getIt(),
+      ));
+}
+
+void _setupExternal()
+{
   final auth = FirebaseAuth.instance;
   final googleSignIn = GoogleSignIn();
   final GitHubSignIn gitHubSignIn = GitHubSignIn(
@@ -241,8 +283,12 @@ Future<void> setupGetIt() async {
       redirectURI: 'flutter-twitter-practice://');
   final storage = FirebaseStorage.instance;
   final fireStore = FirebaseFirestore.instance;
-
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  FlutterLocalNotificationsPlugin();
+  final messaging = FirebaseMessaging.instance;
   getIt.registerLazySingleton(() => auth);
+  getIt.registerLazySingleton(() => messaging);
+  getIt.registerLazySingleton(() => flutterLocalNotificationsPlugin);
   getIt.registerLazySingleton(() => fireStore);
   getIt.registerLazySingleton(() => storage);
   getIt.registerLazySingleton(() => googleSignIn);

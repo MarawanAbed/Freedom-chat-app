@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:freedom_chat_app/core/di/dependancy_injection.dart';
 import 'package:freedom_chat_app/core/services/notification_services.dart';
 import 'package:freedom_chat_app/features/chat/data/models/message_model.dart';
 import 'package:freedom_chat_app/features/chat/domain/use_cases/add_image_message.dart';
@@ -27,12 +27,10 @@ class SendMessagesCubit extends Cubit<SendMessagesState> {
 
   final ChatsUploadImageUseCase _uploadImage;
 
-
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-  final RemoteNotificationService _remoteNotificationService =
-      RemoteNotificationService();
-  addMessageText({required String content, required String receiverId,required UserModel user}) async {
+  addMessageText(
+      {required String content,
+      required String receiverId,
+      required UserModel user}) async {
     emit(const SendMessagesState.loading());
     try {
       final uId = _getUserId.call();
@@ -44,16 +42,13 @@ class SendMessagesCubit extends Cubit<SendMessagesState> {
         messageType: MessageType.text,
       );
       await _addText.call(messageEntity);
-      var receiverToken=await _remoteNotificationService.getReceiverToken(uId);
-      await _remoteNotificationService.sendNotification(
+      var receiverToken =
+          await getIt<RemoteNotificationService>().getReceiverToken(uId);
+      await getIt<RemoteNotificationService>().sendNotification(
         receiverToken: receiverToken,
-        body: content,
-        senderId: uId,
-      );
-      await LocalNotificationsServices.showText(
         title: user.name!,
         body: content,
-        fln: flutterLocalNotificationsPlugin,
+        senderId: uId,
       );
       emit(const SendMessagesState.loaded());
     } catch (e) {
@@ -61,7 +56,7 @@ class SendMessagesCubit extends Cubit<SendMessagesState> {
     }
   }
 
-  addMessageImage({required String receiverId,required UserModel user}) async {
+  addMessageImage({required String receiverId, required UserModel user}) async {
     emit(const SendMessagesState.loading());
     try {
       final image = await HelperMethod.getImageFromGallery();
@@ -76,16 +71,13 @@ class SendMessagesCubit extends Cubit<SendMessagesState> {
           messageType: MessageType.image,
         );
         await _addImage.call(messageEntity);
-        var receiverToken=await _remoteNotificationService.getReceiverToken(uId);
-        await _remoteNotificationService.sendNotification(
+        var receiverToken =
+            await getIt<RemoteNotificationService>().getReceiverToken(uId);
+        await getIt<RemoteNotificationService>().sendNotification(
           receiverToken: receiverToken,
           body: 'Image sent',
-          senderId: uId,
-        );
-        await LocalNotificationsServices.showText(
           title: user.name!,
-          body: 'content',
-          fln: flutterLocalNotificationsPlugin,
+          senderId: uId,
         );
         emit(const SendMessagesState.loaded());
       } else {

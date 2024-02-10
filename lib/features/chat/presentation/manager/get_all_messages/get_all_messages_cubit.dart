@@ -13,7 +13,6 @@ class GetAllMessagesCubit extends Cubit<GetAllMessagesState> {
 
   static GetAllMessagesCubit get(context) => BlocProvider.of(context);
   final GetAllMessagesUseCase _getAllMessagesUseCase;
-
   getAllMessage({required String receiverId}) async {
     emit(const GetAllMessagesState.loading());
     print(receiverId);
@@ -21,13 +20,12 @@ class GetAllMessagesCubit extends Cubit<GetAllMessagesState> {
       _getAllMessagesUseCase.call(receiverId).listen((event) {
         emit(GetAllMessagesState.loaded(event));
       });
+
     } catch (e) {
       emit(GetAllMessagesState.error(message: e.toString()));
     }
   }
-  void clearMessages() {
-    emit(const GetAllMessagesState.initial());
-  }
+
   @override
   void emit(GetAllMessagesState state) {
     if (!isClosed) {

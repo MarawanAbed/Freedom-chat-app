@@ -22,10 +22,6 @@ class GetAllUserCubit extends Cubit<GetAllUserState> {
     try {
       final users = getAllUsersUseCase();
       users.listen((event) {
-        event.sort((a, b) => a.uId!.compareTo(b.uId!));
-        event == null
-            ? emit(const GetAllUserState.error("No users found"))
-            :
         emit( GetAllUserState.success(event));
       });
     } catch (e) {

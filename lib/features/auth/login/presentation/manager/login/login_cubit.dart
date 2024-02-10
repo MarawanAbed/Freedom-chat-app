@@ -34,9 +34,7 @@ class LoginCubit extends Cubit<LoginState> {
   TextEditingController passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-  final RemoteNotificationService _remoteNotificationService =
-      RemoteNotificationService();
-  void loginMethod() async {
+  Future<void> loginMethod() async {
     if (formKey.currentState!.validate()) {
       emit(const LoginState.loading());
       try {
@@ -46,6 +44,8 @@ class LoginCubit extends Cubit<LoginState> {
             password: passwordController.text.trim(),
           ),
         );
+        await getIt<RemoteNotificationService>().requestPermission();
+        await getIt<RemoteNotificationService>().getToken();
         emit(const LoginState.success());
       } catch (e) {
         emit(LoginState.error(e.toString()));
@@ -57,8 +57,8 @@ class LoginCubit extends Cubit<LoginState> {
     emit(const LoginState.loading());
     try {
       await googleSignInUseCase.call();
-      await _remoteNotificationService.requestPermission();
-      await _remoteNotificationService.getToken();
+      await getIt<RemoteNotificationService>().requestPermission();
+      await getIt<RemoteNotificationService>().getToken();
       emit(const LoginState.success());
     } catch (e) {
       emit(LoginState.error(e.toString()));

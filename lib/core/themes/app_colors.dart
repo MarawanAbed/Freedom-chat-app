@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AppColors{
-  //here we will define all the colors that we will use in our app
   static const kPrimaryColor = Color(0xFF18C070);
   static const kPrimaryColorWithOpacity = Color(0xB308FB79);
   static const kSecondaryColor = Color(0xFFE18A17);

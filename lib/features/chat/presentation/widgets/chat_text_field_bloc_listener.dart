@@ -8,6 +8,8 @@ class ChatTextFieldBlocListener extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<SendMessagesCubit, SendMessagesState>(
+      listenWhen: (previous, current) =>
+          current is Loaded || current is Error || current is Loading,
       listener: (context, state) {
         state.whenOrNull(
           loading: () {

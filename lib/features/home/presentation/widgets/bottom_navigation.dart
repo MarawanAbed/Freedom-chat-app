@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 
 class CustomBottomNavigation extends StatelessWidget {
   const CustomBottomNavigation({
@@ -22,11 +23,11 @@ class CustomBottomNavigation extends StatelessWidget {
           icon: Icon(
             CupertinoIcons.chat_bubble_fill,
           ),
-          label: 'Chats',
+          label: AppStrings.chats,
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person),
-          label: 'profile',
+          label: AppStrings.profile,
         ),
       ],
     );

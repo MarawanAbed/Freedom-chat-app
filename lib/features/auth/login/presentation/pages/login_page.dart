@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
 import 'package:freedom_chat_app/core/themes/styles.dart';
-import 'package:freedom_chat_app/core/utils/constants.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
 import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/core/widgets/elevated_button.dart';
 import 'package:freedom_chat_app/core/widgets/image_logo.dart';
@@ -22,33 +22,33 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(kDefaultPadding),
+          padding: EdgeInsets.all(AppSizes.kDefaultAllPaddingS20),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 const ImageLogo(),
-                HelperMethod.verticalSpace(logoHeight),
+                HelperMethod.verticalSpace(AppSizes.verticalSpacingS100),
                 const EmailAndPassword(),
-                HelperMethod.verticalSpace(verticalSpacing * 1.5),
+                HelperMethod.verticalSpace(AppSizes.verticalSpacingS30),
                 CustomElevatedButton(
                   title: AppStrings.signIn,
                   onPressed: () {
                     cubit.loginMethod();
                   },
                 ),
-                HelperMethod.verticalSpace(buttonSpacing),
+                HelperMethod.verticalSpace(AppSizes.verticalSpacingS10),
                 const ForgetPasswordText(),
-                HelperMethod.verticalSpace(buttonSpacing),
+                HelperMethod.verticalSpace(AppSizes.verticalSpacingS10),
                 const DontHaveAccount(),
                 const Divider(
                   color: Colors.grey,
                 ),
-                HelperMethod.verticalSpace(buttonSpacing),
+                HelperMethod.verticalSpace(AppSizes.verticalSpacingS10),
                 Text(
                   AppStrings.orSignInWith,
                   style: TextStyles.font16NormalGrey,
                 ),
-                HelperMethod.verticalSpace(buttonSpacing),
+                HelperMethod.verticalSpace(AppSizes.verticalSpacingS10),
                 BuildRowLogo(cubit: cubit),
                 const LoginBlocListener(),
               ],

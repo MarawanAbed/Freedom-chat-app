@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
-import 'package:freedom_chat_app/core/utils/constants.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
 import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/core/widgets/elevated_button.dart';
 import 'package:freedom_chat_app/core/widgets/image_logo.dart';
@@ -21,24 +21,24 @@ class SignUp extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(kDefaultPadding),
+          padding: EdgeInsets.all(AppSizes.kDefaultAllPaddingS20),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                HelperMethod.verticalSpace(verticalSpacing),
+                HelperMethod.verticalSpace(AppSizes.verticalSpacingS20),
                 const ImageLogo(),
-                HelperMethod.verticalSpace(30),
+                HelperMethod.verticalSpace(AppSizes.verticalSpacingS30),
                 const ChangeProfileImage(),
-                HelperMethod.verticalSpace(verticalSpacing),
+                HelperMethod.verticalSpace(AppSizes.verticalSpacingS20),
                 const TextFieldSignUp(),
-                HelperMethod.verticalSpace(30),
+                HelperMethod.verticalSpace(AppSizes.verticalSpacingS30),
                 CustomElevatedButton(
                   title: AppStrings.signUp,
                   onPressed: () {
                     _signUpButton(context);
                   },
                 ),
-                HelperMethod.verticalSpace(buttonSpacing),
+                HelperMethod.verticalSpace(AppSizes.verticalSpacingS10),
                 const AlreadyHaveAccount(),
                 const RegisterBlocListener(),
               ],

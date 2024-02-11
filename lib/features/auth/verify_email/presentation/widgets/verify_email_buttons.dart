@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/features/auth/verify_email/presentation/manager/verify_email_cubit.dart';
 
 import '../../../../../core/helpers/helper_methods.dart';
@@ -19,13 +21,9 @@ class _VerifyEmailButtonsState extends State<VerifyEmailButtons> {
     var cubit = VerifyEmailCubit.get(context);
     return Column(
       children: [
-        const CustomElevatedButton(
-          title: 'Resend',
-          colors: AppColors.kPrimaryColor,
-        ),
-        HelperMethod.verticalSpace(30.0),
+        HelperMethod.verticalSpace(AppSizes.verticalSpacingS30),
         CustomElevatedButton(
-          title: 'Cancel',
+          title: AppStrings.cancel,
           colors: AppColors.kSecondaryColor,
           onPressed: () {
             cubit.logOutMethod();

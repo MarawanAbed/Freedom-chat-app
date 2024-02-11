@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/features/home/presentation/manager/search_users/search_users_cubit.dart';
 import 'package:freedom_chat_app/features/home/presentation/widgets/users_item.dart';
 
@@ -15,12 +18,12 @@ class SearchBlocBuilder extends StatelessWidget {
             child: CircularProgressIndicator(),
           ),
           success: (users) => users.isEmpty
-              ? const Expanded(
+              ? Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.search, size: 100, color: Colors.grey),
-                      Text('Not Found'),
+                      Icon(Icons.search, size: AppSizes.iconSizeS100, color: Colors.grey),
+                      const Text(AppStrings.notFound),
                     ],
                   ),
                 )
@@ -31,9 +34,7 @@ class SearchBlocBuilder extends StatelessWidget {
                         user: users[index],
                       );
                     },
-                    separatorBuilder: (context, index) => const SizedBox(
-                      height: 10,
-                    ),
+                    separatorBuilder: (context, index) => HelperMethod.verticalSpace(AppSizes.verticalSpacingS10),
                     itemCount: users.length,
                   ),
                 ),

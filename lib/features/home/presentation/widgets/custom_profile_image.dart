@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
 import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
 
 class CustomProfileImage extends StatelessWidget {
@@ -11,7 +12,7 @@ class CustomProfileImage extends StatelessWidget {
     return Stack(
       children: [
         CircleAvatar(
-          radius: 25,
+          radius: AppSizes.circleAvatarRadius,
           child: ClipRRect(
               borderRadius: BorderRadius.circular(25),
               child: Image.network(
@@ -23,14 +24,14 @@ class CustomProfileImage extends StatelessWidget {
           right: 0,
           bottom: 0,
           child: Container(
-            width: 15,
-            height: 15,
+            width: AppSizes.userStateSizeWidth,
+            height: AppSizes.userStateSizeHeight,
             decoration: BoxDecoration(
               color: Colors.green,
               shape: BoxShape.circle,
               border: Border.all(
                 color: Colors.white,
-                width: 2,
+                width: AppSizes.stateBorderWidth,
               ),
             ),
           ),
@@ -38,14 +39,14 @@ class CustomProfileImage extends StatelessWidget {
           right: 0,
           bottom: 0,
           child: Container(
-            width: 12,
-            height: 12,
+            width: AppSizes.userStateSizeWidth,
+            height: AppSizes.userStateSizeHeight,
             decoration: BoxDecoration(
               color: Colors.red,
               shape: BoxShape.circle,
               border: Border.all(
                 color: Colors.white,
-                width: 2,
+                width: AppSizes.stateBorderWidth,
               ),
             ),
           ),

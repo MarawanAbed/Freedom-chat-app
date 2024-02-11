@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/features/chat/presentation/manager/send_message/send_messages_cubit.dart';
 
 class ChatTextFieldBlocListener extends StatelessWidget {
@@ -16,20 +19,10 @@ class ChatTextFieldBlocListener extends StatelessWidget {
             const Center(child: CircularProgressIndicator());
           },
           loaded: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text('Message Sent'),
-                backgroundColor: Colors.green,
-              ),
-            );
+            HelperMethod.showSuccessToast(AppStrings.messageSent,gravity: ToastGravity.BOTTOM);
           },
           error: (message) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(message),
-                backgroundColor: Colors.red,
-              ),
-            );
+            HelperMethod.showErrorToast(message,gravity: ToastGravity.BOTTOM);
           },
         );
       },

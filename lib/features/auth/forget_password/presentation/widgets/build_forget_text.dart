@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 
-import '../../../../../core/utils/constants.dart';
+import '../../../../../core/utils/sizes.dart';
 
 class BuildForgetText extends StatelessWidget {
   const BuildForgetText({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  const Column(
+    return Column(
       children: [
         Text(
-          'Enter your email address and we will send you a link to reset your password.',
+          AppStrings.enterEmail,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: kDefaultFontSize,
+            fontSize: AppSizes.fontSizeS16,
             color: Colors.grey,
           ),
         ),

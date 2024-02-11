@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freedom_chat_app/core/helpers/extension.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
 import 'package:freedom_chat_app/core/routes/routes.dart';
 import 'package:freedom_chat_app/core/themes/styles.dart';
-import 'package:freedom_chat_app/core/utils/constants.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
 import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,15 +15,13 @@ class BuildSkipButton extends StatefulWidget {
 }
 
 class _BuildSkipButtonState extends State<BuildSkipButton> {
-
-
   @override
   Widget build(BuildContext context) {
     return FittedBox(
       child: TextButton(
         onPressed: () {
           _handleSkipButton().then(
-                (_) => context.pushReplacementNamed(Routes.authScreen),
+            (_) => context.pushReplacementNamed(Routes.authScreen),
           );
         },
         child: Row(
@@ -33,10 +30,10 @@ class _BuildSkipButtonState extends State<BuildSkipButton> {
               AppStrings.skip,
               style: TextStyles.font16NormalGrey,
             ),
-            HelperMethod.horizontalSpace(5),
+            HelperMethod.horizontalSpace(AppSizes.horizontalSpacingS5),
             Icon(
               Icons.arrow_forward_ios,
-              size: 16.sp,
+              size: AppSizes.iconSizeS16,
               color: Colors.grey,
             )
           ],
@@ -47,6 +44,6 @@ class _BuildSkipButtonState extends State<BuildSkipButton> {
 
   Future<void> _handleSkipButton() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(onBoardingKey, true);
+    prefs.setBool(AppStrings.onBoardingKey, true);
   }
 }

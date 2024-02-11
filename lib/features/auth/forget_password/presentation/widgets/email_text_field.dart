@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:freedom_chat_app/core/themes/styles.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 
 import '../../../../../core/helpers/helper_methods.dart';
 import '../../../../../core/themes/app_colors.dart';
@@ -11,7 +13,8 @@ class EmailTextFieldAndButton extends StatefulWidget {
   const EmailTextFieldAndButton({super.key});
 
   @override
-  State<EmailTextFieldAndButton> createState() => _EmailTextFieldAndButtonState();
+  State<EmailTextFieldAndButton> createState() =>
+      _EmailTextFieldAndButtonState();
 }
 
 class _EmailTextFieldAndButtonState extends State<EmailTextFieldAndButton> {
@@ -31,15 +34,15 @@ class _EmailTextFieldAndButtonState extends State<EmailTextFieldAndButton> {
       children: [
         AppTextFormField(
           controller: emailController,
-          hintText: 'Email',
+          hintText: AppStrings.email,
           backgroundColor: theme ? AppColors.kField2 : Colors.white,
           hintStyle: theme
-              ? TextStyle(color: Colors.white, fontSize: 14.sp)
-              : TextStyle(color: Colors.grey, fontSize: 14.sp),
+              ? TextStyles.font14NormalGrey.copyWith(color: Colors.white)
+              : TextStyles.font14NormalGrey,
         ),
-        HelperMethod.verticalSpace(40),
+        HelperMethod.verticalSpace(AppSizes.verticalSpacingS40),
         CustomElevatedButton(
-          title: 'Send',
+          title: AppStrings.send,
           onPressed: () {
             cubit.forgetPassword(emailController.text);
           },

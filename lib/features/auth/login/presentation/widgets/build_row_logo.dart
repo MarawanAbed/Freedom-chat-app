@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
 
 import '../../../../../core/helpers/helper_methods.dart';
 import '../manager/login/login_cubit.dart';
@@ -25,7 +26,7 @@ class BuildRowLogo extends StatelessWidget {
             cubit.googleSignInMethod();
           },
         ),
-        HelperMethod.horizontalSpace(10),
+        HelperMethod.horizontalSpace(AppSizes.horizontalSpacingS10),
         LogoButton(
           onPressed: () {
             cubit.gitHubSignInMethod(context);

@@ -3,7 +3,8 @@ import 'package:freedom_chat_app/core/helpers/extension.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
 import 'package:freedom_chat_app/core/routes/routes.dart';
 import 'package:freedom_chat_app/core/themes/app_colors.dart';
-import 'package:freedom_chat_app/core/utils/constants.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/core/widgets/elevated_button.dart';
 import 'package:freedom_chat_app/core/widgets/image_logo.dart';
 
@@ -15,21 +16,21 @@ class AuthScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding:  const EdgeInsets.all(kDefaultPadding),
+          padding: EdgeInsets.all(AppSizes.kDefaultAllPaddingS20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const ImageLogo(),
-              HelperMethod.verticalSpace(90),
+              HelperMethod.verticalSpace(AppSizes.verticalSpacingS90),
               CustomElevatedButton(
-                title: 'Sign in',
+                title: AppStrings.signIn,
                 onPressed: () {
                   context.pushNamed(Routes.signInScreen);
                 },
               ),
-              HelperMethod.verticalSpace(20),
+              HelperMethod.verticalSpace(AppSizes.verticalSpacingS20),
               CustomElevatedButton(
-                title: 'Sign up',
+                title: AppStrings.signUp,
                 onPressed: () {
                   context.pushNamed(Routes.signUpScreen);
                 },

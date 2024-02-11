@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
 import 'package:freedom_chat_app/core/helpers/validation.dart';
 import 'package:freedom_chat_app/core/themes/app_colors.dart';
 import 'package:freedom_chat_app/core/themes/styles.dart';
-import 'package:freedom_chat_app/core/utils/constants.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
 import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/core/widgets/app_text_form.dart';
 import 'package:freedom_chat_app/features/auth/register/presentation/manager/register_cubit.dart';
@@ -54,7 +53,7 @@ class _TextFieldSignUpState extends State<TextFieldSignUp> {
             hintStyle: _hintStyle(theme),
             validator: (name) => Validation.validateRequired(name ?? ''),
           ),
-          HelperMethod.verticalSpace(verticalSpacing),
+          HelperMethod.verticalSpace(AppSizes.verticalSpacingS20),
           AppTextFormField(
             controller: descriptionController,
             hintText: AppStrings.description,
@@ -64,7 +63,7 @@ class _TextFieldSignUpState extends State<TextFieldSignUp> {
             validator: (description) =>
                 Validation.validateRequired(description ?? ''),
           ),
-          HelperMethod.verticalSpace(verticalSpacing),
+          HelperMethod.verticalSpace(AppSizes.verticalSpacingS20),
           AppTextFormField(
             controller: emailController,
             hintText: AppStrings.email,
@@ -73,7 +72,7 @@ class _TextFieldSignUpState extends State<TextFieldSignUp> {
             hintStyle: _hintStyle(theme),
             validator: (email) => Validation.validateEmail(email ?? ''),
           ),
-          HelperMethod.verticalSpace(verticalSpacing),
+          HelperMethod.verticalSpace(AppSizes.verticalSpacingS20),
           AppTextFormField(
             controller: passwordController,
             hintText: AppStrings.password,
@@ -91,7 +90,7 @@ class _TextFieldSignUpState extends State<TextFieldSignUp> {
               },
               icon: Icon(
                 obscureText ? Icons.visibility_off : Icons.visibility,
-                size: 20.sp,
+                size: AppSizes.iconSizeS20,
                 color: Theme.of(context).brightness == Brightness.dark
                     ? Colors.white
                     : Colors.grey,

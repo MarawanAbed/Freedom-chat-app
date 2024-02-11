@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freedom_chat_app/core/themes/app_colors.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/core/widgets/app_text_form.dart';
 import 'package:freedom_chat_app/features/chat/presentation/manager/send_message/send_messages_cubit.dart';
 import 'package:freedom_chat_app/features/chat/presentation/widgets/chat_text_field_bloc_listener.dart';
@@ -23,7 +25,7 @@ class _ChatTextFieldState extends State<ChatTextField> {
   Widget build(BuildContext context) {
     var theme = Theme.of(context).brightness == Brightness.dark;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      padding: EdgeInsets.symmetric(horizontal: AppSizes.kDefaultSymmetricHorizontalPaddingS10),
       child: Row(
         children: [
           Expanded(
@@ -32,7 +34,7 @@ class _ChatTextFieldState extends State<ChatTextField> {
               inputTextStyle: _inputColor(theme),
               hintStyle: _hintStyle(theme),
               backgroundColor: theme ? AppColors.kField2 : Colors.white,
-              hintText: 'Type a message',
+              hintText: AppStrings.typeMessage,
               suffixIcon: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -42,7 +44,7 @@ class _ChatTextFieldState extends State<ChatTextField> {
                     },
                     icon: Icon(
                       Icons.camera_alt,
-                      size: 20,
+                      size: AppSizes.iconSizeS20,
                       color: theme ? Colors.white : Colors.grey,
                     ),
                   ),
@@ -52,7 +54,7 @@ class _ChatTextFieldState extends State<ChatTextField> {
                     },
                     icon: Icon(
                       Icons.send,
-                      size: 20,
+                      size: AppSizes.iconSizeS20,
                       color: theme ? Colors.white : Colors.grey,
                     ),
                   ),

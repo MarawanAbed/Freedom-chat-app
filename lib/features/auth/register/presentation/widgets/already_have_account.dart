@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:freedom_chat_app/core/helpers/extension.dart';
-import 'package:freedom_chat_app/core/routes/routes.dart';
 import 'package:freedom_chat_app/core/themes/styles.dart';
 import 'package:freedom_chat_app/core/utils/strings.dart';
 
@@ -20,10 +19,10 @@ class AlreadyHaveAccount extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            context.pushNamed(Routes.signInScreen);
+            context.pop();
           },
           child: Text(
-            AppStrings.signUp,
+            AppStrings.signIn,
             style: TextStyles.font16NormalGrey.copyWith(
               color: AppColors.kPrimaryColorWithOpacity,
             ),

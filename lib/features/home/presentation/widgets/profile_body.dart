@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:freedom_chat_app/core/helpers/extension.dart';
+import 'package:freedom_chat_app/core/themes/styles.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 
 import '../../../../core/helpers/helper_methods.dart';
 import '../../../../core/routes/routes.dart';
@@ -19,21 +22,21 @@ class ProfileBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding:  EdgeInsets.all(AppSizes.kDefaultAllPaddingS20),
       child: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Header(user: user),
-            HelperMethod.verticalSpace(30),
+            HelperMethod.verticalSpace(AppSizes.verticalSpacingS30),
             BuildRowInfo(user: user),
-            HelperMethod.verticalSpace(30),
+            HelperMethod.verticalSpace(AppSizes.verticalSpacingS30),
             CustomElevatedButton(
               onPressed: () {
                 context.pushNamed(Routes.editProfileScreen, arguments: user);
               },
-              title: 'Edit Profile',
+              title: AppStrings.editProfile,
             ),
           ],
         ),
@@ -56,15 +59,12 @@ class Header extends StatelessWidget {
       children: [
         ProfileImage(
           image: NetworkImage(user.image!),
-          radius: 50,
+          radius: AppSizes.profileRadius,
         ),
-        HelperMethod.verticalSpace(30),
+        HelperMethod.verticalSpace(AppSizes.verticalSpacingS30),
         Text(
           user.name!,
-          style: const TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyles.font22Bold,
         ),
       ],
     );

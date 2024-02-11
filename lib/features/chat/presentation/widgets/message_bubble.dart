@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
+import 'package:freedom_chat_app/core/themes/styles.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
 import 'package:freedom_chat_app/features/chat/data/models/message_model.dart';
 import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -17,38 +20,45 @@ class MessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final isImageMessage = messageModel.chatContent.startsWith('http'); // Check if the content is a URL
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+      padding: EdgeInsets.symmetric(
+          vertical: AppSizes.kDefaultSymmetricVerticalPaddingS10,
+          horizontal: AppSizes.kDefaultSymmetricHorizontalPaddingS5),
       child: Align(
         alignment: isMe ? Alignment.topLeft : Alignment.topRight,
         child: Container(
           decoration: BoxDecoration(
             color: isMe ? Colors.red[300] : Colors.blue[300],
             borderRadius: isMe
-                ? const BorderRadius.only(
-              topRight: Radius.circular(30),
-              topLeft: Radius.circular(30),
-              bottomRight: Radius.circular(30),
-            )
-                : const BorderRadius.only(
-              topRight: Radius.circular(30),
-              topLeft: Radius.circular(30),
-              bottomLeft: Radius.circular(30),
-            ),
+                ? BorderRadius.only(
+                    topRight: Radius.circular(AppSizes.kDefaultBorderRadiusS30),
+                    topLeft: Radius.circular(AppSizes.kDefaultBorderRadiusS30),
+                    bottomRight:
+                        Radius.circular(AppSizes.kDefaultBorderRadiusS30),
+                  )
+                : BorderRadius.only(
+                    topRight: Radius.circular(AppSizes.kDefaultBorderRadiusS30),
+                    topLeft: Radius.circular(AppSizes.kDefaultBorderRadiusS30),
+                    bottomLeft:
+                        Radius.circular(AppSizes.kDefaultBorderRadiusS30),
+                  ),
           ),
-          margin: const EdgeInsets.only(top: 10, right: 10, left: 10),
-          padding: const EdgeInsets.all(10),
+          margin: EdgeInsets.only(
+              top: AppSizes.kDefaultMarginS10,
+              right: AppSizes.kDefaultMarginS10,
+              left: AppSizes.kDefaultMarginS10),
+          padding: EdgeInsets.all(AppSizes.kDefaultAllPaddingS10),
           child: Column(
             crossAxisAlignment:
-            isMe ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+                isMe ? CrossAxisAlignment.start : CrossAxisAlignment.end,
             children: [
               if (messageModel.messageType == MessageType.image)
                 Container(
-                  height: 200,
-                  width: 200,
+                  height: AppSizes.imageHeight,
+                  width: AppSizes.imageWidth,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius:
+                        BorderRadius.circular(AppSizes.kDefaultBorderRadiusS15),
                     image: DecorationImage(
                       image: NetworkImage(messageModel.content!),
                       fit: BoxFit.cover,
@@ -58,14 +68,14 @@ class MessageBubble extends StatelessWidget {
               else
                 Text(
                   messageModel.content!,
-                  style: const TextStyle(fontSize: 16, color: Colors.white),
+                  style:
+                      TextStyles.font16NormalGrey.copyWith(color: Colors.white),
                 ),
-              const SizedBox(
-                height: 5,
-              ),
+              HelperMethod.verticalSpace(AppSizes.verticalSpacingS5),
               Text(
                 timeago.format(messageModel.sendTime!),
-                style: const TextStyle(fontSize: 10),
+                style:
+                    TextStyles.font12NormalGrey.copyWith(color: Colors.white),
               ),
             ],
           ),

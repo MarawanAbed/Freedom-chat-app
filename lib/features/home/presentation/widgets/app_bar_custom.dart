@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:freedom_chat_app/core/themes/styles.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
 
 class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
   const AppBarCustom({super.key, required this.title});
@@ -18,13 +20,10 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
         elevation: 0,
         automaticallyImplyLeading: false,
         title: Padding(
-          padding: const EdgeInsets.only(left: 10.0),
+          padding: EdgeInsets.only(left:AppSizes.kDefaultAllPaddingS10),
           child: Text(
             title,
-            style: const TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyles.font22Bold,
           ),
         ),
       ),

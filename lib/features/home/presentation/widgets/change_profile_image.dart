@@ -1,7 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/core/widgets/please_pick_image.dart';
 import 'package:freedom_chat_app/core/widgets/profile_image.dart';
 
@@ -38,7 +41,7 @@ class _ChangeProfileImageState extends State<ChangeProfileImage> {
       });
       cubit.profileImage = _pickedImage;
     } catch (e) {
-      HelperMethod.showErrorToast('Please pick an image');
+      HelperMethod.showErrorToast(AppStrings.pleaseSelectImage,gravity: ToastGravity.BOTTOM);
     }
   }
 
@@ -52,9 +55,9 @@ class _ChangeProfileImageState extends State<ChangeProfileImage> {
               : (_initialImage != null
                   ? NetworkImage(_initialImage!) as ImageProvider<Object>?
                   : null),
-          radius: 50,
+          radius: AppSizes.profileRadius,
         ),
-        HelperMethod.verticalSpace(10),
+        HelperMethod.verticalSpace(AppSizes.verticalSpacingS10),
         ChooseProfileImage(
           onTap: () async {
             await pickedImage();

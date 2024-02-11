@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:freedom_chat_app/core/helpers/extension.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
 import 'package:freedom_chat_app/core/routes/routes.dart';
+import 'package:freedom_chat_app/core/themes/styles.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
 import 'package:freedom_chat_app/features/home/presentation/manager/all_users/get_all_user_cubit.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -16,14 +18,11 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: const Padding(
-          padding: EdgeInsets.only(left: 10.0),
-          child: Text(
+        title: Padding(
+          padding: EdgeInsets.only(left: AppSizes.kDefaultAllPaddingS10),
+          child:  Text(
             'Chats',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyles.font22Bold,
           ),
         ),
         actions: [
@@ -31,21 +30,21 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             onPressed: () {
               context.pushNamed(Routes.searchScreen);
             },
-            icon: const Icon(
+            icon:  Icon(
               Icons.search,
-              size: 30,
+              size: AppSizes.iconSizeS30,
             ),
           ),
-          HelperMethod.horizontalSpace(15),
+          HelperMethod.horizontalSpace(AppSizes.horizontalSpacingS15),
           IconButton(
             onPressed: () {
               var cubit = GetAllUserCubit.get(context);
               cubit.logOutMethod();
               context.pop();
             },
-            icon: const Icon(
+            icon: Icon(
               Icons.logout,
-              size: 30,
+              size: AppSizes.iconSizeS30,
             ),
           ),
         ],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
 
 class BuildRowInfo extends StatelessWidget {
@@ -16,10 +18,9 @@ class BuildRowInfo extends StatelessWidget {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Id:',
+              AppStrings.id,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
@@ -32,17 +33,17 @@ class BuildRowInfo extends StatelessWidget {
             ),
           ],
         ),
-        HelperMethod.verticalSpace(20),
+        HelperMethod.verticalSpace(AppSizes.verticalSpacingS20),
         const Divider(
           thickness: 1,
           color: Colors.grey,
         ),
-        HelperMethod.verticalSpace(20),
+        HelperMethod.verticalSpace(AppSizes.verticalSpacingS20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              'Email:',
+             const Text(
+              AppStrings.email,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
@@ -55,17 +56,17 @@ class BuildRowInfo extends StatelessWidget {
             ),
           ],
         ),
-        HelperMethod.verticalSpace(20),
+        HelperMethod.verticalSpace(AppSizes.verticalSpacingS20),
         const Divider(
           thickness: 1,
           color: Colors.grey,
         ),
-        HelperMethod.verticalSpace(20),
+        HelperMethod.verticalSpace(AppSizes.verticalSpacingS20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              'Description:',
+             const Text(
+              AppStrings.descriptionLabel,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
@@ -78,17 +79,17 @@ class BuildRowInfo extends StatelessWidget {
             ),
           ],
         ),
-        HelperMethod.verticalSpace(20),
+        HelperMethod.verticalSpace(AppSizes.verticalSpacingS20),
         const Divider(
           thickness: 1,
           color: Colors.grey,
         ),
-        HelperMethod.verticalSpace(20),
+        HelperMethod.verticalSpace(AppSizes.verticalSpacingS20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              'Password:',
+             const Text(
+              AppStrings.passwordLabel,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),

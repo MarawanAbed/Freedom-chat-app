@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
 import 'package:freedom_chat_app/core/themes/styles.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
 import 'package:freedom_chat_app/core/utils/strings.dart';
 
 class BuildWelcomeText extends StatelessWidget {
@@ -15,7 +16,7 @@ class BuildWelcomeText extends StatelessWidget {
           textAlign: TextAlign.center,
           style: TextStyles.font20Bold,
         ),
-        HelperMethod.verticalSpace(10),
+        HelperMethod.verticalSpace(AppSizes.verticalSpacingS10),
         Text(
           AppStrings.onBoardingSubtitle,
           textAlign: TextAlign.center,

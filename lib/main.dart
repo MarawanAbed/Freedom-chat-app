@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freedom_chat_app/chat_app.dart';
 import 'package:freedom_chat_app/core/di/dependancy_injection.dart';
 import 'package:freedom_chat_app/core/services/bloc_observer.dart';
-import 'package:freedom_chat_app/core/utils/constants.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/firebase_options.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,15 +19,19 @@ void main() async {
   await setupGetIt();
   getIt<RemoteNotificationService>().firebaseNotification();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  bool? onBoarding = prefs.getBool(onBoardingKey) ?? false;
+  bool? onBoarding = prefs.getBool(AppStrings.onBoardingKey) ?? false;
   Bloc.observer = MyBlocObserver();
-  await getIt<RemoteNotificationService>().firebaseMessaging.getInitialMessage();
+  await getIt<RemoteNotificationService>()
+      .firebaseMessaging
+      .getInitialMessage();
   await getIt<LocalNotificationsServices>().init();
-  await getIt<RemoteNotificationService>().firebaseMessaging.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
+  await getIt<RemoteNotificationService>()
+      .firebaseMessaging
+      .setForegroundNotificationPresentationOptions(
+        alert: true,
+        badge: true,
+        sound: true,
+      );
   runApp(
     ChatApp(
       onBoarding: onBoarding,

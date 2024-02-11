@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freedom_chat_app/core/helpers/extension.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/features/home/presentation/manager/update_users/update_user_cubit.dart';
 
 class EditProfileBlocListener extends StatelessWidget {
@@ -25,7 +26,7 @@ class EditProfileBlocListener extends StatelessWidget {
             const Center(child: CircularProgressIndicator());
           },
           success: () {
-            HelperMethod.showSuccessToast('Profile Updated Successfully',
+            HelperMethod.showSuccessToast(AppStrings.profileUpdatedSuccessfully,
                 gravity: ToastGravity.BOTTOM,);
             context.pop();
           },
@@ -40,7 +41,7 @@ class EditProfileBlocListener extends StatelessWidget {
           },
           updateEmailAndPasswordSuccessState: () {
             HelperMethod.showSuccessToast(
-                'Email and Password Updated Successfully',
+                AppStrings.emailAndPasswordUpdated,
                 gravity: ToastGravity.BOTTOM);
           },
         );

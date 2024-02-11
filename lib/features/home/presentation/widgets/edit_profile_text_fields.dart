@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:freedom_chat_app/core/themes/styles.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
+import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
 import 'package:freedom_chat_app/features/home/presentation/manager/update_users/update_user_cubit.dart';
 
@@ -45,31 +46,31 @@ class _EdtProfileTextFormState extends State<EdtProfileTextForm> {
       children: [
         AppTextFormField(
           controller: nameController..text = widget.user.name!,
-          hintText: 'Name',
+          hintText: AppStrings.name,
           inputTextStyle: _inputColor(theme),
           backgroundColor: theme ? AppColors.kField2 : Colors.white,
           hintStyle: _hintStyle(theme),
         ),
-        HelperMethod.verticalSpace(20),
+        HelperMethod.verticalSpace(AppSizes.verticalSpacingS20),
         AppTextFormField(
           controller: descriptionController..text = widget.user.description!,
-          hintText: 'Description',
+          hintText: AppStrings.description,
           inputTextStyle: _inputColor(theme),
           backgroundColor: theme ? AppColors.kField2 : Colors.white,
           hintStyle: _hintStyle(theme),
         ),
-        HelperMethod.verticalSpace(20),
+        HelperMethod.verticalSpace(AppSizes.verticalSpacingS20),
         AppTextFormField(
           controller: emailController..text = widget.user.email!,
-          hintText: 'Email',
+          hintText: AppStrings.email,
           inputTextStyle: _inputColor(theme),
           backgroundColor: theme ? AppColors.kField2 : Colors.white,
           hintStyle: _hintStyle(theme),
         ),
-        HelperMethod.verticalSpace(20),
+        HelperMethod.verticalSpace(AppSizes.verticalSpacingS20),
         AppTextFormField(
           controller: passwordController..text = widget.user.password!,
-          hintText: 'Password',
+          hintText: AppStrings.password,
           inputTextStyle: _inputColor(theme),
           backgroundColor: theme ? AppColors.kField2 : Colors.white,
           hintStyle: _hintStyle(theme),
@@ -82,7 +83,7 @@ class _EdtProfileTextFormState extends State<EdtProfileTextForm> {
             },
             icon: Icon(
               obscureText ? Icons.visibility_off : Icons.visibility,
-              size: 20.sp,
+              size: AppSizes.iconSizeS20,
               color: Theme.of(context).brightness == Brightness.dark
                   ? Colors.white
                   : Colors.grey,

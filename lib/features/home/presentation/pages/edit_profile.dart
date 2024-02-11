@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:freedom_chat_app/core/di/dependancy_injection.dart';
 import 'package:freedom_chat_app/core/helpers/extension.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
+import 'package:freedom_chat_app/core/utils/sizes.dart';
 import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
 import 'package:freedom_chat_app/features/home/presentation/manager/update_users/update_user_cubit.dart';
@@ -39,27 +40,27 @@ class _EditProfileState extends State<EditProfile> {
       value: cubit,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Edit Profile'),
+          title: const Text(AppStrings.editProfile),
         ),
         body: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(AppSizes.kDefaultAllPaddingS20),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                HelperMethod.verticalSpace(20),
+                HelperMethod.verticalSpace(AppSizes.verticalSpacingS20),
                 ChangeProfileImage(image: user.image!),
-                HelperMethod.verticalSpace(20),
+                HelperMethod.verticalSpace(AppSizes.verticalSpacingS20),
                 EdtProfileTextForm(
                   user: user,
                 ),
-                HelperMethod.verticalSpace(30),
+                HelperMethod.verticalSpace(AppSizes.verticalSpacingS30),
                 CustomElevatedButton(
-                  title: 'Save Changes',
+                  title: AppStrings.saveChanges,
                   onPressed: () async {
                     _saveChanges(context).then((_) => context.pop());
                   },
                 ),
-                HelperMethod.verticalSpace(10),
+                HelperMethod.verticalSpace(AppSizes.verticalSpacingS10),
                 Text(
                   AppStrings.note,
                   style: Theme.of(context).textTheme.bodySmall,
@@ -93,13 +94,13 @@ class _EditProfileState extends State<EditProfile> {
       cubit.updateEmailAndPasswordMethod(user).then((_) {
         cubit.logOutMethod();
         HelperMethod.showSuccessToast(
-            'Email and Password Updated Successfully Login Again',
+            AppStrings.emailAndPasswordUpdated,
             gravity: ToastGravity.BOTTOM);
       });
     }
 
     cubit.updateUserMethod(user.toJson()).then((_) {
-      HelperMethod.showSuccessToast('Profile Updated Successfully',
+      HelperMethod.showSuccessToast(AppStrings.profileUpdatedSuccessfully,
           gravity: ToastGravity.BOTTOM);
     });
   }

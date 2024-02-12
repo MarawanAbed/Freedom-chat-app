@@ -5,17 +5,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:freedom_chat_app/core/di/dependancy_injection.dart';
+import 'package:freedom_chat_app/core/services/navigator.dart';
 import 'package:freedom_chat_app/core/utils/app_secured.dart';
+import 'package:freedom_chat_app/features/chat/presentation/pages/chat_page.dart';
 import 'package:http/http.dart' as http;
 
-import '../di/dependancy_injection.dart';
+import '../../features/home/data/models/user_model.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print('Handling a background message ${message.notification!.title}');
-  await getIt<LocalNotificationsServices>().showText(
+  getIt<LocalNotificationsServices>().showText(
     title: message.notification!.title!,
     body: message.notification!.body!,
-    fln: getIt<RemoteNotificationService>().flutterLocalNotificationsPlugin,
+    fln: getIt<LocalNotificationsServices>().flutterLocalNotificationsPlugin,
   );
 }
 
@@ -31,18 +34,31 @@ class RemoteNotificationService {
 
   void firebaseNotification() {
     print('firebaseNotification');
-    FirebaseMessaging.onMessage.listen((message) async {
-      print('Got a message whilst in the foreground!');
+
+    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground');
       print('Message data: ${message.data}');
+
       if (message.notification != null) {
-        await getIt<LocalNotificationsServices>().showText(
-          title: message.notification!.title!,
-          body: message.notification!.body!,
+        print('Message notification: ${message.notification}');
+        final notification = message.notification;
+        getIt<LocalNotificationsServices>().showText(
+          title: notification!.title!,
+          body: notification.body!,
           fln: flutterLocalNotificationsPlugin,
         );
       }
     });
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+      print('Message clicked!');
+      final receiverId = message.data['receiverId'];
+      final userSnapshot = await FirebaseFirestore.instance.collection('users').doc(receiverId).get();
+      final user = UserModel.fromJson(userSnapshot.data()!);
+      Navigators.navigationKey.currentState!.push(MaterialPageRoute(builder: (context) => ChatScreen(user: user)));
+    });
   }
 
   Future<void> requestPermission() async {
@@ -95,15 +111,16 @@ class RemoteNotificationService {
     try {
       const String fcmUrl = 'https://fcm.googleapis.com/fcm/send';
 
-      // Debug log to check if the receiver token is available
       print('Receiver Token: $receiverToken');
 
       final Map<String, dynamic> payload = {
         'to': receiverToken,
         'priority': 'high',
-        'notification': {
-          'body': body,
-          'title': title,
+        "notification": {
+          "title": title,
+          "body": body,
+          "mutable_content": true,
+          "sound": "Tri-tone"
         },
         'data': {
           'click_action': 'FLUTTER_NOTIFICATION_CLICK',
@@ -138,6 +155,7 @@ class RemoteNotificationService {
 
 class LocalNotificationsServices {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
   LocalNotificationsServices(this.flutterLocalNotificationsPlugin);
 
   Future init() async {
@@ -163,6 +181,6 @@ class LocalNotificationsServices {
       priority: Priority.high,
     );
     var not = NotificationDetails(android: androidNotificationDetails);
-    await fln.show(id, title, body, not);
+    await fln.show(id, title, body, not,payload: payload);
   }
 }

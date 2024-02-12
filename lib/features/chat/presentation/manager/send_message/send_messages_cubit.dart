@@ -43,7 +43,7 @@ class SendMessagesCubit extends Cubit<SendMessagesState> {
       );
       await _addText.call(messageEntity);
       var receiverToken =
-          await getIt<RemoteNotificationService>().getReceiverToken(uId);
+          await getIt<RemoteNotificationService>().getReceiverToken(receiverId);
       await getIt<RemoteNotificationService>().sendNotification(
         receiverToken: receiverToken,
         title: user.name!,
@@ -71,8 +71,7 @@ class SendMessagesCubit extends Cubit<SendMessagesState> {
           messageType: MessageType.image,
         );
         await _addImage.call(messageEntity);
-        var receiverToken =
-            await getIt<RemoteNotificationService>().getReceiverToken(uId);
+        var receiverToken =await getIt<RemoteNotificationService>().getReceiverToken(receiverId);
         await getIt<RemoteNotificationService>().sendNotification(
           receiverToken: receiverToken,
           body: 'Image sent',

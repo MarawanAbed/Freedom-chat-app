@@ -5,6 +5,7 @@ import 'package:freedom_chat_app/core/di/dependancy_injection.dart';
 import 'package:freedom_chat_app/core/routes/app_router.dart';
 import 'package:freedom_chat_app/core/routes/routes.dart';
 import 'package:freedom_chat_app/core/services/firebase_serivces.dart';
+import 'package:freedom_chat_app/core/services/navigator.dart';
 import 'package:freedom_chat_app/core/themes/themes.dart';
 import 'package:freedom_chat_app/core/utils/strings.dart';
 
@@ -65,6 +66,7 @@ class BaseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: Navigators.navigationKey,
       debugShowCheckedModeBanner: false,
       title: AppStrings.titleApp,
       theme: Themes.lightThemeData(context),

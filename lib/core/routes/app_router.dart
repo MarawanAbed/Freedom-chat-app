@@ -107,7 +107,7 @@ Route _homeScreenRoute() {
           create: (BuildContext context) => getIt<GetUserCubit>(),
         ),
         BlocProvider(
-          create: (BuildContext context) => getIt<GetAllUserCubit>()
+          create: (BuildContext context) => getIt<GetAllUserCubit>(),
         ),
         BlocProvider(
           create: (BuildContext context) => getIt<UpdateUserCubit>(),

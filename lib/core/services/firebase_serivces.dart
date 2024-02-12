@@ -38,7 +38,7 @@ class AuthService {
       await getIt<DatabaseService>().updateUser({
         'lastActive': DateTime.now(),
         'uId': auth.currentUser!.uid,
-        'isOnline': 'true',
+        'isOnline': true,
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -96,7 +96,7 @@ class AuthService {
       await getIt<DatabaseService>().updateUser({
         'lastActive': DateTime.now(),
         'uId': auth.currentUser!.uid,
-        'isOnline': 'false',
+        'isOnline': false,
       });
       await auth.signOut();
     } on FirebaseAuth catch (e) {
@@ -154,7 +154,7 @@ class AuthService {
       await getIt<DatabaseService>().updateUser({
         'lastActive': DateTime.now(),
         'uId': auth.currentUser!.uid,
-        'isOnline': 'true',
+        'isOnline': true,
       });
     } on FirebaseAuth catch (e) {
       if (kDebugMode) {
@@ -179,6 +179,11 @@ class AuthService {
 
       final userEmail = currentUser?.email ?? '';
 
+      if (userEmail.isEmpty) {
+        // Handle the case where there is no email
+        throw Exception('No email found for this user. Please verify your email with Twitter or enter it manually.');
+      }
+
       final userModel = UserModel(
         uId: currentUser?.uid ?? '',
         name: currentUser?.displayName ?? '',
@@ -194,7 +199,7 @@ class AuthService {
       await getIt<DatabaseService>().updateUser({
         'lastActive': DateTime.now(),
         'uId': auth.currentUser!.uid,
-        'isOnline': 'true',
+        'isOnline': true,
       });
     } on FirebaseAuth catch (e) {
       if (kDebugMode) {
@@ -230,7 +235,7 @@ class AuthService {
       await getIt<DatabaseService>().updateUser({
         'lastActive': DateTime.now(),
         'uId': auth.currentUser!.uid,
-        'isOnline': 'true',
+        'isOnline': true,
       });
     } on FirebaseAuth catch (e) {
       if (kDebugMode) {

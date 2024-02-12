@@ -80,6 +80,8 @@ class LoginCubit extends Cubit<LoginState> {
     try {
       emit(const LoginState.loading());
       await twitterSignInUseCase.call();
+      await getIt<RemoteNotificationService>().requestPermission();
+      await getIt<RemoteNotificationService>().getToken();
       emit(const LoginState.success());
     } catch (e) {
       emit(LoginState.error(e.toString()));

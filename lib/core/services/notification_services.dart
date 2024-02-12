@@ -39,14 +39,6 @@ class RemoteNotificationService {
         fln: flutterLocalNotificationsPlugin,
       );
     });
-    FirebaseMessaging.onMessage.listen((message) async {
-      print('onMessage: $message');
-      await getIt<LocalNotificationsServices>().showText(
-        title: message.notification!.title!,
-        body: message.notification!.body!,
-        fln: flutterLocalNotificationsPlugin,
-      );
-    });
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }
 

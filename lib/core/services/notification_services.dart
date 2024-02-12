@@ -31,13 +31,16 @@ class RemoteNotificationService {
 
   void firebaseNotification() {
     print('firebaseNotification');
-    FirebaseMessaging.onMessageOpenedApp.listen((message) async {
-      print('onMessageOpenedApp: $message');
-      await getIt<LocalNotificationsServices>().showText(
-        title: message.notification!.title!,
-        body: message.notification!.body!,
-        fln: flutterLocalNotificationsPlugin,
-      );
+    FirebaseMessaging.onMessage.listen((message) async {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+      if (message.notification != null) {
+        await getIt<LocalNotificationsServices>().showText(
+          title: message.notification!.title!,
+          body: message.notification!.body!,
+          fln: flutterLocalNotificationsPlugin,
+        );
+      }
     });
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   }

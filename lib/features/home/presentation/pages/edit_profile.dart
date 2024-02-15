@@ -1,17 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:freedom_chat_app/core/di/dependancy_injection.dart';
-import 'package:freedom_chat_app/core/helpers/extension.dart';
-import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
-import 'package:freedom_chat_app/core/utils/sizes.dart';
-import 'package:freedom_chat_app/core/utils/strings.dart';
-import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
-import 'package:freedom_chat_app/features/home/presentation/manager/update_users/update_user_cubit.dart';
-import 'package:freedom_chat_app/features/home/presentation/widgets/change_profile_image.dart';
-import 'package:freedom_chat_app/features/home/presentation/widgets/edit_profile_bloc_listener.dart';
-
-import '../../../../core/widgets/elevated_button.dart';
+import 'package:freedom_chat_app/lib_imports.dart';
+import '../manager/update_users/update_user_cubit.dart';
 import '../widgets/edit_profile_text_fields.dart';
 
 class EditProfile extends StatefulWidget {

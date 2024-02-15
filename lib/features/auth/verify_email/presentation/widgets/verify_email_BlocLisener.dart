@@ -32,7 +32,7 @@ class VerifyEmailBlocListener extends StatelessWidget {
               'Verification success',
               gravity: ToastGravity.BOTTOM,
             );
-            context.pushNamedAndRemoveUntil(Routes.signInScreen, predicate: (Route<dynamic> route) { return false; });
+            context.pushReplacementNamed(Routes.signInScreen);
           },
           verificationErrorState: (message) {
             HelperMethod.showErrorToast(message);

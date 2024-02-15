@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:freedom_chat_app/core/helpers/extension.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
+import 'package:freedom_chat_app/core/routes/routes.dart';
 import 'package:freedom_chat_app/core/utils/strings.dart';
 import 'package:freedom_chat_app/features/auth/login/presentation/manager/login/login_cubit.dart';
-import 'package:freedom_chat_app/core/routes/routes.dart';
-import 'package:freedom_chat_app/core/helpers/extension.dart';
 
 class LoginBlocListener extends StatelessWidget {
   const LoginBlocListener({super.key});
@@ -33,8 +33,11 @@ class LoginBlocListener extends StatelessWidget {
             context.pushReplacementNamed(Routes.homeScreen);
           },
           successWithGithub: () {
-            HelperMethod.showSuccessToast(AppStrings.loginSuccess,
-                gravity: ToastGravity.BOTTOM);
+            HelperMethod.showSuccessToast(
+              AppStrings.loginSuccess,
+              gravity: ToastGravity.BOTTOM,
+            );
+            context.pushReplacementNamed(Routes.homeScreen);
           },
           errorWithGithub: (message) {
             HelperMethod.showErrorToast(message, gravity: ToastGravity.BOTTOM);

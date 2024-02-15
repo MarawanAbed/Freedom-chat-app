@@ -1,16 +1,6 @@
 import 'dart:developer';
-import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
-import 'package:freedom_chat_app/core/di/dependancy_injection.dart';
-import 'package:freedom_chat_app/features/chat/data/models/message_model.dart';
-import 'package:freedom_chat_app/features/home/data/models/user_model.dart';
-import 'package:github_sign_in/github_sign_in.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:twitter_login/twitter_login.dart';
+import 'package:freedom_chat_app/lib_imports.dart';
 
 class AuthService {
   final FirebaseAuth auth;
@@ -181,7 +171,8 @@ class AuthService {
 
       if (userEmail.isEmpty) {
         // Handle the case where there is no email
-        throw Exception('No email found for this user. Please verify your email with Twitter or enter it manually.');
+        throw Exception(
+            'No email found for this user. Please verify your email with Twitter or enter it manually.');
       }
 
       final userModel = UserModel(
@@ -350,14 +341,16 @@ class DatabaseService {
     });
   }
 
-  Future<void> addTextMessage({required MessageModel messageEntity}) async {
+  Future<void> _addMessage(
+      {required MessageModel messageEntity,
+      required MessageType messageType}) async {
     final uId = getIt<AuthService>().getCurrentUserId();
     final message = MessageModel(
       senderId: uId!,
       receiverId: messageEntity.receiverId,
       content: messageEntity.content,
       sendTime: DateTime.now(),
-      messageType: MessageType.text,
+      messageType: messageType,
     ).toMap();
     if (uId == messageEntity.receiverId) {
       //that me i send message to my self
@@ -388,42 +381,14 @@ class DatabaseService {
     }
   }
 
+  Future<void> addTextMessage({required MessageModel messageEntity}) async {
+    await _addMessage(
+        messageEntity: messageEntity, messageType: MessageType.text);
+  }
+
   Future<void> addImageMessage({required MessageModel messageEntity}) async {
-    final uId = getIt<AuthService>().getCurrentUserId();
-    final message = MessageModel(
-      senderId: uId!,
-      receiverId: messageEntity.receiverId,
-      content: messageEntity.content,
-      sendTime: DateTime.now(),
-      messageType: MessageType.image,
-    ).toMap();
-    if (uId == messageEntity.receiverId) {
-      //that me i send message to my self
-      await _fireStore
-          .collection('users')
-          .doc(uId)
-          .collection('chats')
-          .doc(messageEntity.receiverId)
-          .collection('messages')
-          .add(message);
-    } else {
-      //that me i send message to other user
-      await _fireStore
-          .collection('users')
-          .doc(uId)
-          .collection('chats')
-          .doc(messageEntity.receiverId)
-          .collection('messages')
-          .add(message);
-      //that other user i send message to me
-      await _fireStore
-          .collection('users')
-          .doc(messageEntity.receiverId)
-          .collection('chats')
-          .doc(uId)
-          .collection('messages')
-          .add(message);
-    }
+    await _addMessage(
+        messageEntity: messageEntity, messageType: MessageType.image);
   }
 
   Stream<List<MessageModel>> getAllMessage({required String receiverId}) {

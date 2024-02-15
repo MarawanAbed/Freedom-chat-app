@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:freedom_chat_app/core/themes/styles.dart';
 import 'package:freedom_chat_app/core/utils/sizes.dart';
 import 'package:freedom_chat_app/core/utils/strings.dart';
-
 import '../../../../../core/helpers/helper_methods.dart';
 import '../../../../../core/themes/app_colors.dart';
 import '../../../../../core/widgets/app_text_form.dart';

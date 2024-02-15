@@ -1,13 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:freedom_chat_app/core/di/dependancy_injection.dart';
-import 'package:freedom_chat_app/core/routes/app_router.dart';
-import 'package:freedom_chat_app/core/routes/routes.dart';
-import 'package:freedom_chat_app/core/services/firebase_serivces.dart';
-import 'package:freedom_chat_app/core/services/navigator.dart';
-import 'package:freedom_chat_app/core/themes/themes.dart';
-import 'package:freedom_chat_app/core/utils/strings.dart';
+import 'package:freedom_chat_app/lib_imports.dart';
 
 class ChatApp extends StatelessWidget {
   final AppRouter appRouter;
@@ -27,7 +18,15 @@ class ChatApp extends StatelessWidget {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (snapshot.hasData) {
+          } else if (!snapshot.hasData) {
+            return onBoarding
+                ? AuthScreen(
+                    appRouter: appRouter,
+                  )
+                : OnBoardingScreen(
+                    appRouter: appRouter,
+                  );
+          } else {
             final user = snapshot.data;
             if (user != null && user.emailVerified) {
               return HomeScreen(
@@ -38,14 +37,6 @@ class ChatApp extends StatelessWidget {
                 appRouter: appRouter,
               );
             }
-          } else {
-            return onBoarding
-                ? AuthScreen(
-                    appRouter: appRouter,
-                  )
-                : OnBoardingScreen(
-                    appRouter: appRouter,
-                  );
           }
         },
       ),

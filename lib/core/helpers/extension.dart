@@ -1,6 +1,4 @@
-
-import 'package:flutter/material.dart';
-
+import 'package:freedom_chat_app/lib_imports.dart';
 
 extension Navigation on BuildContext {
   Future<dynamic> pushNamed(String routeName, {Object? arguments}) {

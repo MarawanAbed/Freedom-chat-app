@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:freedom_chat_app/core/helpers/extension.dart';
 import 'package:freedom_chat_app/core/helpers/helper_methods.dart';
 import 'package:freedom_chat_app/core/routes/routes.dart';
+import 'package:freedom_chat_app/core/services/navigator.dart';
 import 'package:freedom_chat_app/core/themes/app_colors.dart';
 import 'package:freedom_chat_app/core/utils/sizes.dart';
 import 'package:freedom_chat_app/core/utils/strings.dart';
@@ -25,14 +25,14 @@ class AuthScreen extends StatelessWidget {
               CustomElevatedButton(
                 title: AppStrings.signIn,
                 onPressed: () {
-                  context.pushNamed(Routes.signInScreen);
+                  Navigators.pushNamed(Routes.signInScreen);
                 },
               ),
               HelperMethod.verticalSpace(AppSizes.verticalSpacingS20),
               CustomElevatedButton(
                 title: AppStrings.signUp,
                 onPressed: () {
-                  context.pushNamed(Routes.signUpScreen);
+                  Navigators.pushNamed(Routes.signUpScreen);
                 },
                 colors: AppColors.kSecondaryColor,
               ),

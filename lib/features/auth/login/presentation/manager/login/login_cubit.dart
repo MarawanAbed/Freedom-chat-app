@@ -61,7 +61,11 @@ class LoginCubit extends Cubit<LoginState> {
       await getIt<RemoteNotificationService>().getToken();
       emit(const LoginState.success());
     } catch (e) {
-      emit(LoginState.error(e.toString()));
+      if(e.toString() =='Null check operator used on a null value'){
+        emit(const LoginState.error('User cancelled the login'));
+      }else {
+        emit(LoginState.error(e.toString()));
+      }
     }
   }
 
@@ -72,7 +76,11 @@ class LoginCubit extends Cubit<LoginState> {
       await getIt<RemoteNotificationService>().getToken();
       emit(const LoginState.successWithGithub());
     } catch (e) {
-      emit(LoginState.errorWithGithub(e.toString()));
+      if(e.toString() =='Null check operator used on a null value'){
+        emit(const LoginState.error('User cancelled the login'));
+      }else {
+        emit(LoginState.error(e.toString()));
+      }
     }
   }
 
@@ -84,7 +92,11 @@ class LoginCubit extends Cubit<LoginState> {
       await getIt<RemoteNotificationService>().getToken();
       emit(const LoginState.success());
     } catch (e) {
-      emit(LoginState.error(e.toString()));
+      if(e.toString() =='Null check operator used on a null value'){
+        emit(const LoginState.error('User cancelled the login'));
+      }else {
+        emit(LoginState.error(e.toString()));
+      }
     }
   }
 

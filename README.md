@@ -24,6 +24,7 @@ Freedom Chat App is a comprehensive chat application built using Flutter and Fir
 ![WhatsApp Image 2024-02-17 at 11 51 19 AM](https://github.com/MarawanAbed/Freedom-chat-app/assets/73714493/13e597b4-b6f9-4df7-b1d5-aa34fdf5af12)
 ![WhatsApp Image 2024-02-17 at 11 51 18 AM (3)](https://github.com/MarawanAbed/Freedom-chat-app/assets/73714493/d9c6206d-2156-4545-8ea9-f3c9a9172636)
 ![WhatsApp Image 2024-02-17 at 11 51 18 AM (2)](https://github.com/MarawanAbed/Freedom-chat-app/assets/73714493/2b9ffe85-4059-4701-85e1-9b98e59d7cd0)
+![WhatsApp Image 2024-02-17 at 12 05 12 PM](https://github.com/MarawanAbed/Freedom-chat-app/assets/73714493/667a4e34-66e4-427b-ad8e-e6144647a965)
 ![WhatsApp Image 2024-02-17 at 11 51 18 AM (1)](https://github.com/MarawanAbed/Freedom-chat-app/assets/73714493/fed6cecb-fe93-4b85-8db3-7765dbca3c88)
 ![WhatsApp Image 2024-02-17 at 11 51 18 AM](https://github.com/MarawanAbed/Freedom-chat-app/assets/73714493/02837618-f8f0-4f1b-be52-a82ed510d89c)
 ![WhatsApp Image 2024-02-17 at 11 51 17 AM (2)](https://github.com/MarawanAbed/Freedom-chat-app/assets/73714493/eb77f08f-f995-4bc3-957c-95ce36a69f66)

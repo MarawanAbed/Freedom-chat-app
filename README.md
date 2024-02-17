@@ -18,6 +18,10 @@ Freedom Chat App is a comprehensive chat application built using Flutter and Fir
 - Set up with a comprehensive dependency injection system using the get_it package.
 - Includes a comprehensive set of unit tests to ensure the correctness of the code.
 
+
+## Screenshots Of App
+![WhatsApp Image 2024-02-17 at 11 51 19 AM (1)](https://github.com/MarawanAbed/Freedom-chat-app/assets/73714493/fb313394-01bd-452d-b39d-943a8cf6716b)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.

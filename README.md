@@ -14,11 +14,11 @@ Freedom Chat App is a comprehensive chat application built using Flutter and Fir
 - The project is structured using the Bloc pattern for state management.
 - Includes several Blocs for managing different parts of the application state such as authentication state and message sending state.
 - Written in Dart and uses several other packages such as shared_preferences for local data storage and dependency injection for managing dependencies.
-- Includes some native code written in Kotlin, Java, and C++, and uses Gradle for build management.
 - Set up with a comprehensive dependency injection system using the get_it package.
-- Includes a comprehensive set of unit tests to ensure the correctness of the code.
+
 
 ## Link to download the app 
+https://drive.google.com/file/d/187BYuIRRfNEVGWkSe0ECny7aVRe2I5iH/view?usp=sharing
 
 
 ## Screenshots Of App

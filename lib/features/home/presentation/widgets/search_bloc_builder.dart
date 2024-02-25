@@ -18,15 +18,17 @@ class SearchBlocBuilder extends StatelessWidget {
             child: CircularProgressIndicator(),
           ),
           success: (users) => users.isEmpty
-              ? Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.search, size: AppSizes.iconSizeS100, color: Colors.grey),
-                      const Text(AppStrings.notFound),
-                    ],
+              ? Center(
+                child: Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.search, size: AppSizes.iconSizeS100, color: Colors.grey),
+                        const Text(AppStrings.notFound),
+                      ],
+                    ),
                   ),
-                )
+              )
               : Expanded(
                   child: ListView.separated(
                     itemBuilder: (context, index) {

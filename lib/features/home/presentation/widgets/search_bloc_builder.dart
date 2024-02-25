@@ -18,8 +18,8 @@ class SearchBlocBuilder extends StatelessWidget {
             child: CircularProgressIndicator(),
           ),
           success: (users) => users.isEmpty
-              ? Center(
-                child: Expanded(
+              ? Expanded(
+                  child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -28,7 +28,7 @@ class SearchBlocBuilder extends StatelessWidget {
                       ],
                     ),
                   ),
-              )
+                )
               : Expanded(
                   child: ListView.separated(
                     itemBuilder: (context, index) {

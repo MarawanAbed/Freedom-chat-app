@@ -18,8 +18,7 @@ Freedom Chat App is a comprehensive chat application built using Flutter and Fir
 
 
 ## Link to download the app 
-https://drive.google.com/file/d/187BYuIRRfNEVGWkSe0ECny7aVRe2I5iH/view?usp=sharing
-
+https://drive.google.com/file/d/1er3kgW5Mf29wmxdD4gnNNlRKgJzlqa3S/view?usp=sharing
 
 ## Screenshots Of App
 ![WhatsApp Image 2024-02-17 at 11 51 19 AM (1)](https://github.com/MarawanAbed/Freedom-chat-app/assets/73714493/fb313394-01bd-452d-b39d-943a8cf6716b)

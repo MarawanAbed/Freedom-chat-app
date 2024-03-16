@@ -114,7 +114,7 @@ void _setupUseCases()
 
 void _setupCubits()
 {
-  getIt.registerLazySingleton<LoginCubit>(
+  getIt.registerFactory<LoginCubit>(
         () => LoginCubit(
       twitterSignInUseCase: getIt(),
       googleSignInUseCase: getIt(),
@@ -123,7 +123,7 @@ void _setupCubits()
     ),
   );
 
-  getIt.registerLazySingleton<SendMessagesCubit>(
+  getIt.registerFactory<SendMessagesCubit>(
         () => SendMessagesCubit(
       getIt(),
       getIt(),
@@ -131,12 +131,12 @@ void _setupCubits()
       getIt(),
     ),
   );
-  getIt.registerLazySingleton<GetAllMessagesCubit>(
+  getIt.registerFactory<GetAllMessagesCubit>(
         () => GetAllMessagesCubit(
       getIt(),
     ),
   );
-  getIt.registerLazySingleton<UpdateUserCubit>(
+  getIt.registerFactory<UpdateUserCubit>(
         () => UpdateUserCubit(
       getIt(),
       getIt(),
@@ -144,30 +144,30 @@ void _setupCubits()
       getIt(),
     ),
   );
-  getIt.registerLazySingleton<GetAllUserCubit>(
+  getIt.registerFactory<GetAllUserCubit>(
         () => GetAllUserCubit(
       getIt(),
       getIt(),
     ),
   );
-  getIt.registerLazySingleton<GetUserCubit>(
+  getIt.registerFactory<GetUserCubit>(
         () => GetUserCubit(
       getIt(),
       getIt(),
     ),
   );
-  getIt.registerLazySingleton<RegisterCubit>(() => RegisterCubit(
+  getIt.registerFactory<RegisterCubit>(() => RegisterCubit(
     registerUseCase: getIt(),
     uploadImageUseCase: getIt(),
     createUserUseCase: getIt(),
   ));
-  getIt.registerLazySingleton<ForgetPasswordCubit>(
+  getIt.registerFactory<ForgetPasswordCubit>(
         () => ForgetPasswordCubit(
       getIt(),
     ),
   );
 
-  getIt.registerLazySingleton<VerifyEmailCubit>(
+  getIt.registerFactory<VerifyEmailCubit>(
         () => VerifyEmailCubit(
       checkVerifyEmail: getIt(),
       verifyEmail: getIt(),
@@ -176,7 +176,7 @@ void _setupCubits()
     ),
   );
 
-  getIt.registerLazySingleton<SearchUsersCubit>(
+  getIt.registerFactory<SearchUsersCubit>(
         () => SearchUsersCubit(
       getIt(),
     ),

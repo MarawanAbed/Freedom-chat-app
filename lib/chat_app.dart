@@ -14,6 +14,8 @@ class ChatApp extends StatelessWidget {
       child: StreamBuilder<User?>(
         stream: getIt<AuthService>().userState(),
         builder: (context, snapshot) {
+          print('Snapshot data: ${snapshot.data}');
+          print('Connection state: ${snapshot.connectionState}');
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),

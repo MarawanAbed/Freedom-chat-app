@@ -7,6 +7,7 @@ import '../../features/home/presentation/manager/all_users/get_all_user_cubit.da
 import '../../features/home/presentation/manager/search_users/search_users_cubit.dart';
 import '../../features/home/presentation/manager/single_user/get_user_cubit.dart';
 import '../../features/home/presentation/manager/update_users/update_user_cubit.dart';
+
 class AppRouter {
   Route generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -103,7 +104,10 @@ Route _homeScreenRoute() {
 
 Route _editProfileScreenRoute(UserModel user) {
   return MaterialPageRoute(
-    builder: (_) => EditProfile(user: user),
+    builder: (_) => BlocProvider(
+      create: (context) => getIt<UpdateUserCubit>(),
+      child: EditProfile(user: user),
+    ),
   );
 }
 

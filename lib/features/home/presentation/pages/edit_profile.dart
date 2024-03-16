@@ -1,4 +1,5 @@
 import 'package:freedom_chat_app/lib_imports.dart';
+
 import '../manager/update_users/update_user_cubit.dart';
 import '../widgets/edit_profile_text_fields.dart';
 
@@ -17,7 +18,7 @@ class _EditProfileState extends State<EditProfile> {
   @override
   void initState() {
     super.initState();
-    cubit = getIt<UpdateUserCubit>();
+    cubit = UpdateUserCubit.get(context);
   }
 
   @override
@@ -45,7 +46,7 @@ class _EditProfileState extends State<EditProfile> {
                 CustomElevatedButton(
                   title: AppStrings.saveChanges,
                   onPressed: () async {
-                    _saveChanges(context).then((_) => context.pop());
+                    await _saveChanges(context);
                   },
                 ),
                 HelperMethod.verticalSpace(AppSizes.verticalSpacingS10),
@@ -79,18 +80,17 @@ class _EditProfileState extends State<EditProfile> {
     // Update email and password
     if (cubit.emailController.text != widget.user.email ||
         cubit.passwordController.text != widget.user.password) {
-      cubit.updateEmailAndPasswordMethod(user).then((_) {
-        cubit.logOutMethod();
-        HelperMethod.showSuccessToast(
-            AppStrings.emailAndPasswordUpdated,
+      cubit.updateEmailAndPasswordMethod(user).then((_) async {
+        cubit.updateUserMethod(user.toJson());
+        HelperMethod.showSuccessToast(AppStrings.emailAndPasswordUpdated,
+            gravity: ToastGravity.BOTTOM);
+      });
+    } else {
+      cubit.updateUserMethod(user.toJson()).then((_) {
+        HelperMethod.showSuccessToast(AppStrings.profileUpdatedSuccessfully,
             gravity: ToastGravity.BOTTOM);
       });
     }
-
-    cubit.updateUserMethod(user.toJson()).then((_) {
-      HelperMethod.showSuccessToast(AppStrings.profileUpdatedSuccessfully,
-          gravity: ToastGravity.BOTTOM);
-    });
   }
 
   @override

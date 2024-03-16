@@ -20,7 +20,7 @@ class AppStrings {
   static const String profileUpdatedSuccessfully =
       'Profile Updated Successfully';
   static const String emailAndPasswordUpdated =
-      'Email and Password Updated Successfully Login Again';
+      'Email and Password Updated Successfully Please Logout to refresh the changes and';
   static const String editProfile = 'Edit Profile';
   static const String messageSent = 'Message Sent';
   static const String active = 'Active';

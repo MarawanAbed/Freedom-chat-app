@@ -10,7 +10,6 @@
 .svn/
 
 migrate_working_dir/
-lib/core/utils/app_secured.dart
 
 
 # IntelliJ related

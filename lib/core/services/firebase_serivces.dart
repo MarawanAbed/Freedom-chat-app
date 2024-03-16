@@ -40,7 +40,7 @@ class AuthService {
           print('Wrong password provided for that user.');
         }
       }
-      throw Exception('Failed to sign in');
+
     }
     //this after you update email and password there is problem might found so i add this
     //to update user data after update email and password
@@ -77,7 +77,6 @@ class AuthService {
           print('The account already exists for that email.');
         }
       }
-      throw Exception('Failed to sign up');
     }
   }
 
@@ -93,7 +92,6 @@ class AuthService {
       if (kDebugMode) {
         print(e.toString());
       }
-      throw Exception('Failed to sign out');
     }
   }
 

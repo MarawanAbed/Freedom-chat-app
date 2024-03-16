@@ -40,9 +40,9 @@ class EditProfileBlocListener extends StatelessWidget {
             HelperMethod.showErrorToast(message, gravity: ToastGravity.BOTTOM);
           },
           updateEmailAndPasswordSuccessState: () {
-            HelperMethod.showSuccessToast(
-                AppStrings.emailAndPasswordUpdated,
+            HelperMethod.showSuccessToast(AppStrings.profileUpdatedSuccessfully,
                 gravity: ToastGravity.BOTTOM);
+            context.pop();
           },
         );
       },
